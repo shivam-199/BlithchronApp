@@ -6,6 +6,7 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import {createStackNavigator} from '@react-navigation/stack';
 import {LinearTextGradient} from 'react-native-text-gradient';
 
 import HomePage from './src/features/pages/screens/HomePage';
@@ -19,8 +20,10 @@ import DevelopersPage from './src/features/pages/screens/DevelopersPage';
 import Colors from './src/utilities/Colors';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import RoleSelectionPage from './src/features/pages/screens/RoleSelectionPage';
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 function DrawerHeader(props) {
   return (
@@ -51,77 +54,90 @@ function DrawerHeader(props) {
 }
 
 function App() {
+  const firstTime = true;
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        drawerContent={props => <DrawerHeader {...props} />}
-        initialRouteName="Home"
-        screenOptions={({navigation}) => ({
-          drawerStyle: {
-            backgroundColor: Colors.primaryDark,
-          },
-          drawerActiveBackgroundColor: Colors.primarySolid,
-          drawerActiveTintColor: Colors.white,
-          drawerInactiveTintColor: Colors.white,
-          drawerLabelStyle: {
-            fontSize: 18,
-            fontWeight: '700',
-          },
-          // Screen styles
-          headerTitle: '',
-          headerStyle: {
-            backgroundColor: Colors.primarySolid,
-          },
+      {firstTime ? (
+        <Stack.Navigator>
+          <Stack.Screen
+            name="ROLE_SELECTION"
+            component={RoleSelectionPage}
+            options={{
+              title: 'Role Selection',
+              headerShown: false,
+            }}></Stack.Screen>
+        </Stack.Navigator>
+      ) : (
+        <Drawer.Navigator
+          drawerContent={props => <DrawerHeader {...props} />}
+          initialRouteName="Home"
+          screenOptions={({navigation}) => ({
+            drawerStyle: {
+              backgroundColor: Colors.primaryDark,
+            },
+            drawerActiveBackgroundColor: Colors.primarySolid,
+            drawerActiveTintColor: Colors.white,
+            drawerInactiveTintColor: Colors.white,
+            drawerLabelStyle: {
+              fontSize: 18,
+              fontWeight: '700',
+            },
+            // Screen styles
+            headerTitle: '',
+            headerStyle: {
+              backgroundColor: Colors.primarySolid,
+            },
 
-          // Hamburger menu icon
-          headerLeft: () => (
-            <Icon
-              onPress={() => navigation.toggleDrawer()}
-              size={24}
-              color={Colors.white}
-              name="menu"
-            />
-          ),
-          headerLeftContainerStyle: {
-            padding: '2.5%',
-          },
-        })}>
-        <Drawer.Screen
-          name="HOME_PAGE"
-          component={HomePage}
-          options={{title: 'Home'}}
-        />
-        <Drawer.Screen
-          name="EVENTS_PAGE"
-          component={EventsPage}
-          options={{title: 'Events'}}
-        />
-        <Drawer.Screen
-          name="SPONSOR_PAGE"
-          component={SponsorsPage}
-          options={{title: 'Sponsors'}}
-        />
-        <Drawer.Screen
-          name="CAMPUS_AMBASSADOR_PAGE"
-          component={EventsPage}
-          options={{title: 'Campus Ambassador'}}
-        />
-        <Drawer.Screen
-          name="TEAM_PAGE"
-          component={TeamPage}
-          options={{title: 'Our Team'}}
-        />
-        <Drawer.Screen
-          name="CONTACT_PAGE"
-          component={ContactPage}
-          options={{title: 'Contact Us'}}
-        />
-        <Drawer.Screen
-          name="DEVELOPER_PAGE"
-          component={DevelopersPage}
-          options={{title: 'Developers'}}
-        />
-      </Drawer.Navigator>
+            // Hamburger menu icon
+            headerLeft: () => (
+              <Icon
+                onPress={() => navigation.toggleDrawer()}
+                size={24}
+                color={Colors.white}
+                name="menu"
+              />
+            ),
+            headerLeftContainerStyle: {
+              padding: '2.5%',
+            },
+          })}>
+          <Drawer.Screen
+            name="HOME_PAGE"
+            component={HomePage}
+            options={{title: 'Home'}}
+          />
+          <Drawer.Screen
+            name="EVENTS_PAGE"
+            component={EventsPage}
+            options={{title: 'Events'}}
+          />
+          <Drawer.Screen
+            name="SPONSOR_PAGE"
+            component={SponsorsPage}
+            options={{title: 'Sponsors'}}
+          />
+          <Drawer.Screen
+            name="CAMPUS_AMBASSADOR_PAGE"
+            component={CampusAmbassadorPage}
+            options={{title: 'Campus Ambassador'}}
+          />
+          <Drawer.Screen
+            name="TEAM_PAGE"
+            component={TeamPage}
+            options={{title: 'Our Team'}}
+          />
+          <Drawer.Screen
+            name="CONTACT_PAGE"
+            component={ContactPage}
+            options={{title: 'Contact Us'}}
+          />
+          <Drawer.Screen
+            name="DEVELOPER_PAGE"
+            component={DevelopersPage}
+            options={{title: 'Developers'}}
+          />
+        </Drawer.Navigator>
+      )}
     </NavigationContainer>
   );
 }
