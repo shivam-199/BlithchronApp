@@ -1,5 +1,6 @@
 import {bindActionCreators} from 'redux';
 import * as pagesActions from '../redux/action';
+import * as authActions from '../../auth/redux/action';
 import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
@@ -14,16 +15,18 @@ class RoleSelection extends Component {
   }
 
   handleCARedirect = () => {
-    // Change first time to false using redux then redirect to CA page
+    console.log('CA');
+    this.props.authActions.selectRolePreference('CAMPUS_AMBASSADOR');
     this.props.navigation.navigate('CAMPUS_AMBASSADOR_PAGE');
   };
 
   handleHomeRedirect = () => {
-    // Change first time to false using redux then redirect to Home page
+    this.props.authActions.selectRolePreference('CASUAL_USER');
     this.props.navigation.navigate('HOME_PAGE');
   };
 
   render() {
+    // console.log(this.props);
     return (
       <View style={ScreenStyle.root}>
         <View style={ScreenStyle.caRole}>
@@ -61,11 +64,17 @@ class RoleSelection extends Component {
   }
 }
 
-const mapStateToProps = ({pages = {}} = state) => ({pages});
+const mapStateToProps = state => {
+  return {
+    pages: state.pages,
+    auth: state.auth,
+  };
+};
 
 function mapDispatchToProps(dispatch) {
   return {
     pagesActions: bindActionCreators({...pagesActions}, dispatch),
+    authActions: bindActionCreators({...authActions}, dispatch),
   };
 }
 

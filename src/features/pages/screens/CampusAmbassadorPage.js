@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
 import {Image, Text, View} from 'react-native';
-import ScreenStyle from './styles/StylesCampusAmbassadorPagePage';
+import ScreenStyle from './styles/StylesCampusAmbassadorPage';
 
 class CampusAmbassadorPage extends Component {
   constructor(props) {

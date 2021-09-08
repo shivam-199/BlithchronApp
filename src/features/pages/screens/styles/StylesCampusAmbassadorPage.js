@@ -5,6 +5,7 @@ import Colors from '../../../../utilities/Colors';
 let style = {
   root: {
     flex: 1,
+    color: Colors.white,
   },
 };
 

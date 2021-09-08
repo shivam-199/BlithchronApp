@@ -1,4 +1,8 @@
-const caPreference = false;
-
-const initialState = {};
+const initialState = {
+  rolePrefDefined: false,
+  userRole: '',
+  isLoggedIn: false,
+  userId: null,
+  accessToken: '',
+};
 export default initialState;
