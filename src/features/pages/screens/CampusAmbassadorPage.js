@@ -3,7 +3,7 @@ import * as pagesActions from '../redux/action';
 import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
-import {Image, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorPage';
 
 class CampusAmbassadorPage extends Component {
@@ -20,7 +20,12 @@ class CampusAmbassadorPage extends Component {
   }
 }
 
-const mapStateToProps = ({events = {}} = state) => ({events});
+const mapStateToProps = state => {
+  return {
+    pages: state.pages,
+    auth: state.auth,
+  };
+};
 
 function mapDispatchToProps(dispatch) {
   return {

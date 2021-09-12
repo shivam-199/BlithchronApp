@@ -7,6 +7,9 @@ import React, {Component} from 'react';
 import {Image, Text, View, TouchableOpacity} from 'react-native';
 import ScreenStyle from './styles/StylesRoleSelectionPage';
 
+import PageRoutes from '../../../constants/PageRoutes';
+import Roles from '../../../constants/Roles';
+
 // cccs: component class with constuctor
 class RoleSelection extends Component {
   constructor(props) {
@@ -15,18 +18,23 @@ class RoleSelection extends Component {
   }
 
   handleCARedirect = () => {
-    console.log('CA');
-    this.props.authActions.selectRolePreference('CAMPUS_AMBASSADOR');
-    this.props.navigation.navigate('CAMPUS_AMBASSADOR_PAGE');
+    this.props.authActions.selectRolePreference(Roles.ca);
   };
 
   handleHomeRedirect = () => {
-    this.props.authActions.selectRolePreference('CASUAL_USER');
-    this.props.navigation.navigate('HOME_PAGE');
+    this.props.authActions.selectRolePreference(Roles.casual);
+  };
+
+  componentDidUpdate = () => {
+    console.log(this.props.auth);
+    if (this.props.auth.userRole == Roles.ca) {
+      this.props.navigation.navigate(PageRoutes.Drawer.CAPage);
+    } else if (this.props.auth.userRole == Roles.casual) {
+      this.props.navigation.navigate(PageRoutes.Drawer.HomePage);
+    }
   };
 
   render() {
-    // console.log(this.props);
     return (
       <View style={ScreenStyle.root}>
         <View style={ScreenStyle.caRole}>

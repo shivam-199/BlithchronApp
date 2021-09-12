@@ -3,9 +3,9 @@ import * as authAction from '../../auth/redux/action';
 import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
-import {Image, Text, View, TouchableOpacity} from 'react-native';
 
 import ROLES from '../../../constants/Roles';
+import PageRoutes from '../../../constants/PageRoutes';
 
 import {
   createDrawerNavigator,
@@ -75,7 +75,7 @@ class AppHomePage extends Component {
         {!rolePrefDefined ? (
           <Stack.Navigator>
             <Stack.Screen
-              name="ROLE_SELECTION"
+              name={PageRoutes.Stack.RoleSelection}
               component={RoleSelectionPage}
               options={{
                 title: 'Role Selection',
@@ -86,7 +86,9 @@ class AppHomePage extends Component {
           <Drawer.Navigator
             drawerContent={props => <DrawerHeader {...props} />}
             initialRouteName={
-              userRole == ROLES.ca ? 'CAMPUS_AMBASSADOR_PAGE' : 'HOME_PAGE'
+              userRole == ROLES.ca
+                ? PageRoutes.Drawer.CAPage
+                : PageRoutes.Drawer.HomePage
             }
             screenOptions={({navigation}) => ({
               drawerStyle: {
@@ -119,37 +121,37 @@ class AppHomePage extends Component {
               },
             })}>
             <Drawer.Screen
-              name="HOME_PAGE"
+              name={PageRoutes.Drawer.HomePage}
               component={HomePage}
               options={{title: 'Home'}}
             />
             <Drawer.Screen
-              name="EVENTS_PAGE"
+              name={PageRoutes.Drawer.EventsPage}
               component={EventsPage}
               options={{title: 'Events'}}
             />
             <Drawer.Screen
-              name="SPONSOR_PAGE"
+              name={PageRoutes.Drawer.SponsorsPage}
               component={SponsorsPage}
               options={{title: 'Sponsors'}}
             />
             <Drawer.Screen
-              name="CAMPUS_AMBASSADOR_PAGE"
+              name={PageRoutes.Drawer.CAPage}
               component={CampusAmbassadorPage}
               options={{title: 'Campus Ambassador'}}
             />
             <Drawer.Screen
-              name="TEAM_PAGE"
+              name={PageRoutes.Drawer.TeamPage}
               component={TeamPage}
               options={{title: 'Our Team'}}
             />
             <Drawer.Screen
-              name="CONTACT_PAGE"
+              name={PageRoutes.Drawer.ContactPage}
               component={ContactPage}
               options={{title: 'Contact Us'}}
             />
             <Drawer.Screen
-              name="DEVELOPER_PAGE"
+              name={PageRoutes.Drawer.DevelopersPage}
               component={DevelopersPage}
               options={{title: 'Developers'}}
             />
