@@ -11,4 +11,5 @@ export default {
   black: '#000000',
   white: '#FFFFFF',
   red: '#FF0000',
+  shadowDark: '#26292e',
 };
