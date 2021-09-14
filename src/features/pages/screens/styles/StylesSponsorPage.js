@@ -5,6 +5,8 @@ import Colors from '../../../../utilities/Colors';
 let style = {
   root: {
     flex: 1,
+    backgroundColor: Colors.primaryDark,
+    paddingHorizontal: 10
   },
 };
 
