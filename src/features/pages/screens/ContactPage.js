@@ -254,7 +254,7 @@ class ContactPage extends Component {
           </View>
           <View style={ScreenStyles.boxes}>
             <View style={ScreenStyles.infoSection}>
-              <Text style={ScreenStyles.textStyle}>Shrija Agarwal</Text>
+              <Text style={ScreenStyles.textStyle}>Shrija Agrawal</Text>
               <Text style={ScreenStyles.roletextStyle}>DESIGN</Text>
             </View>
             <View style={ScreenStyles.EmailIdSection}>
