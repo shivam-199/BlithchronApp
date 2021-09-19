@@ -7,6 +7,11 @@ let style = {
     flex: 1,
     backgroundColor: Colors.primarySolid,
   },
+  textGradient: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontWeight: '700',
+  },
 };
 
 export default StyleSheet.create(style);

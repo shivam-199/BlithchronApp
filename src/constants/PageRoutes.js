@@ -10,5 +10,6 @@ export default {
     TeamPage: 'TEAM_PAGE',
     ContactPage: 'CONTACT_PAGE',
     DevelopersPage: 'DEVELOPER_PAGE',
+    LoginPage: 'LOGIN_PAGE',
   },
 };

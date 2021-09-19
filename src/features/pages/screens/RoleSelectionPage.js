@@ -26,7 +26,6 @@ class RoleSelection extends Component {
   };
 
   componentDidUpdate = () => {
-    console.log(this.props.auth);
     if (this.props.auth.userRole == Roles.ca) {
       this.props.navigation.navigate(PageRoutes.Drawer.CAPage);
     } else if (this.props.auth.userRole == Roles.casual) {

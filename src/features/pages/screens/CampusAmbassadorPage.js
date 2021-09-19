@@ -3,7 +3,7 @@ import * as pagesActions from '../redux/action';
 import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Button} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorPage';
 
 class CampusAmbassadorPage extends Component {
@@ -11,10 +11,22 @@ class CampusAmbassadorPage extends Component {
     super(props);
     this.state = {};
   }
+
+  handleSignup = () => {
+    console.log('Signup');
+  };
+
+  handleLogin = () => {
+    console.log('Login');
+  };
+
   render() {
     return (
       <View style={ScreenStyle.root}>
         <Text>Hello World: CA</Text>
+
+        <Button title="Sign Up" onPress={this.handleSignup} />
+        <Button title="Login" onPress={this.handleLogin} />
       </View>
     );
   }

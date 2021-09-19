@@ -16,6 +16,8 @@ import {
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
+import ScreenStyles from './styles/StylesAppHomePage';
+
 import HomePage from '../../pages/screens/HomePage';
 import EventsPage from '../../pages/screens/EventsPage';
 import CampusAmbassadorPage from '../../pages/screens/CampusAmbassadorPage';
@@ -23,37 +25,54 @@ import SponsorsPage from '../../pages/screens/SponsorsPage';
 import TeamPage from '../../pages/screens/TeamPage';
 import ContactPage from '../../pages/screens/ContactPage';
 import DevelopersPage from '../../pages/screens/DevelopersPage';
+import RoleSelectionPage from '../../pages/screens/RoleSelectionPage';
+import LoginPage from '../../auth/Screens/LoginPage';
+
+import {LinearTextGradient} from 'react-native-text-gradient';
+import {Text} from 'react-native';
 
 import Colors from '../../../utilities/Colors';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import RoleSelectionPage from '../../pages/screens/RoleSelectionPage';
+
+function AuthNavigator() {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator
+      screenOptions={({navigation}) => ({
+        headerTitle: '',
+        headerShown: false,
+      })}>
+      <Stack.Screen name={PageRoutes.Drawer.LoginPage} component={LoginPage} />
+    </Stack.Navigator>
+  );
+}
 
 function DrawerHeader(props) {
+  const {state, ...rest} = props;
+  const newState = state;
+  // newState.routes = newState.routes.filter(
+  //   item => item.name != PageRoutes.Drawer.LoginPage,
+  // );
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItem
-        label="Blithchron"
-        pressOpacity={0}
-        pressColor={Colors.white}
-        labelStyle={{
-          color: Colors.white,
-          fontSize: 25,
-          textAlign: 'center',
-          fontWeight: '700',
-        }}
+        label={() => (
+          <LinearTextGradient
+            style={ScreenStyles.textGradient}
+            colors={[
+              Colors.gradientTextLeft,
+              Colors.gradientTextMiddle,
+              Colors.gradientTextRight,
+            ]}
+            locations={[0, 0.5, 1]}>
+            <Text>Blithchron</Text>
+          </LinearTextGradient>
+        )}
+        pressColor={Colors.primaryDark}
       />
-      <DrawerItemList {...props} />
+      <DrawerItemList state={newState} {...rest} />
     </DrawerContentScrollView>
-    // <LinearTextGradient
-    //   style={{fontWeight: 'bold', fontSize: 72}}
-    //   locations={[0, 1]}
-    //   colors={['red', 'blue']}
-    //   start={{x: 0, y: 0}}
-    //   end={{x: 1, y: 0}}>
-    //   <Text>Blithchron</Text>
-    // </LinearTextGradient>
-    // <Text>Blithchron</Text>
   );
 }
 
@@ -63,6 +82,10 @@ class AppHomePage extends Component {
     super(props);
     this.state = {};
   }
+
+  handleAuth = () => {
+    console.log(this.props);
+  };
 
   render() {
     const Drawer = createDrawerNavigator();
@@ -101,6 +124,7 @@ class AppHomePage extends Component {
                 fontSize: 18,
                 fontWeight: '700',
               },
+
               // Screen styles
               headerTitle: '',
               headerStyle: {
@@ -119,6 +143,19 @@ class AppHomePage extends Component {
               headerLeftContainerStyle: {
                 padding: '2.5%',
               },
+
+              // // Login Button
+              // headerRight: () => (
+              //   <MaterialIcons
+              //     onPress={this.handleAuth}
+              //     name="login"
+              //     size={24}
+              //     color={Colors.white}
+              //   />
+              // ),
+              // headerRightContainerStyle: {
+              //   padding: 5,
+              // },
             })}>
             <Drawer.Screen
               name={PageRoutes.Drawer.HomePage}
@@ -154,6 +191,11 @@ class AppHomePage extends Component {
               name={PageRoutes.Drawer.DevelopersPage}
               component={DevelopersPage}
               options={{title: 'Developers'}}
+            />
+            <Drawer.Screen
+              name={'Auth'}
+              component={AuthNavigator}
+              options={{title: 'Login'}}
             />
           </Drawer.Navigator>
         )}
