@@ -22,11 +22,11 @@ import HomePage from '../../pages/screens/HomePage';
 import EventsPage from '../../pages/screens/EventsPage';
 import CampusAmbassadorPage from '../../pages/screens/CampusAmbassadorPage';
 import SponsorsPage from '../../pages/screens/SponsorsPage';
-import TeamPage from '../../pages/screens/TeamPage';
 import ContactPage from '../../pages/screens/ContactPage';
 import DevelopersPage from '../../pages/screens/DevelopersPage';
 import RoleSelectionPage from '../../pages/screens/RoleSelectionPage';
 import LoginPage from '../../auth/Screens/LoginPage';
+import CampusAmbassadorTaskPage from '../../pages/screens/CampusAmbassadorTaskPage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
 import {Text} from 'react-native';
@@ -45,6 +45,26 @@ function AuthNavigator() {
       })}>
       <Stack.Screen name={PageRoutes.Drawer.LoginPage} component={LoginPage} />
     </Stack.Navigator>
+  );
+}
+
+function CANavigator() {
+  const CANavigator = createStackNavigator();
+  return (
+    <CANavigator.Navigator
+      screenOptions={() => ({
+        headerTitle: '',
+        headerShown: false,
+      })}>
+      <CANavigator.Screen
+        name={PageRoutes.Drawer.CATaskPage}
+        component={CampusAmbassadorTaskPage}
+      />
+      <CANavigator.Screen
+        name={PageRoutes.Drawer.CAPage}
+        component={CampusAmbassadorPage}
+      />
+    </CANavigator.Navigator>
   );
 }
 
@@ -173,14 +193,12 @@ class AppHomePage extends Component {
               options={{title: 'Sponsors'}}
             />
             <Drawer.Screen
-              name={PageRoutes.Drawer.CAPage}
-              component={CampusAmbassadorPage}
-              options={{title: 'Campus Ambassador'}}
-            />
-            <Drawer.Screen
-              name={PageRoutes.Drawer.TeamPage}
-              component={TeamPage}
-              options={{title: 'Our Team'}}
+              name="CampusAmbassador"
+              component={CANavigator}
+              options={{
+                title: 'Campus Ambassador',
+                headerShown: false,
+              }}
             />
             <Drawer.Screen
               name={PageRoutes.Drawer.ContactPage}

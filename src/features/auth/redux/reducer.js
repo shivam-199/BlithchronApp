@@ -1,8 +1,8 @@
 import initialState from './initialState';
 import {reducer as selectRolePreference} from './selectRolePreference';
-// import {reducer as clearReduxStore} from './clearReduxStore';
+import {reducer as caLogin} from './caLogin';
 
-const reducers = [selectRolePreference];
+const reducers = [selectRolePreference, caLogin];
 
 export default function AuthReducer(state = initialState, action) {
   let newState;

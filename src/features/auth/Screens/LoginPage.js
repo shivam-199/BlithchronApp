@@ -5,12 +5,14 @@ import {connect} from 'react-redux';
 // import ROLES from '../../../constants/Roles';
 
 import React, {Component} from 'react';
-import {Text, View, TextInput, Button} from 'react-native';
+import {Text, View, TextInput, Keyboard} from 'react-native';
 import ScreenStyle from './styles/StylesLoginPage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {LinearTextGradient} from 'react-native-text-gradient';
+import SnackBar from 'react-native-snackbar-component';
 
 import Colors from '../../../utilities/Colors';
+import Validations from '../../../utilities/Validations';
 
 // cccs: component class with constuctor
 class LoginPage extends Component {
@@ -19,12 +21,34 @@ class LoginPage extends Component {
     this.state = {
       email: '',
       password: '',
+      snackMessage: '',
+      showSnack: false,
     };
   }
 
   handleLogin = () => {
+    Keyboard.dismiss();
     console.log('Login button pressed');
-    // this.props.authActions.login();
+    const {email, password} = this.state;
+    if (Validations.isEmail(email) && !Validations.isEmpty(password)) {
+      this.props.authActions
+        .caLogin({email, password})
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => {
+          console.log('third');
+          this.setState({
+            snackMessage: error,
+            showSnack: true,
+          });
+        });
+    } else {
+      this.setState({
+        snackMessage: 'Invalid email or password!',
+        showSnack: true,
+      });
+    }
   };
 
   handleForgotPassword = () => {
@@ -49,10 +73,15 @@ class LoginPage extends Component {
   };
 
   render() {
-    const {email, password} = this.state;
-    // console.log(this.props);
+    const {email, password, snackMessage, showSnack} = this.state;
+
     return (
       <View style={ScreenStyle.root}>
+        <SnackBar
+          visible={showSnack}
+          textMessage={snackMessage}
+          autoHidingTime={4000}
+        />
         <LinearTextGradient
           style={ScreenStyle.textGradient}
           colors={[
@@ -80,6 +109,7 @@ class LoginPage extends Component {
             text={email}
             placeholder="Email"
             keyboardType="email-address"
+            autoCapitalize="none"
           />
           <TextInput
             text={password}
@@ -89,6 +119,7 @@ class LoginPage extends Component {
             onChangeText={value =>
               this.handleTextChange(value, 'password-input')
             }
+            autoCapitalize="none"
           />
         </View>
         <View style={ScreenStyle.buttonRow}>

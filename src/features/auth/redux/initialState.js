@@ -4,6 +4,10 @@ const user = {
   email: '',
   gender: '',
   institution: '',
+  photoURL: '',
+  emailVerified: false,
+  phoneNumber: '',
+  metadata: {},
 };
 
 const initialState = {

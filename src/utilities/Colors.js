@@ -16,4 +16,5 @@ export default {
   inputBackground: '#7F3698',
   inputBorder: '#662D91',
   secondaryText: '#55C7FF',
+  green: '#00FF00',
 };
