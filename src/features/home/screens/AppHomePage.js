@@ -61,7 +61,7 @@ function CANavigator() {
         component={CampusAmbassadorTaskPage}
       />
       <CANavigator.Screen
-        name={PageRoutes.Drawer.CAPage}
+        name={PageRoutes.Drawer.CAHomePage}
         component={CampusAmbassadorPage}
       />
     </CANavigator.Navigator>
@@ -103,9 +103,7 @@ class AppHomePage extends Component {
     this.state = {};
   }
 
-  handleAuth = () => {
-    console.log(this.props);
-  };
+  handleAuth = () => {};
 
   render() {
     const Drawer = createDrawerNavigator();
@@ -130,7 +128,7 @@ class AppHomePage extends Component {
             drawerContent={props => <DrawerHeader {...props} />}
             initialRouteName={
               userRole == ROLES.ca
-                ? PageRoutes.Drawer.CAPage
+                ? PageRoutes.Drawer.CAMainPage
                 : PageRoutes.Drawer.HomePage
             }
             screenOptions={({navigation}) => ({
@@ -193,7 +191,7 @@ class AppHomePage extends Component {
               options={{title: 'Sponsors'}}
             />
             <Drawer.Screen
-              name="CampusAmbassador"
+              name={PageRoutes.Drawer.CAMainPage}
               component={CANavigator}
               options={{
                 title: 'Campus Ambassador',

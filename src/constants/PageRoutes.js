@@ -5,7 +5,8 @@ export default {
   Drawer: {
     HomePage: 'HOME_PAGE',
     EventsPage: 'EVENTS_PAGE',
-    CAPage: 'CAMPUS_AMBASSADOR_PAGE',
+    CAMainPage: 'CAMPUS_AMBASSADOR_MAIN_PAGE',
+    CAHomePage: 'CAMPUS_AMBASSADOR_HOME_PAGE',
     CATaskPage: 'CAMPUS_AMBASSADOR_TASK_PAGE',
     SponsorsPage: 'SPONSOR_PAGE',
     ContactPage: 'CONTACT_PAGE',

@@ -28,18 +28,14 @@ class LoginPage extends Component {
 
   handleLogin = () => {
     Keyboard.dismiss();
-    console.log('Login button pressed');
     const {email, password} = this.state;
     if (Validations.isEmail(email) && !Validations.isEmpty(password)) {
       this.props.authActions
         .caLogin({email, password})
-        .then(data => {
-          console.log(data);
-        })
+        .then(data => {})
         .catch(error => {
-          console.log('third');
           this.setState({
-            snackMessage: error,
+            snackMessage: error.code.slice(5),
             showSnack: true,
           });
         });
@@ -72,6 +68,13 @@ class LoginPage extends Component {
     }
   };
 
+  closeSnack = () => {
+    this.setState({
+      showSnack: false,
+      snackMessage: '',
+    });
+  };
+
   render() {
     const {email, password, snackMessage, showSnack} = this.state;
 
@@ -80,7 +83,8 @@ class LoginPage extends Component {
         <SnackBar
           visible={showSnack}
           textMessage={snackMessage}
-          autoHidingTime={4000}
+          actionText={'Okay!'}
+          actionHandler={this.closeSnack}
         />
         <LinearTextGradient
           style={ScreenStyle.textGradient}

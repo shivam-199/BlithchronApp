@@ -13,37 +13,21 @@ export function caLogin({email, password}) {
         type: CA_LOGIN_BEGIN,
       });
 
-      auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(data => {
-          dispatch({
-            type: CA_LOGIN_SUCCESS,
-            data: {data},
-          });
-          return {data};
-        })
-        .catch(error => {
-          if (error.code === 'auth/user-not-found') {
-            console.log('No user found!');
-            throw new Error('No user found!');
-          }
-          if (error.code === 'auth/wrong-password') {
-            console.log('Wrong password');
-            throw new Error('Wrong password');
-          }
-          dispatch({
-            type: CA_LOGIN_FAILURE,
-            data: {error},
-          });
-          return error;
-        });
+      // Authentication start
+      const data = await auth().signInWithEmailAndPassword(email, password);
+
+      dispatch({
+        type: CA_LOGIN_SUCCESS,
+        data,
+      });
+
+      return data;
     } catch (error) {
-      console.log('second');
       dispatch({
         type: CA_LOGIN_FAILURE,
-        data: {error},
+        data: error,
       });
-      throw new Error(error);
+      throw error;
     }
   };
 }
@@ -62,10 +46,8 @@ export function reducer(state, action) {
         isFetching: true,
       };
     case CA_LOGIN_SUCCESS:
-      console.log(action.data);
-      const {user} = state.auth;
-      console.log(state);
-      console.log(state.auth);
+      const {user} = state;
+
       const newUser = action.data.user;
 
       user.name = newUser.displayName;
@@ -77,6 +59,10 @@ export function reducer(state, action) {
       user.id = newUser.uid;
       return {
         ...state,
+        state: {
+          ...user,
+          user,
+        },
         isFetching: false,
         isLoggedIn: true,
       };
