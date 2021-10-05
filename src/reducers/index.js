@@ -1,13 +1,13 @@
 import {combineReducers} from 'redux';
+import AuthReducer from '../features/auth/redux/reducer';
 import HomeReducer from '../features/home/redux/reducer';
 import PagesReducer from '../features/pages/redux/reducer';
-import AuthReducer from '../features/auth/redux/reducer';
 import 'react-native-gesture-handler';
 // import storage from 'redux-persist/lib/storage';
 
 const reducerMap = {
-  HomeReducer,
   auth: AuthReducer,
+  home: HomeReducer,
   pages: PagesReducer,
 };
 

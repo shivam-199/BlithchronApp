@@ -12,4 +12,11 @@ export default {
   white: '#FFFFFF',
   red: '#FF0000',
   shadowDark: '#26292e',
+  transparent: '#FFFFFF00',
+  inputBackground: '#7F3698',
+  inputBorder: '#662D91',
+  secondaryText: '#55C7FF',
+  green: '#00FF00',
+  borderPurple: '#2e3192',
+  buttonBlue: '#00AEFF',
 };

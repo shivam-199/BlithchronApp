@@ -16,44 +16,95 @@ import {
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
+import ScreenStyles from './styles/StylesAppHomePage';
+
 import HomePage from '../../pages/screens/HomePage';
 import EventsPage from '../../pages/screens/EventsPage';
-import CampusAmbassadorPage from '../../pages/screens/CampusAmbassadorPage';
 import SponsorsPage from '../../pages/screens/SponsorsPage';
-import TeamPage from '../../pages/screens/TeamPage';
 import ContactPage from '../../pages/screens/ContactPage';
 import DevelopersPage from '../../pages/screens/DevelopersPage';
+import RoleSelectionPage from '../../pages/screens/RoleSelectionPage';
+import LoginPage from '../../auth/Screens/LoginPage';
+import CampusAmbassadorPage from '../../pages/screens/CampusAmbassadorPage';
+import CampusAmbassadorHomePage from '../../pages/screens/CampusAmbassadarHomePage';
+import CampusAmbassadorTaskPage from '../../pages/screens/CampusAmbassadorTaskPage';
+
+import {LinearTextGradient} from 'react-native-text-gradient';
+import {Text} from 'react-native';
 
 import Colors from '../../../utilities/Colors';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import RoleSelectionPage from '../../pages/screens/RoleSelectionPage';
+
+function AuthNavigator() {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator
+      screenOptions={({navigation}) => ({
+        headerTitle: '',
+        headerShown: false,
+      })}>
+      <Stack.Screen name={PageRoutes.Drawer.LoginPage} component={LoginPage} />
+    </Stack.Navigator>
+  );
+}
+
+function CANavigator(props) {
+  const CANavigator = createStackNavigator();
+  const isLoggedIn = props.route.params.isLoggedIn;
+  return (
+    <CANavigator.Navigator
+      initialRouteName={
+        isLoggedIn ? PageRoutes.Drawer.CAHomePage : PageRoutes.Drawer.CAMainPage
+      }
+      screenOptions={() => ({
+        headerTitle: '',
+        headerShown: false,
+      })}>
+      <CANavigator.Screen
+        // Where the Login, Register, T&C pages
+        name={PageRoutes.Drawer.CAMainPage}
+        component={CampusAmbassadorPage}
+      />
+      <CANavigator.Screen
+        // Where the leaderboard and tasks are shown
+        name={PageRoutes.Drawer.CAHomePage}
+        component={CampusAmbassadorHomePage}
+      />
+      <CANavigator.Screen
+        name={PageRoutes.Drawer.CATaskPage}
+        component={CampusAmbassadorTaskPage}
+      />
+      <CANavigator.Screen
+        name={PageRoutes.Drawer.LoginPage}
+        component={LoginPage}
+      />
+    </CANavigator.Navigator>
+  );
+}
 
 function DrawerHeader(props) {
+  const {state, ...rest} = props;
+  const newState = state;
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItem
-        label="Blithchron"
-        pressOpacity={0}
-        pressColor={Colors.white}
-        labelStyle={{
-          color: Colors.white,
-          fontSize: 25,
-          textAlign: 'center',
-          fontWeight: '700',
-        }}
+        label={() => (
+          <LinearTextGradient
+            style={ScreenStyles.textGradient}
+            colors={[
+              Colors.gradientTextLeft,
+              Colors.gradientTextMiddle,
+              Colors.gradientTextRight,
+            ]}
+            locations={[0, 0.5, 1]}>
+            <Text>Blithchron</Text>
+          </LinearTextGradient>
+        )}
+        pressColor={Colors.primaryDark}
       />
-      <DrawerItemList {...props} />
+      <DrawerItemList state={newState} {...rest} />
     </DrawerContentScrollView>
-    // <LinearTextGradient
-    //   style={{fontWeight: 'bold', fontSize: 72}}
-    //   locations={[0, 1]}
-    //   colors={['red', 'blue']}
-    //   start={{x: 0, y: 0}}
-    //   end={{x: 1, y: 0}}>
-    //   <Text>Blithchron</Text>
-    // </LinearTextGradient>
-    // <Text>Blithchron</Text>
   );
 }
 
@@ -64,11 +115,13 @@ class AppHomePage extends Component {
     this.state = {};
   }
 
+  handleAuth = () => {};
+
   render() {
     const Drawer = createDrawerNavigator();
     const Stack = createStackNavigator();
     const {auth} = this.props;
-    const {rolePrefDefined, userRole} = auth;
+    const {rolePrefDefined, userRole, isLoggedIn} = auth;
 
     return (
       <NavigationContainer>
@@ -87,7 +140,7 @@ class AppHomePage extends Component {
             drawerContent={props => <DrawerHeader {...props} />}
             initialRouteName={
               userRole == ROLES.ca
-                ? PageRoutes.Drawer.CAPage
+                ? PageRoutes.Drawer.CAAuth
                 : PageRoutes.Drawer.HomePage
             }
             screenOptions={({navigation}) => ({
@@ -101,6 +154,7 @@ class AppHomePage extends Component {
                 fontSize: 18,
                 fontWeight: '700',
               },
+
               // Screen styles
               headerTitle: '',
               headerStyle: {
@@ -125,25 +179,27 @@ class AppHomePage extends Component {
               component={HomePage}
               options={{title: 'Home'}}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
               name={PageRoutes.Drawer.EventsPage}
               component={EventsPage}
-              options={{title: 'Events'}}
-            />
+              options={{
+                title: 'Events',
+              }}
+            /> */}
             <Drawer.Screen
               name={PageRoutes.Drawer.SponsorsPage}
               component={SponsorsPage}
               options={{title: 'Sponsors'}}
             />
             <Drawer.Screen
-              name={PageRoutes.Drawer.CAPage}
-              component={CampusAmbassadorPage}
-              options={{title: 'Campus Ambassador'}}
-            />
-            <Drawer.Screen
-              name={PageRoutes.Drawer.TeamPage}
-              component={TeamPage}
-              options={{title: 'Our Team'}}
+              name={PageRoutes.Drawer.CAAuth}
+              component={CANavigator}
+              initialParams={{
+                isLoggedIn,
+              }}
+              options={{
+                title: 'Campus Ambassador',
+              }}
             />
             <Drawer.Screen
               name={PageRoutes.Drawer.ContactPage}
