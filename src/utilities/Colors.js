@@ -17,4 +17,6 @@ export default {
   inputBorder: '#662D91',
   secondaryText: '#55C7FF',
   green: '#00FF00',
+  borderPurple: '#2e3192',
+  buttonBlue: '#00AEFF',
 };

@@ -11,7 +11,52 @@ import {LinearTextGradient} from 'react-native-text-gradient';
 import {Button} from 'react-native-elements';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+
+function TaskCard({name, description, ptsDesc, id}) {
+  return (
+    <TouchableOpacity
+      style={ScreenStyle.appDownloadPart}
+      onPress={() => this.handleTaskView(id)}>
+      <View style={ScreenStyle.topRow}>
+        <SimpleLineIcons
+          name="pin"
+          style={ScreenStyle.pinIconStyle}
+          size={18}
+          onPress={() => this.handlePin(id)}
+        />
+        <Text style={ScreenStyle.taskName}>{name}</Text>
+      </View>
+      <View style={ScreenStyle.middleRow}>
+        <Text style={ScreenStyle.taskDesc} numberOfLines={2}>
+          {description}
+        </Text>
+        <IonIcon name="play" size={20} color={Colors.white} />
+      </View>
+      <Text style={ScreenStyle.ptsDesc}>{ptsDesc}</Text>
+    </TouchableOpacity>
+  );
+}
+
+function LeaderboardCard({name, institution, rank, points}) {
+  return (
+    <View style={ScreenStyle.leaderboardCard}>
+      <IonIcon
+        name="ios-person-circle-outline"
+        size={60}
+        color={Colors.white}
+      />
+      <View style={ScreenStyle.nameAndCollege}>
+        <Text style={ScreenStyle.leaderboardName}>{name}</Text>
+        <Text style={ScreenStyle.leaderboardInst}>{institution}</Text>
+      </View>
+      <View style={ScreenStyle.pointsAndRank}>
+        <Text style={ScreenStyle.leaderboardRank}>{rank}</Text>
+        <Text style={ScreenStyle.leaderboardPoints}>{points || '-'} Pts</Text>
+      </View>
+    </View>
+  );
+}
 
 class CampusAmbassadorHomePage extends Component {
   constructor(props) {
@@ -36,14 +81,20 @@ class CampusAmbassadorHomePage extends Component {
     }
     // Fetching task list
     this.props.pagesActions.fetchTaskList();
+    this.props.pagesActions.fetchLeaderboard();
   }
 
+  handleTaskView = id => {
+    console.log('Touchable');
+  };
+
+  handlePin = id => {
+    console.log('Pin');
+  };
+
   render() {
-    const {auth, pages} = this.props;
-    const {user} = auth;
-    const {email} = user;
-    const {taskList} = pages;
-    console.log(taskList);
+    const {pages} = this.props;
+    const {taskList, leaderboard} = pages;
 
     return (
       <ScrollView style={ScreenStyle.root}>
@@ -66,31 +117,24 @@ class CampusAmbassadorHomePage extends Component {
         <View style={ScreenStyle.pointsMainView}>
           <View style={ScreenStyle.pointsBorderBox}>
             <View style={ScreenStyle.pointsEarned}>
-              <Text style={ScreenStyle.white10}>Points Earned</Text>
-
-              <Text style={ScreenStyle.white10}>450 Pts.</Text>
+              <Text style={ScreenStyle.pointText}>Points Earned</Text>
+              <Text style={ScreenStyle.pointText}>{'250'} Pts.</Text>
             </View>
-
             <View style={ScreenStyle.pinnedPoints}>
-              <Text style={ScreenStyle.white10}>Pinned Points</Text>
-
-              <Text style={ScreenStyle.white10}>1250 Pts.</Text>
+              <Text style={ScreenStyle.pointText}>Pinned Points</Text>
+              <Text style={ScreenStyle.pointText}>{'1250'} Pts.</Text>
             </View>
-
             <View style={ScreenStyle.availablePoints}>
-              <Text style={ScreenStyle.white10}>Available Points</Text>
-
-              <Text style={ScreenStyle.white10}>2500 Pts.</Text>
+              <Text style={ScreenStyle.pointText}>Available Points</Text>
+              <Text style={ScreenStyle.pointText}>{'2500'} Pts.</Text>
             </View>
           </View>
         </View>
 
         {/* TASKS  */}
-
         <View style={ScreenStyle.MainTasksView}>
           <View style={ScreenStyle.tasksTitleRow}>
             <Text style={ScreenStyle.tasksTitleStyle}>Tasks</Text>
-
             <View style={ScreenStyle.rowFlex}>
               <Button
                 title="Finished Tasks"
@@ -107,237 +151,15 @@ class CampusAmbassadorHomePage extends Component {
             </View>
           </View>
 
-          <TouchableOpacity>
-            <View style={ScreenStyle.appDownloadPart}>
-              <View style={ScreenStyle.appDownloadsFirstColumn}>
-                <Text style={ScreenStyle.white15}>App Download Pt. 1</Text>
+          {taskList.map(props => (
+            <TaskCard {...props} key={props.id} />
+          ))}
 
-                <Text style={ScreenStyle.white8}>
-                  Your task is to get students from your campus download the
-                  Blithchron '22 App.
-                </Text>
-
-                <View style={ScreenStyle.startEndDateStyle}>
-                  <View>
-                    <Text style={ScreenStyle.white8}>Start Date: 12/10/21</Text>
-
-                    <Text style={ScreenStyle.white8}>End Date: 20/10/21</Text>
-                  </View>
-
-                  <AntDesignIcon
-                    name="pushpin"
-                    style={ScreenStyle.pinIconStyle}
-                    size={20}
-                  />
-                </View>
-              </View>
-
-              <View style={ScreenStyle.pointsBox}>
-                <View style={ScreenStyle.pointsBoxSquare}>
-                  <View style={ScreenStyle.pointsBoxRow}>
-                    <View style={ScreenStyle.pointsBoxTopLeft}>
-                      <Text style={ScreenStyle.white8}>20 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        200+ Downloads
-                      </Text>
-                    </View>
-
-                    <View style={ScreenStyle.pointsBoxTopRight}>
-                      <Text style={ScreenStyle.white8}>15 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        100+ Downloads
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View style={ScreenStyle.pointsBoxRow}>
-                    <View style={ScreenStyle.pointsBoxBottomLeft}>
-                      <Text style={ScreenStyle.white8}>10 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        10+ Downloads
-                      </Text>
-                    </View>
-                    <View style={ScreenStyle.pointsBoxBottomRight}>
-                      <Text style={ScreenStyle.white8}>5 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        20+ Downloads
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              <View style={ScreenStyle.playButtonColumn}>
-                <IonIcon
-                  name="play"
-                  style={ScreenStyle.selfAlignCenter}
-                  size={30}
-                  color="white"
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <View style={ScreenStyle.appDownloadPart}>
-              <View style={[ScreenStyle.appDownloadsFirstColumn]}>
-                <Text style={ScreenStyle.white15}>App Download Pt. 1</Text>
-
-                <Text style={ScreenStyle.white8}>
-                  Your task is to get students from your campus download the
-                  Blithchron '22 App.
-                </Text>
-
-                <View style={ScreenStyle.startEndDateStyle}>
-                  <View>
-                    <Text style={ScreenStyle.white8}>Start Date: 12/10/21</Text>
-
-                    <Text style={ScreenStyle.white8}>End Date: 20/10/21</Text>
-                  </View>
-
-                  <AntDesignIcon
-                    name="pushpin"
-                    style={ScreenStyle.pinIconStyle}
-                    size={20}
-                  />
-                </View>
-              </View>
-
-              <View style={ScreenStyle.pointsBox}>
-                <View style={ScreenStyle.pointsBoxSquare}>
-                  <View style={ScreenStyle.pointsBoxRow}>
-                    <View style={ScreenStyle.pointsBoxTopLeft}>
-                      <Text style={ScreenStyle.white8}>20 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        200+ Downloads
-                      </Text>
-                    </View>
-
-                    <View style={ScreenStyle.pointsBoxTopRight}>
-                      <Text style={ScreenStyle.white8}>15 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        100+ Downloads
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View style={ScreenStyle.pointsBoxRow}>
-                    <View style={ScreenStyle.pointsBoxBottomLeft}>
-                      <Text style={ScreenStyle.white8}>10 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        10+ Downloads
-                      </Text>
-                    </View>
-                    <View style={ScreenStyle.pointsBoxBottomRight}>
-                      <Text style={ScreenStyle.white8}>5 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        20+ Downloads
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              <View style={ScreenStyle.playButtonColumn}>
-                <IonIcon
-                  name="play"
-                  style={ScreenStyle.selfAlignCenter}
-                  size={30}
-                  color="white"
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <View style={ScreenStyle.appDownloadPart}>
-              <View style={[ScreenStyle.appDownloadsFirstColumn]}>
-                <Text style={ScreenStyle.white15}>App Download Pt. 1</Text>
-
-                <Text style={ScreenStyle.white8}>
-                  Your task is to get students from your campus download the
-                  Blithchron '22 App.
-                </Text>
-
-                <View style={ScreenStyle.startEndDateStyle}>
-                  <View>
-                    <Text style={ScreenStyle.white8}>Start Date: 12/10/21</Text>
-
-                    <Text style={ScreenStyle.white8}>End Date: 20/10/21</Text>
-                  </View>
-
-                  <AntDesignIcon
-                    name="pushpin"
-                    style={ScreenStyle.pinIconStyle}
-                    size={20}
-                  />
-                </View>
-              </View>
-
-              <View style={ScreenStyle.pointsBox}>
-                <View style={ScreenStyle.pointsBoxSquare}>
-                  <View style={ScreenStyle.pointsBoxRow}>
-                    <View style={ScreenStyle.pointsBoxTopLeft}>
-                      <Text style={ScreenStyle.white8}>20 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        200+ Downloads
-                      </Text>
-                    </View>
-
-                    <View style={ScreenStyle.pointsBoxTopRight}>
-                      <Text style={ScreenStyle.white8}>15 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        100+ Downloads
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View style={ScreenStyle.pointsBoxRow}>
-                    <View style={ScreenStyle.pointsBoxBottomLeft}>
-                      <Text style={ScreenStyle.white8}>10 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        10+ Downloads
-                      </Text>
-                    </View>
-                    <View style={ScreenStyle.pointsBoxBottomRight}>
-                      <Text style={ScreenStyle.white8}>5 Pts</Text>
-
-                      <Text style={ScreenStyle.white6Center}>
-                        20+ Downloads
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              <View style={ScreenStyle.playButtonColumn}>
-                <IonIcon
-                  name="play"
-                  style={ScreenStyle.selfAlignCenter}
-                  size={30}
-                  color="white"
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
           <Button
             title="See more"
             titleStyle={{color: Colors.buttonBlue}}
             type="clear"
-            buttonStyle={{
-              width: '30%',
-              alignSelf: 'center',
-              marginTop: 10,
-              height: 40,
-            }}
+            buttonStyle={ScreenStyle.seeMoreButton}
           />
         </View>
 
@@ -347,68 +169,20 @@ class CampusAmbassadorHomePage extends Component {
           <View style={ScreenStyle.tasksTitleRow}>
             <Text style={ScreenStyle.tasksTitleStyle}>Leaderboard</Text>
           </View>
-          <View style={ScreenStyle.leaderboardCard}>
-            <View style={ScreenStyle.profilePicLeaderboard}>
-              <Image
-                source={require('../../../assets/grey_circle.png')}
-                style={ScreenStyle.sixtyBySixty}
-              />
-            </View>
-            <View style={ScreenStyle.nameAndCollege}>
-              <Text style={ScreenStyle.white20}>John Doe</Text>
-              <Text style={ScreenStyle.white15}>IIT Gandhinagar</Text>
-            </View>
-            <View style={ScreenStyle.pointsAndRank}>
-              <Text style={ScreenStyle.white25}>1st</Text>
-              <Text style={ScreenStyle.white18}>119 Pts</Text>
-            </View>
-          </View>
 
-          <View style={ScreenStyle.leaderboardCard}>
-            <View style={ScreenStyle.profilePicLeaderboard}>
-              <Image
-                source={require('../../../assets/grey_circle.png')}
-                style={ScreenStyle.sixtyBySixty}
-              />
-            </View>
-            <View style={ScreenStyle.nameAndCollege}>
-              <Text style={ScreenStyle.white20}>John Doe</Text>
-              <Text style={ScreenStyle.white15}>IIT Gandhinagar</Text>
-            </View>
-            <View style={ScreenStyle.pointsAndRank}>
-              <Text style={ScreenStyle.white25}>1st</Text>
-              <Text style={ScreenStyle.white18}>119 Pts</Text>
-            </View>
-          </View>
-
-          <View style={ScreenStyle.leaderboardCard}>
-            <View style={ScreenStyle.profilePicLeaderboard}>
-              <Image
-                source={require('../../../assets/grey_circle.png')}
-                style={ScreenStyle.sixtyBySixty}
-              />
-            </View>
-            <View style={ScreenStyle.nameAndCollege}>
-              <Text style={ScreenStyle.white20}>John Doe</Text>
-              <Text style={ScreenStyle.white15}>IIT Gandhinagar</Text>
-            </View>
-            <View style={ScreenStyle.pointsAndRank}>
-              <Text style={ScreenStyle.white25}>1st</Text>
-              <Text style={ScreenStyle.white18}>119 Pts</Text>
-            </View>
-          </View>
-
-          <Button
+          {leaderboard
+            .sort((a, b) => {
+              return parseInt(a.rank) - parseInt(b.rank);
+            })
+            .map(props => (
+              <LeaderboardCard {...props} key={props.id} />
+            ))}
+          {/* <Button
             title="See more"
             titleStyle={{color: Colors.buttonBlue}}
             type="clear"
-            buttonStyle={{
-              width: '30%',
-              alignSelf: 'center',
-              marginTop: 20,
-              height: 40,
-            }}
-          />
+            buttonStyle={ScreenStyle.seeMoreButton}
+          /> */}
         </View>
       </ScrollView>
     );

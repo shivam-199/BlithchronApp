@@ -3,62 +3,87 @@ import Colors from '../../../../utilities/Colors';
 // import DimensionScale from '../../../../utilities/DimensionScale';
 
 let style = {
-  root: {flex: 1, backgroundColor: Colors.primaryDark},
-  TitleView: {paddingTop: 20, paddingLeft: 20},
-  bold45: {fontSize: 45, fontWeight: '700'},
-  bold17: {fontSize: 17, fontWeight: '700'},
+  root: {
+    flex: 1,
+    backgroundColor: Colors.primaryDark,
+  },
+  TitleView: {
+    paddingTop: 20,
+    paddingLeft: 20,
+  },
+  bold45: {
+    fontSize: 45,
+    fontWeight: '700',
+  },
+  bold17: {
+    fontSize: 17,
+    fontWeight: '700',
+  },
   buttonsAlignment: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+    alignItems: 'center',
+    height: 50,
+    marginVertical: 10,
+  },
+  buttonTitleStyle: {
+    fontSize: 13,
+    color: 'white',
   },
   loginButtonStyle: {
     borderWidth: 3,
     borderRadius: 40,
-    height: 40,
-    width: 70,
-    fontSize: 2,
+    minWidth: 70,
   },
   registerButtonStyle: {
     borderWidth: 3,
     borderRadius: 40,
-    height: 40,
-    width: 80,
-    fontSize: 2,
+    minWidth: 80,
   },
   tncButtonStyle: {
     borderWidth: 3,
     borderRadius: 40,
-    height: 40,
-    width: 150,
-    fontSize: 2,
+    minWidth: 150,
   },
   TextCardView: {
-    height: 620,
-    width: '100%',
-    marginTop: 0,
-    marginLeft: 20,
-    width: '88%',
     flexDirection: 'column',
   },
   singleInfoCard: {
-    backgroundColor: Colors.primaryDark,
-    height: 350,
+    backgroundColor: Colors.primarySolid,
     width: '90%',
     alignSelf: 'center',
-    marginTop: 20,
-    borderRadius: 30,
+    marginVertical: 10,
+    borderRadius: 15,
     elevation: 3,
     flexDirection: 'column',
-    padding: 13,
+    padding: 15,
   },
   infoCardTitle: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 20,
-    marginBottom: 20,
+    fontSize: 18,
+    marginBottom: 15,
   },
-  white15: {color: 'white', fontSize: 15},
-  buttonTitleStyle: {fontSize: 13, color: 'white'},
+  white15: {
+    color: 'white',
+    fontSize: 14,
+  },
+  questionName: {
+    display: 'flex',
+    flexDirection: 'row',
+    color: Colors.white,
+    marginBottom: 10,
+  },
+  questionMail: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  contactText: {
+    color: Colors.white,
+    marginLeft: 10,
+    fontSize: 18,
+    fontWeight: '700',
+  },
 };
 
 export default StyleSheet.create(style);
