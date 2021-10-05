@@ -24,5 +24,7 @@ const initialState = {
   taskUpload,
   task,
   userTasks,
+  userExistsInFirestore: false,
+  taskList: [],
 };
 export default initialState;

@@ -13,6 +13,7 @@ import SnackBar from 'react-native-snackbar-component';
 
 import Colors from '../../../utilities/Colors';
 import Validations from '../../../utilities/Validations';
+import PageRoutes from '../../../constants/PageRoutes';
 
 // cccs: component class with constuctor
 class LoginPage extends Component {
@@ -26,13 +27,19 @@ class LoginPage extends Component {
     };
   }
 
+  handleLoginRoute = () => {
+    this.props.navigation.navigate(PageRoutes.Drawer.CAHomePage);
+  };
+
   handleLogin = () => {
     Keyboard.dismiss();
     const {email, password} = this.state;
     if (Validations.isEmail(email) && !Validations.isEmpty(password)) {
       this.props.authActions
         .caLogin({email, password})
-        .then(data => {})
+        .then(data => {
+          this.handleLoginRoute();
+        })
         .catch(error => {
           this.setState({
             snackMessage: error.code.slice(5),

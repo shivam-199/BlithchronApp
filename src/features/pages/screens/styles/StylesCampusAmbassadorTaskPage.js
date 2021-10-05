@@ -56,9 +56,10 @@ let style = {
     borderColor: Colors.secondaryText,
     color: Colors.white,
     borderColor: Colors.secondaryText,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     alignSelf: 'flex-start',
+    marginHorizontal: '5%',
   },
   completedTask: {
     paddingVertical: 10,
@@ -95,6 +96,19 @@ let style = {
     fontSize: 16,
     fontWeight: '700',
     alignSelf: 'flex-end',
+  },
+  galleryView: {
+    margin: 20,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  uploadPlaceholder: {
+    width: 100,
+    height: 100,
+    backgroundColor: Colors.primaryDark,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 };
 

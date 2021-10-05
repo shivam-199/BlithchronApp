@@ -12,6 +12,11 @@ let style = {
     textAlign: 'center',
     fontWeight: '700',
   },
+  lockIcon: {
+    alignSelf: 'center',
+    position: 'absolute',
+    right: 5,
+  },
 };
 
 export default StyleSheet.create(style);

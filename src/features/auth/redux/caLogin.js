@@ -59,9 +59,8 @@ export function reducer(state, action) {
       user.id = newUser.uid;
       return {
         ...state,
-        state: {
+        user: {
           ...user,
-          user,
         },
         isFetching: false,
         isLoggedIn: true,

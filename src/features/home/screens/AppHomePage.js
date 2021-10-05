@@ -20,12 +20,13 @@ import ScreenStyles from './styles/StylesAppHomePage';
 
 import HomePage from '../../pages/screens/HomePage';
 import EventsPage from '../../pages/screens/EventsPage';
-import CampusAmbassadorPage from '../../pages/screens/CampusAmbassadorPage';
 import SponsorsPage from '../../pages/screens/SponsorsPage';
 import ContactPage from '../../pages/screens/ContactPage';
 import DevelopersPage from '../../pages/screens/DevelopersPage';
 import RoleSelectionPage from '../../pages/screens/RoleSelectionPage';
 import LoginPage from '../../auth/Screens/LoginPage';
+import CampusAmbassadorPage from '../../pages/screens/CampusAmbassadorPage';
+import CampusAmbassadorHomePage from '../../pages/screens/CampusAmbassadarHomePage';
 import CampusAmbassadorTaskPage from '../../pages/screens/CampusAmbassadorTaskPage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
@@ -48,21 +49,35 @@ function AuthNavigator() {
   );
 }
 
-function CANavigator() {
+function CANavigator(props) {
   const CANavigator = createStackNavigator();
+  const isLoggedIn = props.route.params.isLoggedIn;
   return (
     <CANavigator.Navigator
+      initialRouteName={
+        isLoggedIn ? PageRoutes.Drawer.CAHomePage : PageRoutes.Drawer.CAMainPage
+      }
       screenOptions={() => ({
         headerTitle: '',
         headerShown: false,
       })}>
       <CANavigator.Screen
+        // Where the Login, Register, T&C pages
+        name={PageRoutes.Drawer.CAMainPage}
+        component={CampusAmbassadorPage}
+      />
+      <CANavigator.Screen
+        // Where the leaderboard and tasks are shown
+        name={PageRoutes.Drawer.CAHomePage}
+        component={CampusAmbassadorHomePage}
+      />
+      <CANavigator.Screen
         name={PageRoutes.Drawer.CATaskPage}
         component={CampusAmbassadorTaskPage}
       />
       <CANavigator.Screen
-        name={PageRoutes.Drawer.CAHomePage}
-        component={CampusAmbassadorPage}
+        name={PageRoutes.Drawer.LoginPage}
+        component={LoginPage}
       />
     </CANavigator.Navigator>
   );
@@ -71,9 +86,6 @@ function CANavigator() {
 function DrawerHeader(props) {
   const {state, ...rest} = props;
   const newState = state;
-  // newState.routes = newState.routes.filter(
-  //   item => item.name != PageRoutes.Drawer.LoginPage,
-  // );
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItem
@@ -109,7 +121,7 @@ class AppHomePage extends Component {
     const Drawer = createDrawerNavigator();
     const Stack = createStackNavigator();
     const {auth} = this.props;
-    const {rolePrefDefined, userRole} = auth;
+    const {rolePrefDefined, userRole, isLoggedIn} = auth;
 
     return (
       <NavigationContainer>
@@ -128,7 +140,7 @@ class AppHomePage extends Component {
             drawerContent={props => <DrawerHeader {...props} />}
             initialRouteName={
               userRole == ROLES.ca
-                ? PageRoutes.Drawer.CAMainPage
+                ? PageRoutes.Drawer.CAAuth
                 : PageRoutes.Drawer.HomePage
             }
             screenOptions={({navigation}) => ({
@@ -161,41 +173,32 @@ class AppHomePage extends Component {
               headerLeftContainerStyle: {
                 padding: '2.5%',
               },
-
-              // // Login Button
-              // headerRight: () => (
-              //   <MaterialIcons
-              //     onPress={this.handleAuth}
-              //     name="login"
-              //     size={24}
-              //     color={Colors.white}
-              //   />
-              // ),
-              // headerRightContainerStyle: {
-              //   padding: 5,
-              // },
             })}>
             <Drawer.Screen
               name={PageRoutes.Drawer.HomePage}
               component={HomePage}
               options={{title: 'Home'}}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
               name={PageRoutes.Drawer.EventsPage}
               component={EventsPage}
-              options={{title: 'Events'}}
-            />
+              options={{
+                title: 'Events',
+              }}
+            /> */}
             <Drawer.Screen
               name={PageRoutes.Drawer.SponsorsPage}
               component={SponsorsPage}
               options={{title: 'Sponsors'}}
             />
             <Drawer.Screen
-              name={PageRoutes.Drawer.CAMainPage}
+              name={PageRoutes.Drawer.CAAuth}
               component={CANavigator}
+              initialParams={{
+                isLoggedIn,
+              }}
               options={{
                 title: 'Campus Ambassador',
-                headerShown: false,
               }}
             />
             <Drawer.Screen
@@ -207,11 +210,6 @@ class AppHomePage extends Component {
               name={PageRoutes.Drawer.DevelopersPage}
               component={DevelopersPage}
               options={{title: 'Developers'}}
-            />
-            <Drawer.Screen
-              name={'Auth'}
-              component={AuthNavigator}
-              options={{title: 'Login'}}
             />
           </Drawer.Navigator>
         )}
