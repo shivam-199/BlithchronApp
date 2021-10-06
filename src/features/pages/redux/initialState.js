@@ -29,3 +29,5 @@ const initialState = {
   leaderboard: [],
 };
 export default initialState;
+
+export {task};

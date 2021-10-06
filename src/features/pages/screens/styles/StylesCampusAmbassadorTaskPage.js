@@ -19,7 +19,7 @@ let style = {
   taskView: {
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingHorizontal: '5%',
+    paddingHorizontal: '2.5%',
   },
   taskText: {
     fontSize: 30,
@@ -59,7 +59,6 @@ let style = {
     fontSize: 16,
     fontWeight: '700',
     alignSelf: 'flex-start',
-    marginHorizontal: '5%',
   },
   completedTask: {
     paddingVertical: 10,
@@ -70,7 +69,7 @@ let style = {
     borderColor: Colors.green,
     color: Colors.white,
     borderColor: Colors.green,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     alignSelf: 'flex-start',
   },
@@ -78,11 +77,13 @@ let style = {
     marginBottom: 10,
     color: Colors.secondaryText,
     fontSize: 20,
+    paddingHorizontal: 10,
   },
   adminComments: {
     marginBottom: 10,
     color: Colors.white,
     fontSize: 14,
+    paddingHorizontal: 10,
   },
   resubmit: {
     paddingVertical: 5,
@@ -106,9 +107,20 @@ let style = {
     width: 100,
     height: 100,
     backgroundColor: Colors.primaryDark,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
+    // margin: 5,
+  },
+  selectText: {
+    color: Colors.white,
+    textAlign: 'center',
+    fontSize: 12,
+  },
+  uploadedPic: {
+    width: 100,
+    height: 100,
+    margin: 10,
   },
 };
 
