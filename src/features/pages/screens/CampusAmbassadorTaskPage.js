@@ -9,6 +9,7 @@ import {LinearTextGradient} from 'react-native-text-gradient';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import Colors from '../../../utilities/Colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -16,21 +17,37 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import Lightbox from 'react-native-lightbox-v2';
 import TaskStatus from '../../../constants/TaskStatus';
 
-function SelectedImage({src}) {
+function SelectedImage({src, id, status, onRemove}) {
+  handleRemove = id => {
+    onRemove(id) || onRemove();
+  };
   return (
-    <Lightbox
-      activeProps={{
-        width: '100%',
-        height: '100%',
-      }}>
-      <Image
-        source={{
-          uri: src,
-        }}
-        style={ScreenStyle.uploadedPic}
-        resizeMode="contain"
-      />
-    </Lightbox>
+    <View style={ScreenStyle.imageViewStyles}>
+      {(status === TaskStatus.INCOMPLETE ||
+        status === '' ||
+        status === TaskStatus.ACTION_REQUIRED) && (
+        <Entypo
+          name="cross"
+          color={Colors.white}
+          size={20}
+          style={ScreenStyle.galleryCross}
+          onPress={() => handleRemove(id)}
+        />
+      )}
+      <Lightbox
+        activeProps={{
+          width: '100%',
+          height: '100%',
+        }}>
+        <Image
+          source={{
+            uri: src,
+          }}
+          style={ScreenStyle.uploadedPic}
+          resizeMode="contain"
+        />
+      </Lightbox>
+    </View>
   );
 }
 
@@ -56,13 +73,29 @@ class CampusAmbassadorTaskPage extends Component {
     launchImageLibrary(options, res => {
       if (res.didCancel) {
       } else {
-        this.props.pagesActions.selectPhotos(res);
+        res.assets.map(asset => {
+          this.props.pagesActions
+            .selectPhotos({
+              name: asset.fileName,
+              uri: asset.uri,
+            })
+            .then(data => {})
+            .catch(error => {});
+        });
       }
     });
   };
 
   handleSubmit = () => {
-    this.props.pagesActions.submitTask();
+    const taskId = this.props.route.params.id;
+    this.props.pagesActions
+      .submitTask({taskId})
+      .then(data => {})
+      .catch(error => {});
+  };
+
+  handleRemovePhoto = id => {
+    this.props.pagesActions.removeSelectedPhoto(id);
   };
 
   render() {
@@ -72,7 +105,6 @@ class CampusAmbassadorTaskPage extends Component {
 
     return (
       <ScrollView style={ScreenStyle.root}>
-        {/* <SnackbarComponent actionText="OKAY!" /> */}
         <View style={ScreenStyle.topBar}>
           <Icon
             name="arrow-back-ios"
@@ -106,11 +138,31 @@ class CampusAmbassadorTaskPage extends Component {
           </View>
           <View style={ScreenStyle.statusView}>
             {currentTask.status === TaskStatus.COMPLETED && (
-              <Text style={ScreenStyle.completedTask}>Task Completed</Text>
+              <View style={ScreenStyle.galleryView}>
+                <Text style={ScreenStyle.completedTask}>Task Completed</Text>
+                {currentTask.uploads.length >= 1 &&
+                  currentTask.uploads.map(props => (
+                    <SelectedImage
+                      {...props}
+                      key={props.id}
+                      status={currentTask.status}
+                    />
+                  ))}
+              </View>
             )}
 
             {currentTask.status === TaskStatus.SUBMITTED && (
-              <Text style={ScreenStyle.markApproval}>Sumbitted</Text>
+              <View style={ScreenStyle.galleryView}>
+                <Text style={ScreenStyle.markApproval}>Sumbitted</Text>
+                {currentTask.uploads.length >= 1 &&
+                  currentTask.uploads.map(props => (
+                    <SelectedImage
+                      {...props}
+                      key={props.id}
+                      status={currentTask.status}
+                    />
+                  ))}
+              </View>
             )}
 
             {currentTask.status === TaskStatus.ACTION_REQUIRED && (
@@ -149,7 +201,6 @@ class CampusAmbassadorTaskPage extends Component {
                     Mark for Approval
                   </Text>
                 </TouchableOpacity>
-
                 <View style={ScreenStyle.galleryView}>
                   <TouchableOpacity
                     style={ScreenStyle.uploadPlaceholder}
@@ -161,7 +212,12 @@ class CampusAmbassadorTaskPage extends Component {
                   </TouchableOpacity>
                   {currentTask.uploads.length >= 1 &&
                     currentTask.uploads.map(props => (
-                      <SelectedImage {...props} key={props.id} />
+                      <SelectedImage
+                        {...props}
+                        key={props.id}
+                        status={currentTask.status}
+                        onRemove={id => this.handleRemovePhoto(id)}
+                      />
                     ))}
                 </View>
               </View>

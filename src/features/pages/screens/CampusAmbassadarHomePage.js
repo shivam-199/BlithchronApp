@@ -94,8 +94,20 @@ class CampusAmbassadorHomePage extends Component {
         .catch(error => {});
     }
     // Fetching task list
-    this.props.pagesActions.fetchTaskList();
-    this.props.pagesActions.fetchLeaderboard();
+    this.props.pagesActions
+      .fetchUserTaskList()
+      .then(data => {
+        this.props.pagesActions
+          .fetchLeaderboard()
+          .then(data => {
+            this.props.pagesActions
+              .fetchTaskList()
+              .then(data => {})
+              .catch(error => {});
+          })
+          .catch(error => {});
+      })
+      .catch(error => {});
   }
 
   handleTaskView = id => {
@@ -196,12 +208,6 @@ class CampusAmbassadorHomePage extends Component {
                 return parseInt(a.rank) - parseInt(b.rank);
               })
               .map(props => <LeaderboardCard {...props} key={props.id} />)}
-          {/* <Button
-            title="See more"
-            titleStyle={{color: Colors.buttonBlue}}
-            type="clear"
-            buttonStyle={ScreenStyle.seeMoreButton}
-          /> */}
         </View>
       </ScrollView>
     );

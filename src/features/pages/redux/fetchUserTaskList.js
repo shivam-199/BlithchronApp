@@ -1,43 +1,30 @@
 import {
-  SUBMIT_TASK_BEGIN,
-  SUBMIT_TASK_SUCCESS,
-  SUBMIT_TASK_FAILURE,
-  SUBMIT_TASK_DISMISS_ERROR,
+  FETCH_USER_TASK_DATA_BEGIN,
+  FETCH_USER_TASK_DATA_SUCCESS,
+  FETCH_USER_TASK_DATA_FAILURE,
+  FETCH_USER_TASK_DATA_DISMISS_ERROR,
 } from './constant';
 import firestore from '@react-native-firebase/firestore';
-import TaskStatus from '../../../constants/TaskStatus';
 
-export function submitTask({taskId}) {
+export function fetchUserTaskList() {
   return async (dispatch, getState) => {
     try {
       dispatch({
-        type: SUBMIT_TASK_BEGIN,
+        type: FETCH_USER_TASK_DATA_BEGIN,
       });
 
-      const {auth, pages} = getState();
+      const {auth} = getState();
       const {user} = auth;
-      const userId = user.id;
-      let tasks = pages.userTasks.taskList;
-      tasks = tasks.map(task => {
-        if (task.id === taskId) {
-          const newTask = task;
-          newTask.status = TaskStatus.SUBMITTED;
-          return newTask;
-        } else {
-          return task;
-        }
-      });
 
-      const userData = await firestore()
+      // Checking if the user data exists
+      const taskList = await firestore()
         .collection('Participants')
-        .doc(userId)
-        .update({
-          tasks,
-        })
+        .doc(user.id)
+        .get()
         .then(data => {
           dispatch({
-            type: SUBMIT_TASK_SUCCESS,
-            data: {tasks, taskId},
+            type: FETCH_USER_TASK_DATA_SUCCESS,
+            data: data._data,
           });
         })
         .catch(error => {
@@ -47,7 +34,7 @@ export function submitTask({taskId}) {
       return {};
     } catch (error) {
       dispatch({
-        type: SUBMIT_TASK_FAILURE,
+        type: FETCH_USER_TASK_DATA_FAILURE,
         data: error,
       });
       throw error;
@@ -57,25 +44,24 @@ export function submitTask({taskId}) {
 
 export function reducer(state, action) {
   switch (action.type) {
-    case SUBMIT_TASK_BEGIN:
+    case FETCH_USER_TASK_DATA_BEGIN:
       return {
         ...state,
         isFetching: true,
       };
-    case SUBMIT_TASK_SUCCESS:
+    case FETCH_USER_TASK_DATA_SUCCESS:
       const newState = Object.assign({}, state);
       newState.userTasks.taskList = action.data.tasks;
-
       return {
         ...newState,
         isFetching: false,
       };
-    case SUBMIT_TASK_FAILURE:
+    case FETCH_USER_TASK_DATA_FAILURE:
       return {
         ...state,
         isFetching: false,
       };
-    case SUBMIT_TASK_DISMISS_ERROR:
+    case FETCH_USER_TASK_DATA_DISMISS_ERROR:
       return {
         ...state,
         isFetching: false,

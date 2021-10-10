@@ -21,7 +21,12 @@ const getAsyncData = async key => {
   }
 };
 
+function prettyConsole(obj) {
+  console.log(JSON.stringify(obj, undefined, 2));
+}
+
 export default {
   storeAsyncData,
   getAsyncData,
+  prettyConsole,
 };

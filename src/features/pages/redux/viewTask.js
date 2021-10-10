@@ -11,22 +11,32 @@ export function viewTask(data) {
 export function reducer(state, action) {
   switch (action.type) {
     case VIEW_TASK:
-      const newState = Object.assign({}, state);
-      let newTask = task;
-      let tempTask = newState.taskList.filter(
+      taskExistsInMyList = state.userTasks.taskList.filter(
         task => task.id === action.data,
-      )[0];
-      newTask.description = tempTask.description;
-      newTask.id = tempTask.id;
-      newTask.name = tempTask.name;
-      newTask.ptsDesc = tempTask.ptsDesc;
+      )[0]
+        ? true
+        : false;
+
+      if (!taskExistsInMyList) {
+        const tempTask = state.taskList.filter(
+          task => task.id === action.data,
+        )[0];
+        const newTask = task;
+        newTask.description = tempTask.description;
+        newTask.id = tempTask.id;
+        newTask.name = tempTask.name;
+        newTask.ptsDesc = tempTask.ptsDesc;
+        state.userTasks.taskList.findIndex(task => task.id === action.data) ===
+          -1 && state.userTasks.taskList.push(newTask);
+        state.userTasks.currentTask = newTask;
+      } else if (taskExistsInMyList) {
+        const newTask = state.userTasks.taskList.filter(
+          task => task.id === action.data,
+        )[0];
+        state.userTasks.currentTask = newTask;
+      }
       return {
         ...state,
-        userTasks: {
-          currentTask: {
-            ...newTask,
-          },
-        },
       };
     default:
       return state;

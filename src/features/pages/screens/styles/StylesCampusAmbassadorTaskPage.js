@@ -112,13 +112,23 @@ let style = {
     alignItems: 'center',
     // margin: 5,
   },
+  imageViewStyles: {
+    position: 'relative',
+  },
+  galleryCross: {
+    position: 'absolute',
+    left: 10,
+    backgroundColor: Colors.black,
+    borderRadius: 20,
+    zIndex: 1,
+  },
   selectText: {
     color: Colors.white,
     textAlign: 'center',
     fontSize: 12,
   },
   uploadedPic: {
-    width: 100,
+    width: 90,
     height: 100,
     margin: 10,
   },

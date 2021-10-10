@@ -6,6 +6,8 @@ import {reducer as fetchLeaderboard} from './fetchLeaderboard';
 import {reducer as viewTask} from './viewTask';
 import {reducer as selectPhotos} from './selectPhotos';
 import {reducer as submitTask} from './submitTask';
+import {reducer as removeSelectedPhoto} from './removeSelectedPhoto';
+import {reducer as fetchUserTaskList} from './fetchUserTaskList';
 
 const reducers = [
   checkUserExistence,
@@ -15,6 +17,8 @@ const reducers = [
   viewTask,
   selectPhotos,
   submitTask,
+  removeSelectedPhoto,
+  fetchUserTaskList,
 ];
 
 export default function PagesReducer(state = initialState, action) {
