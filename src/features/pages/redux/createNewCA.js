@@ -23,14 +23,13 @@ export function createNewCA() {
         tasks: [],
       };
 
-      // console.log(userRec);
       // Creating new user
       const caUser = await firestore()
         .collection('Participants')
         .doc(userRec.id)
         .set(userRec)
-        .then(data => console.log(data))
-        .catch(error => console.log(error));
+        .then(data => {})
+        .catch(error => {});
 
       dispatch({
         type: CREATE_NEW_CA_SUCCESS,

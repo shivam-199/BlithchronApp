@@ -1,6 +1,6 @@
 const taskUpload = {
   id: '',
-  title: '',
+  name: '',
   src: '',
 };
 
@@ -11,7 +11,6 @@ const task = {
   ptsDesc: '',
   isPinned: false,
   status: '',
-  currentUpload: Object.assign({}, taskUpload),
   uploads: [],
 };
 
@@ -29,3 +28,5 @@ const initialState = {
   leaderboard: [],
 };
 export default initialState;
+
+export {task};

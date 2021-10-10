@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Colors from '../../../utilities/Colors';
 
 import React, {Component} from 'react';
-import {Image, Text, View, ScrollView, TouchableOpacity} from 'react-native';
+import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorHomePage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
@@ -12,17 +12,31 @@ import {Button} from 'react-native-elements';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import PageRoutes from '../../../constants/PageRoutes';
 
-function TaskCard({name, description, ptsDesc, id}) {
+function TaskCard({
+  name,
+  description,
+  ptsDesc,
+  id,
+  onPressTaskView,
+  onPressPin,
+}) {
+  handleTask = id => {
+    onPressTaskView(id);
+  };
+  handlePin = id => {
+    onPressPin(id);
+  };
   return (
     <TouchableOpacity
       style={ScreenStyle.appDownloadPart}
-      onPress={() => this.handleTaskView(id)}>
+      onPress={() => this.handleTask(id)}>
       <View style={ScreenStyle.topRow}>
         <SimpleLineIcons
           name="pin"
           style={ScreenStyle.pinIconStyle}
-          size={18}
+          size={20}
           onPress={() => this.handlePin(id)}
         />
         <Text style={ScreenStyle.taskName}>{name}</Text>
@@ -80,12 +94,24 @@ class CampusAmbassadorHomePage extends Component {
         .catch(error => {});
     }
     // Fetching task list
-    this.props.pagesActions.fetchTaskList();
-    this.props.pagesActions.fetchLeaderboard();
+    this.props.pagesActions
+      .fetchUserTaskList()
+      .then(data => {
+        this.props.pagesActions
+          .fetchLeaderboard()
+          .then(data => {
+            this.props.pagesActions
+              .fetchTaskList()
+              .then(data => {})
+              .catch(error => {});
+          })
+          .catch(error => {});
+      })
+      .catch(error => {});
   }
 
   handleTaskView = id => {
-    console.log('Touchable');
+    this.props.navigation.navigate(PageRoutes.Drawer.CATaskPage, {id});
   };
 
   handlePin = id => {
@@ -94,7 +120,7 @@ class CampusAmbassadorHomePage extends Component {
 
   render() {
     const {pages} = this.props;
-    const {taskList, leaderboard} = pages;
+    const {taskList = [], leaderboard = []} = pages;
 
     return (
       <ScrollView style={ScreenStyle.root}>
@@ -151,9 +177,15 @@ class CampusAmbassadorHomePage extends Component {
             </View>
           </View>
 
-          {taskList.map(props => (
-            <TaskCard {...props} key={props.id} />
-          ))}
+          {taskList.length >= 1 &&
+            taskList.map(props => (
+              <TaskCard
+                {...props}
+                key={props.id}
+                onPressTaskView={id => this.handleTaskView(id)}
+                onPressPin={id => this.handlePin(id)}
+              />
+            ))}
 
           <Button
             title="See more"
@@ -170,19 +202,12 @@ class CampusAmbassadorHomePage extends Component {
             <Text style={ScreenStyle.tasksTitleStyle}>Leaderboard</Text>
           </View>
 
-          {leaderboard
-            .sort((a, b) => {
-              return parseInt(a.rank) - parseInt(b.rank);
-            })
-            .map(props => (
-              <LeaderboardCard {...props} key={props.id} />
-            ))}
-          {/* <Button
-            title="See more"
-            titleStyle={{color: Colors.buttonBlue}}
-            type="clear"
-            buttonStyle={ScreenStyle.seeMoreButton}
-          /> */}
+          {leaderboard.length >= 1 &&
+            leaderboard
+              .sort((a, b) => {
+                return parseInt(a.rank) - parseInt(b.rank);
+              })
+              .map(props => <LeaderboardCard {...props} key={props.id} />)}
         </View>
       </ScrollView>
     );

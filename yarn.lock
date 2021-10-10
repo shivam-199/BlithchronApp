@@ -6616,6 +6616,18 @@
   "resolved" "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-4.1.1.tgz"
   "version" "4.1.1"
 
+"react-native-image-resizer@^1.4.5":
+  "integrity" "sha512-33EgL3C9pyvjKpullAB6fWyD5QhoYEpNNB9rxNvUsrpAnL2mHBW7PTrUCCZudJeB6Weg7nbweKrSw1nnto5aqg=="
+  "resolved" "https://registry.npmjs.org/react-native-image-resizer/-/react-native-image-resizer-1.4.5.tgz"
+  "version" "1.4.5"
+
+"react-native-lightbox-v2@^0.8.8":
+  "integrity" "sha512-Cgonl9A+b78yvVc9voU5763U3N5px7EAeSnM9u78pCg4z1lwPWqKzWkwZx/K0wTMDSfqav4Iizk6enMuUdgg/A=="
+  "resolved" "https://registry.npmjs.org/react-native-lightbox-v2/-/react-native-lightbox-v2-0.8.8.tgz"
+  "version" "0.8.8"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "react-native-linear-gradient@^2.5.6":
   "integrity" "sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg=="
   "resolved" "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz"
@@ -6696,7 +6708,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.0.0-0 || ^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || ^0.65.0 || 1000.0.0", "react-native@>=0.55", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.64.0":
+"react-native@*", "react-native@^0.0.0-0 || ^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || ^0.65.0 || 1000.0.0", "react-native@>=0.55", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@>=v0.40.0", "react-native@0.64.0":
   "integrity" "sha512-8dhSHBthgGwAjU+OjqUEA49229ThPMQH7URH0u8L0xoQFCnZO2sZ9Wc6KcbxI0x9KSmjCMFFZqRe3w3QsRv64g=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.64.0.tgz"
   "version" "0.64.0"
