@@ -147,15 +147,11 @@ class CampusAmbassadorHomePage extends Component {
           <View style={ScreenStyle.pointsBorderBox}>
             <View style={ScreenStyle.pointsEarned}>
               <Text style={ScreenStyle.pointText}>Points Earned</Text>
-              <Text style={ScreenStyle.pointText}>{'250'} Pts.</Text>
+              <Text style={ScreenStyle.pointText}>{'250'}</Text>
             </View>
             <View style={ScreenStyle.pinnedPoints}>
               <Text style={ScreenStyle.pointText}>Pinned Points</Text>
-              <Text style={ScreenStyle.pointText}>{'1250'} Pts.</Text>
-            </View>
-            <View style={ScreenStyle.availablePoints}>
-              <Text style={ScreenStyle.pointText}>Available Points</Text>
-              <Text style={ScreenStyle.pointText}>{'2500'} Pts.</Text>
+              <Text style={ScreenStyle.pointText}>{'1250'}</Text>
             </View>
           </View>
         </View>
