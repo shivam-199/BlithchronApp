@@ -82,17 +82,20 @@ class CampusAmbassadorHomePage extends Component {
     const userId = this.props.auth.user.id;
     this.props.pagesActions
       .checkUserExistence({userId})
-      .then(data => {})
+      .then(data => {
+        const userExistsInFirestore = data;
+        if (!userExistsInFirestore) {
+          // Create new user data
+          this.props.pagesActions
+            .createNewCA()
+            .then(data => {
+              console.log(data);
+            })
+            .catch(error => {});
+        }
+      })
       .catch(error => {});
 
-    const userExistsInFirestore = this.props.pages.userExistsInFirestore;
-    if (!userExistsInFirestore) {
-      // Create new user data
-      this.props.pagesActions
-        .createNewCA()
-        .then(data => {})
-        .catch(error => {});
-    }
     // Fetching task list
     this.props.pagesActions
       .fetchUserTaskList()
