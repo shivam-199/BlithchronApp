@@ -14,7 +14,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import PageRoutes from '../../../constants/PageRoutes';
 
-function TaskCard({
+export function TaskCard({
   name,
   description,
   ptsDesc,
@@ -121,6 +121,14 @@ class CampusAmbassadorHomePage extends Component {
     console.log('Pin');
   };
 
+  handleFinishedTasks = () => {
+    this.props.navigation.navigate(PageRoutes.Drawer.CACompletedTaskPage);
+  };
+
+  handlePinnedTasks = () => {
+    this.props.navigation.navigate(PageRoutes.Drawer.CAPinnedTaskPage);
+  };
+
   render() {
     const {pages} = this.props;
     const {taskList = [], leaderboard = []} = pages;
@@ -166,12 +174,14 @@ class CampusAmbassadorHomePage extends Component {
                 titleStyle={ScreenStyle.buttonTitleStyle}
                 type="outline"
                 buttonStyle={ScreenStyle.finishedTasksButton}
+                onPress={this.handleFinishedTasks}
               />
               <Button
                 title="Pinned Tasks"
                 titleStyle={ScreenStyle.buttonTitleStyle}
                 type="outline"
                 buttonStyle={ScreenStyle.pinnedTasksButton}
+                onPress={this.handlePinnedTasks}
               />
             </View>
           </View>

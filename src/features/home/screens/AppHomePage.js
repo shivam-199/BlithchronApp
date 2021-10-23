@@ -28,6 +28,8 @@ import LoginPage from '../../auth/Screens/LoginPage';
 import CampusAmbassadorPage from '../../pages/screens/CampusAmbassadorPage';
 import CampusAmbassadorHomePage from '../../pages/screens/CampusAmbassadarHomePage';
 import CampusAmbassadorTaskPage from '../../pages/screens/CampusAmbassadorTaskPage';
+import CampusAmbassadorCompletedTasksPage from '../../pages/screens/CampusAmbassadorCompletedTasksPage';
+import CampusAmbassadorPinnedTasksPage from '../../pages/screens/CampusAmbassadorPinnedTasksPage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
 import {Text} from 'react-native';
@@ -78,6 +80,14 @@ function CANavigator(props) {
       <CANavigator.Screen
         name={PageRoutes.Drawer.LoginPage}
         component={LoginPage}
+      />
+      <CANavigator.Screen
+        name={PageRoutes.Drawer.CACompletedTaskPage}
+        component={CampusAmbassadorCompletedTasksPage}
+      />
+      <CANavigator.Screen
+        name={PageRoutes.Drawer.CAPinnedTaskPage}
+        component={CampusAmbassadorPinnedTasksPage}
       />
     </CANavigator.Navigator>
   );
