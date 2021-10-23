@@ -47,7 +47,9 @@ export function TaskCard({
         </Text>
         <IonIcon name="play" size={20} color={Colors.white} />
       </View>
-      <Text style={ScreenStyle.ptsDesc}>{ptsDesc}</Text>
+      <Text style={ScreenStyle.ptsDesc} numberOfLines={2}>
+        {ptsDesc}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -196,12 +198,14 @@ class CampusAmbassadorHomePage extends Component {
               />
             ))}
 
-          <Button
-            title="See more"
-            titleStyle={{color: Colors.buttonBlue}}
-            type="clear"
-            buttonStyle={ScreenStyle.seeMoreButton}
-          />
+          {taskList.length >= 10 && (
+            <Button
+              title="See more"
+              titleStyle={{color: Colors.buttonBlue}}
+              type="clear"
+              buttonStyle={ScreenStyle.seeMoreButton}
+            />
+          )}
         </View>
 
         {/* LEADERBOARD STARTS  */}
