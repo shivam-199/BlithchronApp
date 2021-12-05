@@ -4,7 +4,13 @@ import {connect} from 'react-redux';
 import Colors from '../../../utilities/Colors';
 
 import React, {Component} from 'react';
-import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorHomePage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
@@ -14,31 +20,15 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import PageRoutes from '../../../constants/PageRoutes';
 
-export function TaskCard({
-  name,
-  description,
-  ptsDesc,
-  id,
-  onPressTaskView,
-  onPressPin,
-}) {
+export function TaskCard({name, description, ptsDesc, id, onPressTaskView}) {
   handleTask = id => {
     onPressTaskView(id);
   };
-  handlePin = id => {
-    onPressPin(id);
-  };
   return (
     <TouchableOpacity
-      style={ScreenStyle.appDownloadPart}
+      style={ScreenStyle.cardStyle}
       onPress={() => this.handleTask(id)}>
       <View style={ScreenStyle.topRow}>
-        <SimpleLineIcons
-          name="pin"
-          style={ScreenStyle.pinIconStyle}
-          size={20}
-          onPress={() => this.handlePin(id)}
-        />
         <Text style={ScreenStyle.taskName}>{name}</Text>
       </View>
       <View style={ScreenStyle.middleRow}>
@@ -77,7 +67,9 @@ function LeaderboardCard({name, institution, rank, points}) {
 class CampusAmbassadorHomePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      refreshing: false,
+    };
   }
 
   componentDidMount() {
@@ -131,17 +123,45 @@ class CampusAmbassadorHomePage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.CAPinnedTaskPage);
   };
 
+  handleRefresh = () => {};
+
+  refreshDone = () => {
+    this.setState({refreshing: true});
+    this.props.pagesActions
+      .fetchUserTaskList()
+      .then(data => {
+        this.props.pagesActions
+          .fetchLeaderboard()
+          .then(data => {
+            this.props.pagesActions
+              .fetchTaskList()
+              .then(data => {})
+              .catch(error => {});
+          })
+          .catch(error => {});
+      })
+      .catch(error => {});
+    this.setState({refreshing: false});
+  };
+
   render() {
     const {pages} = this.props;
     const {taskList = [], leaderboard = []} = pages;
+    const {refreshing} = this.state;
 
     return (
-      <ScrollView style={ScreenStyle.root}>
+      <ScrollView
+        style={ScreenStyle.root}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={this.refreshDone}
+          />
+        }>
         {/* Campus Ambassador  text*/}
 
         <View style={ScreenStyle.CATitleView}>
           <LinearTextGradient
-            style={ScreenStyle.textGradientStyle}
             colors={[
               Colors.gradientTextLeft,
               Colors.gradientTextMiddle,
@@ -194,18 +214,8 @@ class CampusAmbassadorHomePage extends Component {
                 {...props}
                 key={props.id}
                 onPressTaskView={id => this.handleTaskView(id)}
-                onPressPin={id => this.handlePin(id)}
               />
             ))}
-
-          {taskList.length >= 10 && (
-            <Button
-              title="See more"
-              titleStyle={{color: Colors.buttonBlue}}
-              type="clear"
-              buttonStyle={ScreenStyle.seeMoreButton}
-            />
-          )}
         </View>
 
         {/* LEADERBOARD STARTS  */}

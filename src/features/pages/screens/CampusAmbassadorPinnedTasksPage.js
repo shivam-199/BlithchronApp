@@ -9,7 +9,7 @@ import ScreenStyle from './styles/StylesCampusAmbassadorPinnedTasksPage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
 
-import {TaskCard} from './CampusAmbassadarHomePage';
+import TaskCard from './CampusAmbassadarHomePage';
 
 class EventsPage extends Component {
   constructor(props) {
@@ -21,16 +21,14 @@ class EventsPage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.CATaskPage, {id});
   };
 
-  handlePin = id => {
-    console.log('Pin');
-  };
-
   render() {
     const pinnedTaskList = this.props.pages.userTasks.taskList.filter(task => {
       if (task.isPinned) {
         return task;
       }
     });
+    console.log('Pinned tasks only');
+    // console.log(pinnedTaskList);
     return (
       <ScrollView style={ScreenStyle.root}>
         {/* Pinned Tasks  text*/}
@@ -51,14 +49,14 @@ class EventsPage extends Component {
           {pinnedTaskList.length === 0 && (
             <Text style={ScreenStyle.noTasksPinned}>No Tasks Pinned Yet!</Text>
           )}
-          {pinnedTaskList.map(props => {
-            <TaskCard
-              {...props}
-              key={props.id}
-              onPressTaskView={id => this.handleTaskView(id)}
-              onPressPin={id => this.handlePin(id)}
-            />;
-          })}
+          {pinnedTaskList.length >= 1 &&
+            pinnedTaskList.map(props => {
+              <TaskCard
+                {...props}
+                key={props.id}
+                onPressTaskView={id => this.handleTaskView(id)}
+              />;
+            })}
         </View>
       </ScrollView>
     );

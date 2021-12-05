@@ -8,6 +8,7 @@ import ScreenStyle from './styles/StylesCampusAmbassadorTaskPage';
 import {LinearTextGradient} from 'react-native-text-gradient';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Colors from '../../../utilities/Colors';
@@ -62,8 +63,6 @@ class CampusAmbassadorTaskPage extends Component {
     this.props.pagesActions.viewTask(id);
   }
 
-  handlePin = () => {};
-
   handlePicker = () => {
     let options = {
       title: 'Select Image',
@@ -98,10 +97,15 @@ class CampusAmbassadorTaskPage extends Component {
     this.props.pagesActions.removeSelectedPhoto(id);
   };
 
+  handlePin = id => {
+    this.props.pagesActions.pinTask(id);
+  };
+
   render() {
     const {pages} = this.props;
     const {userTasks} = pages;
     const {currentTask} = userTasks;
+    console.log(userTasks.taskList);
 
     return (
       <ScrollView style={ScreenStyle.root}>
@@ -112,11 +116,11 @@ class CampusAmbassadorTaskPage extends Component {
             size={25}
             onPress={() => this.props.navigation.goBack()}
           />
-          <Icon
-            name="push-pin"
+          <AntIcon
+            name={currentTask.isPinned ? 'pushpin' : 'pushpino'}
             color={Colors.white}
             size={30}
-            onPress={this.handlePin}
+            onPress={() => this.handlePin(currentTask.id)}
           />
         </View>
         <View style={ScreenStyle.taskView}>

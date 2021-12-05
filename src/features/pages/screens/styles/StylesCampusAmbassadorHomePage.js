@@ -77,14 +77,15 @@ let style = {
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  appDownloadPart: {
+  cardStyle: {
     backgroundColor: Colors.primarySolid,
     alignSelf: 'center',
-    marginTop: 15,
+    marginTop: 10,
     borderRadius: 10,
     elevation: 3,
     flexDirection: 'column',
-    padding: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     width: '95%',
   },
   topRow: {
@@ -99,7 +100,7 @@ let style = {
     color: Colors.white,
     fontSize: 18,
     fontWeight: '700',
-    marginBottom: 10,
+    marginBottom: 7.5,
   },
   middleRow: {
     flexDirection: 'row',
@@ -112,11 +113,10 @@ let style = {
     marginRight: 20,
   },
   ptsDesc: {
-    marginTop: 15,
+    marginTop: 10,
     color: Colors.white,
     fontSize: 14,
   },
-  white15: {color: 'white', fontSize: 15},
   tasksTitleStyle: {
     color: Colors.white,
     fontWeight: 'bold',
