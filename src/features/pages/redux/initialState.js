@@ -12,6 +12,7 @@ const task = {
   isPinned: false,
   status: '',
   uploads: [],
+  ptsReceived: 0,
 };
 
 const userTasks = {

@@ -14,7 +14,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import PageRoutes from '../../../constants/PageRoutes';
 
-function TaskCard({
+export function TaskCard({
   name,
   description,
   ptsDesc,
@@ -47,7 +47,9 @@ function TaskCard({
         </Text>
         <IonIcon name="play" size={20} color={Colors.white} />
       </View>
-      <Text style={ScreenStyle.ptsDesc}>{ptsDesc}</Text>
+      <Text style={ScreenStyle.ptsDesc} numberOfLines={2}>
+        {ptsDesc}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -82,17 +84,20 @@ class CampusAmbassadorHomePage extends Component {
     const userId = this.props.auth.user.id;
     this.props.pagesActions
       .checkUserExistence({userId})
-      .then(data => {})
+      .then(data => {
+        const userExistsInFirestore = data;
+        if (!userExistsInFirestore) {
+          // Create new user data
+          this.props.pagesActions
+            .createNewCA()
+            .then(data => {
+              console.log(data);
+            })
+            .catch(error => {});
+        }
+      })
       .catch(error => {});
 
-    const userExistsInFirestore = this.props.pages.userExistsInFirestore;
-    if (!userExistsInFirestore) {
-      // Create new user data
-      this.props.pagesActions
-        .createNewCA()
-        .then(data => {})
-        .catch(error => {});
-    }
     // Fetching task list
     this.props.pagesActions
       .fetchUserTaskList()
@@ -116,6 +121,14 @@ class CampusAmbassadorHomePage extends Component {
 
   handlePin = id => {
     console.log('Pin');
+  };
+
+  handleFinishedTasks = () => {
+    this.props.navigation.navigate(PageRoutes.Drawer.CACompletedTaskPage);
+  };
+
+  handlePinnedTasks = () => {
+    this.props.navigation.navigate(PageRoutes.Drawer.CAPinnedTaskPage);
   };
 
   render() {
@@ -163,12 +176,14 @@ class CampusAmbassadorHomePage extends Component {
                 titleStyle={ScreenStyle.buttonTitleStyle}
                 type="outline"
                 buttonStyle={ScreenStyle.finishedTasksButton}
+                onPress={this.handleFinishedTasks}
               />
               <Button
                 title="Pinned Tasks"
                 titleStyle={ScreenStyle.buttonTitleStyle}
                 type="outline"
                 buttonStyle={ScreenStyle.pinnedTasksButton}
+                onPress={this.handlePinnedTasks}
               />
             </View>
           </View>
@@ -183,12 +198,14 @@ class CampusAmbassadorHomePage extends Component {
               />
             ))}
 
-          <Button
-            title="See more"
-            titleStyle={{color: Colors.buttonBlue}}
-            type="clear"
-            buttonStyle={ScreenStyle.seeMoreButton}
-          />
+          {taskList.length >= 10 && (
+            <Button
+              title="See more"
+              titleStyle={{color: Colors.buttonBlue}}
+              type="clear"
+              buttonStyle={ScreenStyle.seeMoreButton}
+            />
+          )}
         </View>
 
         {/* LEADERBOARD STARTS  */}

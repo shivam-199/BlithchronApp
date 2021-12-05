@@ -8,6 +8,7 @@ const user = {
   emailVerified: false,
   phoneNumber: '',
   metadata: {},
+  totalPoints: 0,
 };
 
 const initialState = {

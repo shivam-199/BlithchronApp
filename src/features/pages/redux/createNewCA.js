@@ -13,7 +13,7 @@ export function createNewCA() {
         type: CREATE_NEW_CA_BEGIN,
       });
 
-      const {auth, pages} = getState();
+      const {auth} = getState();
       const {user} = auth;
 
       const userRec = {
@@ -21,6 +21,7 @@ export function createNewCA() {
         email: user.email,
         institution: '',
         tasks: [],
+        totalPoints: user.totalPoints,
       };
 
       // Creating new user
