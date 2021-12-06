@@ -9,22 +9,21 @@ let style = {
   },
   TitleView: {
     paddingTop: 20,
-    paddingLeft: 20,
+    paddingLeft: 10,
   },
   TitleText: {
     fontSize: 30,
   },
   MainView: {
-    width: '100%',
-    marginTop: 0,
-    marginLeft: 20,
-    width: '88%',
     flexDirection: 'column',
+    width: '95%',
+    marginHorizontal: '2.5%',
   },
   noTasksPinned: {
-    fontSize: 15,
+    fontSize: 18,
     color: Colors.white,
     marginVertical: 10,
+    fontWeight: '700',
   },
 };
 
