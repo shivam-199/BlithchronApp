@@ -50,7 +50,7 @@ export function pinTask(taskId) {
         .then(data => {
           dispatch({
             type: PIN_TASK_SUCCESS,
-            data: {tasks},
+            data: {tasks, taskId},
           });
         })
         .catch(error => {
@@ -76,14 +76,13 @@ export function reducer(state, action) {
         isCreatingUser: true,
       };
     case PIN_TASK_SUCCESS:
-      console.log(action.data.tasks);
       const newState = Object.assign({}, state);
       newState.userTasks.taskList = action.data.tasks;
-      newState.userTasks.currentTask.isPinned =
-        !newState.userTasks.currentTask.isPinned;
-      console.log(newState.userTasks);
+      newState.userTasks.currentTask = newState.userTasks.taskList.filter(
+        task => task.id === action.data.taskId,
+      )[0];
       return {
-        ...state,
+        ...newState,
         isCreatingUser: false,
       };
     case PIN_TASK_FAILURE:

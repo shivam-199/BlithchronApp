@@ -111,10 +111,6 @@ class CampusAmbassadorHomePage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.CATaskPage, {id});
   };
 
-  handlePin = id => {
-    console.log('Pin');
-  };
-
   handleFinishedTasks = () => {
     this.props.navigation.navigate(PageRoutes.Drawer.CACompletedTaskPage);
   };
@@ -148,6 +144,8 @@ class CampusAmbassadorHomePage extends Component {
     const {pages} = this.props;
     const {taskList = [], leaderboard = []} = pages;
     const {refreshing} = this.state;
+
+    console.log(this.props);
 
     return (
       <ScrollView

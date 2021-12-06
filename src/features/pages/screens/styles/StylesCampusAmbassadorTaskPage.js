@@ -103,6 +103,16 @@ let style = {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
+  showPointsText: {
+    color: Colors.white,
+    fontSize: 15,
+    margin: 10,
+  },
+  showPoints: {
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: '700',
+  },
   uploadPlaceholder: {
     width: 100,
     height: 100,
