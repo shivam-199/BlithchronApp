@@ -20,3 +20,4 @@ const initialState = {
   user,
 };
 export default initialState;
+export {initialState};

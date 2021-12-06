@@ -1,5 +1,6 @@
 import {bindActionCreators} from 'redux';
 import * as pagesActions from '../redux/action';
+import * as authActions from '../../auth/redux/action';
 import {connect} from 'react-redux';
 import Colors from '../../../utilities/Colors';
 
@@ -10,6 +11,7 @@ import {
   ScrollView,
   TouchableOpacity,
   RefreshControl,
+  Alert,
 } from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorHomePage';
 
@@ -17,7 +19,7 @@ import {LinearTextGradient} from 'react-native-text-gradient';
 import {Button} from 'react-native-elements';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PageRoutes from '../../../constants/PageRoutes';
 
 export function TaskCard({name, description, ptsDesc, id, onPressTaskView}) {
@@ -78,6 +80,7 @@ class CampusAmbassadorHomePage extends Component {
       .checkUserExistence({userId})
       .then(data => {
         const userExistsInFirestore = data;
+        console.log(userExistsInFirestore);
         if (!userExistsInFirestore) {
           // Create new user data
           this.props.pagesActions
@@ -140,12 +143,20 @@ class CampusAmbassadorHomePage extends Component {
     this.setState({refreshing: false});
   };
 
+  handleLogout = () => {
+    Alert.alert('Logout', 'Are you sure you want to logout?', [
+      {text: 'Confirm', onPress: () => this.props.authActions.logout()},
+      {text: 'Cancel', onPress: () => {}},
+    ]);
+  };
+
   render() {
-    const {pages} = this.props;
+    const {pages, auth} = this.props;
     const {taskList = [], leaderboard = []} = pages;
     const {refreshing} = this.state;
+    const userEmail = auth.user.email;
 
-    console.log(this.props);
+    // console.log(this.props);
 
     return (
       <ScrollView
@@ -168,7 +179,18 @@ class CampusAmbassadorHomePage extends Component {
             locations={[0, 0.5, 1]}>
             <Text style={ScreenStyle.CATitleText}>Campus Ambassador</Text>
           </LinearTextGradient>
+          <MaterialIcons
+            name="logout"
+            color="white"
+            style={ScreenStyle.logoutIcon}
+            size={25}
+            onPress={this.handleLogout}
+          />
         </View>
+
+        <Text style={ScreenStyle.welcomeOuter}>
+          Welcome <Text style={ScreenStyle.welcomeEmail}>{userEmail} !</Text>
+        </Text>
 
         {/* Points earned view */}
         <View style={ScreenStyle.pointsMainView}>
@@ -245,6 +267,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     pagesActions: bindActionCreators({...pagesActions}, dispatch),
+    authActions: bindActionCreators({...authActions}, dispatch),
   };
 }
 

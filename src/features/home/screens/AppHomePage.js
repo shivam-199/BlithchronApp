@@ -19,7 +19,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import ScreenStyles from './styles/StylesAppHomePage';
 
 import HomePage from '../../pages/screens/HomePage';
-import EventsPage from '../../pages/screens/EventsPage';
+// import EventsPage from '../../pages/screens/EventsPage';
 import SponsorsPage from '../../pages/screens/SponsorsPage';
 import ContactPage from '../../pages/screens/ContactPage';
 import DevelopersPage from '../../pages/screens/DevelopersPage';

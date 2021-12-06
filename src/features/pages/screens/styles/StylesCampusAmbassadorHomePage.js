@@ -10,10 +10,26 @@ let style = {
   CATitleView: {
     paddingTop: 20,
     paddingLeft: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  logoutIcon: {
+    margin: 10,
   },
   CATitleText: {
     fontSize: 45,
     fontWeight: 'bold',
+  },
+  welcomeOuter: {
+    color: Colors.white,
+    fontSize: 18,
+    marginHorizontal: '5%',
+    marginTop: 10,
+  },
+  welcomeEmail: {
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: '700',
   },
   pointsMainView: {
     backgroundColor: Colors.primaryDark,
@@ -52,7 +68,6 @@ let style = {
   },
   pinnedPoints: {
     borderRightColor: Colors.borderPurple,
-    borderRightWidth: 3,
     flex: 1,
     height: '100%',
     flexDirection: 'column',

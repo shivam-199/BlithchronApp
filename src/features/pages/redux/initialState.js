@@ -30,4 +30,4 @@ const initialState = {
 };
 export default initialState;
 
-export {task};
+export {initialState, task};
