@@ -80,7 +80,6 @@ class CampusAmbassadorHomePage extends Component {
       .checkUserExistence({userId})
       .then(data => {
         const userExistsInFirestore = data;
-        console.log(userExistsInFirestore);
         if (!userExistsInFirestore) {
           // Create new user data
           this.props.pagesActions
@@ -122,8 +121,6 @@ class CampusAmbassadorHomePage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.CAPinnedTaskPage);
   };
 
-  handleRefresh = () => {};
-
   refreshDone = () => {
     this.setState({refreshing: true});
     this.props.pagesActions
@@ -155,8 +152,6 @@ class CampusAmbassadorHomePage extends Component {
     const {taskList = [], leaderboard = []} = pages;
     const {refreshing} = this.state;
     const userEmail = auth.user.email;
-
-    // console.log(this.props);
 
     return (
       <ScrollView

@@ -141,6 +141,8 @@ let style = {
     width: 90,
     height: 100,
     margin: 10,
+    borderColor: Colors.black,
+    borderWidth: 2,
   },
 };
 
