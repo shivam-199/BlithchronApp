@@ -85,9 +85,7 @@ class CampusAmbassadorHomePage extends Component {
           // Create new user data
           this.props.pagesActions
             .createNewCA()
-            .then(data => {
-              console.log(data);
-            })
+            .then(data => {})
             .catch(error => {});
         }
       })
@@ -97,6 +95,11 @@ class CampusAmbassadorHomePage extends Component {
     this.props.pagesActions
       .fetchUserTaskList()
       .then(data => {
+        this.props.pagesActions
+          .computeTotalPoints({userId})
+          .then(data => {})
+          .catch(error => {});
+
         this.props.pagesActions
           .fetchLeaderboard()
           .then(data => {
@@ -127,6 +130,10 @@ class CampusAmbassadorHomePage extends Component {
     this.props.pagesActions
       .fetchUserTaskList()
       .then(data => {
+        this.props.pagesActions
+          .computeTotalPoints({userId})
+          .then(data => {})
+          .catch(error => {});
         this.props.pagesActions
           .fetchLeaderboard()
           .then(data => {
@@ -184,20 +191,22 @@ class CampusAmbassadorHomePage extends Component {
           />
         </View>
 
-        <Text style={ScreenStyle.welcomeOuter}>
-          Welcome <Text style={ScreenStyle.welcomeEmail}>{userEmail} !</Text>
-        </Text>
-
         {/* Points earned view */}
         <View style={ScreenStyle.pointsMainView}>
           <View style={ScreenStyle.pointsBorderBox}>
+            <Text style={ScreenStyle.welcomeOuter}>
+              Welcome{' '}
+              <Text style={ScreenStyle.welcomeEmail}>{userEmail} !</Text>
+            </Text>
             <View style={ScreenStyle.pointsEarned}>
-              <Text style={ScreenStyle.pointText}>Points Earned</Text>
-              <Text style={ScreenStyle.pointText}>{'250'}</Text>
-            </View>
-            <View style={ScreenStyle.pinnedPoints}>
-              <Text style={ScreenStyle.pointText}>Pinned Points</Text>
-              <Text style={ScreenStyle.pointText}>{'1250'}</Text>
+              <Text style={ScreenStyle.pointText}>Your total points are: </Text>
+              <Text style={ScreenStyle.pointText}>
+                {pages.isFetchingPoints ? (
+                  <Progress.Circle size={25} indeterminate={true} />
+                ) : (
+                  auth.user.totalPoints
+                )}
+              </Text>
             </View>
           </View>
         </View>

@@ -47,24 +47,24 @@ export function reducer(state, action) {
     case FETCH_USER_TASK_DATA_BEGIN:
       return {
         ...state,
-        isFetchingTaskList: true,
+        isFetching: true,
       };
     case FETCH_USER_TASK_DATA_SUCCESS:
       const newState = Object.assign({}, state);
       newState.userTasks.taskList = action.data.tasks;
       return {
         ...newState,
-        isFetchingTaskList: false,
+        isFetching: false,
       };
     case FETCH_USER_TASK_DATA_FAILURE:
       return {
         ...state,
-        isFetchingTaskList: false,
+        isFetching: false,
       };
     case FETCH_USER_TASK_DATA_DISMISS_ERROR:
       return {
         ...state,
-        isFetchingTaskList: false,
+        isFetching: false,
       };
     default:
       return state;

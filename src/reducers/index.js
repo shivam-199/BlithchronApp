@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import {LOGOUT} from '../features/auth/redux/constant';
+import {COMPUTE_TOTAL_POINTS_SUCCESS} from '../features/pages/redux/constant';
 import AuthReducer from '../features/auth/redux/reducer';
 import HomeReducer from '../features/home/redux/reducer';
 import PagesReducer from '../features/pages/redux/reducer';
@@ -23,6 +24,11 @@ const rootReducer = (state, action) => {
     const newState = Object.assign({}, state);
     newState.auth = authInitState;
     newState.pages = pagesInitState;
+    return appReducer(newState, action);
+  }
+  if (action.type === COMPUTE_TOTAL_POINTS_SUCCESS) {
+    const newState = Object.assign({}, state);
+    newState.auth.user.totalPoints = action.data.totPts;
     return appReducer(newState, action);
   }
   return appReducer(state, action);
