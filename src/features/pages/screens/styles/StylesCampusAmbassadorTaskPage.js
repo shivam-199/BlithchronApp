@@ -47,6 +47,9 @@ let style = {
     color: Colors.white,
     fontSize: 14,
   },
+  touchableOpacityUpload: {
+    alignSelf: 'flex-start',
+  },
   markApproval: {
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -120,10 +123,12 @@ let style = {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    // margin: 5,
   },
   imageViewStyles: {
     position: 'relative',
+    width: 90,
+    height: 100,
+    margin: 10,
   },
   galleryCross: {
     position: 'absolute',
@@ -138,11 +143,9 @@ let style = {
     fontSize: 12,
   },
   uploadedPic: {
-    width: 90,
+    // width: 90,
     height: 100,
-    margin: 10,
-    borderColor: Colors.black,
-    borderWidth: 2,
+    // margin: 10,
   },
 };
 

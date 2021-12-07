@@ -13,6 +13,7 @@ const task = {
   status: '',
   uploads: [],
   ptsReceived: 0,
+  userTextInput: '',
 };
 
 const userTasks = {

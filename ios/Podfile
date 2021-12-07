@@ -18,6 +18,8 @@ target 'BlithchronApp' do
 
   pod 'RNTextGradientView', :path => '../node_modules/react-native-text-gradient'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'BlithchronAppTests' do
     inherit! :complete
     # Pods for testing

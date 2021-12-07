@@ -43,7 +43,7 @@ export function reducer(state, action) {
     case FETCH_LEADERBOARD_BEGIN:
       return {
         ...state,
-        isFetching: true,
+        isFetchingLeaderboard: true,
       };
     case FETCH_LEADERBOARD_SUCCESS:
       const leaderboard = action.data.map(person => {
@@ -58,17 +58,17 @@ export function reducer(state, action) {
       return {
         ...state,
         leaderboard: leaderboard,
-        isFetching: false,
+        isFetchingLeaderboard: false,
       };
     case FETCH_LEADERBOARD_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetchingLeaderboard: false,
       };
     case FETCH_LEADERBOARD_DISMISS_ERROR:
       return {
         ...state,
-        isFetching: false,
+        isFetchingLeaderboard: false,
       };
     default:
       return state;

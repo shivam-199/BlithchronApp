@@ -3,7 +3,7 @@ import * as pagesActions from '../redux/action';
 import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
-import {Text, View, ScrollView, Image, Platform} from 'react-native';
+import {Text, View, ScrollView, Image, Alert} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorTaskPage';
 import {LinearTextGradient} from 'react-native-text-gradient';
 
@@ -13,15 +13,19 @@ import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Colors from '../../../utilities/Colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import * as Progress from 'react-native-progress';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 import Lightbox from 'react-native-lightbox-v2';
 import TaskStatus from '../../../constants/TaskStatus';
 
 function SelectedImage({src, id, status, onRemove}) {
+  const [loaded, setLoaded] = React.useState(false);
+
   handleRemove = id => {
     onRemove(id) || onRemove();
   };
+
   return (
     <View style={ScreenStyle.imageViewStyles}>
       {(status === TaskStatus.INCOMPLETE ||
@@ -40,13 +44,17 @@ function SelectedImage({src, id, status, onRemove}) {
           width: '100%',
           height: '100%',
         }}>
-        <Image
-          source={{
-            uri: src,
-          }}
-          style={ScreenStyle.uploadedPic}
-          resizeMode="contain"
-        />
+        <View>
+          {!loaded && <Progress.Circle size={25} indeterminate={true} />}
+          <Image
+            source={{
+              uri: src,
+            }}
+            style={ScreenStyle.uploadedPic}
+            resizeMode="contain"
+            onLoad={() => setLoaded(true)}
+          />
+        </View>
       </Lightbox>
     </View>
   );
@@ -86,11 +94,19 @@ class CampusAmbassadorTaskPage extends Component {
   };
 
   handleSubmit = () => {
-    const taskId = this.props.route.params.id;
-    this.props.pagesActions
-      .submitTask({taskId})
-      .then(data => {})
-      .catch(error => {});
+    Alert.alert('Submit', 'Are you sure you want to submit task?', [
+      {
+        text: 'Yes',
+        onPress: () => {
+          const taskId = this.props.route.params.id;
+          this.props.pagesActions
+            .submitTask({taskId})
+            .then(data => {})
+            .catch(error => {});
+        },
+      },
+      {text: 'Go back', onPress: () => {}},
+    ]);
   };
 
   handleRemovePhoto = id => {
@@ -182,7 +198,9 @@ class CampusAmbassadorTaskPage extends Component {
                 <Text style={ScreenStyle.adminComments}>
                   {currentTask.adminComment}
                 </Text>
-                <TouchableOpacity onPress={this.handleSubmit}>
+                <TouchableOpacity
+                  style={ScreenStyle.touchableOpacityUpload}
+                  onPress={this.handleSubmit}>
                   <Text style={ScreenStyle.resubmit}>Resubmit</Text>
                 </TouchableOpacity>
                 <View style={ScreenStyle.galleryView}>
@@ -209,7 +227,9 @@ class CampusAmbassadorTaskPage extends Component {
             {(currentTask.status === '' ||
               currentTask.status === TaskStatus.INCOMPLETE) && (
               <View>
-                <TouchableOpacity onPress={this.handleSubmit}>
+                <TouchableOpacity
+                  style={ScreenStyle.touchableOpacityUpload}
+                  onPress={this.handleSubmit}>
                   <Text style={ScreenStyle.markApproval}>
                     Mark for Approval
                   </Text>

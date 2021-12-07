@@ -17,6 +17,7 @@ import ScreenStyle from './styles/StylesCampusAmbassadorHomePage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
 import {Button} from 'react-native-elements';
+import * as Progress from 'react-native-progress';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -205,6 +206,9 @@ class CampusAmbassadorHomePage extends Component {
         <View style={ScreenStyle.MainTasksView}>
           <View style={ScreenStyle.tasksTitleRow}>
             <Text style={ScreenStyle.tasksTitleStyle}>Tasks</Text>
+            {pages.isFetchingTaskList && (
+              <Progress.Circle size={25} indeterminate={true} />
+            )}
             <View style={ScreenStyle.rowFlex}>
               <Button
                 title="Finished Tasks"
@@ -238,6 +242,9 @@ class CampusAmbassadorHomePage extends Component {
         <View style={ScreenStyle.MainTasksView}>
           <View style={ScreenStyle.tasksTitleRow}>
             <Text style={ScreenStyle.tasksTitleStyle}>Leaderboard</Text>
+            {pages.isFetchingLeaderboard && (
+              <Progress.Circle size={25} indeterminate={true} />
+            )}
           </View>
 
           {leaderboard.length >= 1 &&
