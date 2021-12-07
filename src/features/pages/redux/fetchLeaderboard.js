@@ -52,6 +52,8 @@ export function reducer(state, action) {
         newPerson.name = person._data.name;
         newPerson.rank = person._data.rank;
         newPerson.institution = person._data.institution;
+        newPerson.email = person._data.email;
+        newPerson.points = person._data.points;
         return newPerson;
       });
 
