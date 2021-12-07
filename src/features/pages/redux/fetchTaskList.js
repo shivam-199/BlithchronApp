@@ -43,7 +43,7 @@ export function reducer(state, action) {
     case FETCH_TASK_LIST_BEGIN:
       return {
         ...state,
-        isFetching: true,
+        isFetchingTaskList: true,
       };
     case FETCH_TASK_LIST_SUCCESS:
       const taskList = action.data.map(task => {
@@ -57,17 +57,17 @@ export function reducer(state, action) {
       return {
         ...state,
         taskList: taskList,
-        isFetching: false,
+        isFetchingTaskList: false,
       };
     case FETCH_TASK_LIST_FAILURE:
       return {
         ...state,
-        isFetching: false,
+        isFetchingTaskList: false,
       };
     case FETCH_TASK_LIST_DISMISS_ERROR:
       return {
         ...state,
-        isFetching: false,
+        isFetchingTaskList: false,
       };
     default:
       return state;

@@ -8,6 +8,9 @@ import {reducer as selectPhotos} from './selectPhotos';
 import {reducer as submitTask} from './submitTask';
 import {reducer as removeSelectedPhoto} from './removeSelectedPhoto';
 import {reducer as fetchUserTaskList} from './fetchUserTaskList';
+import {reducer as pinTask} from './pinTask';
+import {reducer as setTextInput} from './setTextInput';
+import {reducer as computeTotalPoints} from './computeTotalPoints';
 
 const reducers = [
   checkUserExistence,
@@ -19,6 +22,9 @@ const reducers = [
   submitTask,
   removeSelectedPhoto,
   fetchUserTaskList,
+  pinTask,
+  setTextInput,
+  computeTotalPoints,
 ];
 
 export default function PagesReducer(state = initialState, action) {

@@ -6,13 +6,14 @@ import Colors from '../../../utilities/Colors';
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorCompletedTasksPage';
+import PageRoutes from '../../../constants/PageRoutes';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
 
 import {TaskCard} from './CampusAmbassadarHomePage';
 import TaskStatus from '../../../constants/TaskStatus';
 
-class EventsPage extends Component {
+class CampusAmbassadorCompletedTasksPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -28,11 +29,7 @@ class EventsPage extends Component {
 
   render() {
     const completedTaskList = this.props.pages.userTasks.taskList.filter(
-      task => {
-        if (task.status === TaskStatus.COMPLETED) {
-          return task;
-        }
-      },
+      task => task.status === TaskStatus.COMPLETED,
     );
     return (
       <ScrollView style={ScreenStyle.root}>
@@ -40,7 +37,6 @@ class EventsPage extends Component {
 
         <View style={ScreenStyle.TitleView}>
           <LinearTextGradient
-            style={ScreenStyle.textGradientStyle}
             colors={[
               Colors.gradientTextLeft,
               Colors.gradientTextMiddle,
@@ -55,14 +51,14 @@ class EventsPage extends Component {
           {completedTaskList.length === 0 && (
             <Text style={ScreenStyle.noTasksDone}>No Tasks Completed Yet!</Text>
           )}
-          {completedTaskList.map(props => {
+          {completedTaskList.map(props => (
             <TaskCard
               {...props}
               key={props.id}
               onPressTaskView={id => this.handleTaskView(id)}
               onPressPin={id => this.handlePin(id)}
-            />;
-          })}
+            />
+          ))}
         </View>
       </ScrollView>
     );
@@ -79,4 +75,7 @@ function mapDispatchToProps(dispatch) {
 
 const styles = StyleSheet.create({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CampusAmbassadorCompletedTasksPage);

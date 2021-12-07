@@ -6,12 +6,13 @@ import Colors from '../../../utilities/Colors';
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorPinnedTasksPage';
+import PageRoutes from '../../../constants/PageRoutes';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
 
 import {TaskCard} from './CampusAmbassadarHomePage';
 
-class EventsPage extends Component {
+class CampusAmbassadorPinnedTasksPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -21,16 +22,12 @@ class EventsPage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.CATaskPage, {id});
   };
 
-  handlePin = id => {
-    console.log('Pin');
-  };
-
   render() {
-    const pinnedTaskList = this.props.pages.userTasks.taskList.filter(task => {
-      if (task.isPinned) {
-        return task;
-      }
-    });
+    const pinnedTaskList = this.props.pages.userTasks.taskList.filter(
+      task => task.isPinned,
+    );
+    console.log('Pinned tasks only');
+    // console.log(pinnedTaskList);
     return (
       <ScrollView style={ScreenStyle.root}>
         {/* Pinned Tasks  text*/}
@@ -51,14 +48,14 @@ class EventsPage extends Component {
           {pinnedTaskList.length === 0 && (
             <Text style={ScreenStyle.noTasksPinned}>No Tasks Pinned Yet!</Text>
           )}
-          {pinnedTaskList.map(props => {
+          {pinnedTaskList.map(props => (
             <TaskCard
               {...props}
               key={props.id}
               onPressTaskView={id => this.handleTaskView(id)}
               onPressPin={id => this.handlePin(id)}
-            />;
-          })}
+            />
+          ))}
         </View>
       </ScrollView>
     );
@@ -73,6 +70,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const styles = StyleSheet.create({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(EventsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CampusAmbassadorPinnedTasksPage);

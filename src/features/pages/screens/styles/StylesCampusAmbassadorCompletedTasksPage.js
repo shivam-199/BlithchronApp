@@ -3,7 +3,10 @@ import Colors from '../../../../utilities/Colors';
 // import DimensionScale from '../../../../utilities/DimensionScale';
 
 let style = {
-  root: {flex: 1, backgroundColor: Colors.primaryDark},
+  root: {
+    flex: 1,
+    backgroundColor: Colors.primaryDark,
+  },
   TitleView: {
     paddingTop: 20,
     paddingLeft: 20,
@@ -12,16 +15,15 @@ let style = {
     fontSize: 30,
   },
   MainView: {
-    width: '100%',
-    marginTop: 0,
-    marginLeft: 20,
-    width: '88%',
     flexDirection: 'column',
+    width: '95%',
+    marginHorizontal: '2.5%',
   },
   noTasksDone: {
-    fontSize: 15,
+    fontSize: 18,
     color: Colors.white,
     marginVertical: 10,
+    fontWeight: '700',
   },
 };
 

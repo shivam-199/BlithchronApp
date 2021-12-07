@@ -22,6 +22,7 @@ export function submitTask({taskId}) {
         if (task.id === taskId) {
           const newTask = task;
           newTask.status = TaskStatus.SUBMITTED;
+          newTask.adminComment = '';
           return newTask;
         } else {
           return task;

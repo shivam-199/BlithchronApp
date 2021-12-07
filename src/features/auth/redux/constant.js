@@ -4,3 +4,4 @@ export const CA_LOGIN_BEGIN = 'CA_LOGIN_BEGIN';
 export const CA_LOGIN_FAILURE = 'CA_LOGIN_FAILURE';
 export const CA_LOGIN_DISMISS_ERROR = 'CA_LOGIN_DISMISS_ERROR';
 export const CA_LOGIN_SUCCESS = 'CA_LOGIN_SUCCESS';
+export const LOGOUT = 'LOGOUT';

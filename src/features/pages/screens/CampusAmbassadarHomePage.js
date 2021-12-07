@@ -1,44 +1,37 @@
 import {bindActionCreators} from 'redux';
 import * as pagesActions from '../redux/action';
+import * as authActions from '../../auth/redux/action';
 import {connect} from 'react-redux';
 import Colors from '../../../utilities/Colors';
 
 import React, {Component} from 'react';
-import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  RefreshControl,
+  Alert,
+} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorHomePage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
 import {Button} from 'react-native-elements';
+import * as Progress from 'react-native-progress';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import PageRoutes from '../../../constants/PageRoutes';
 
-export function TaskCard({
-  name,
-  description,
-  ptsDesc,
-  id,
-  onPressTaskView,
-  onPressPin,
-}) {
+export function TaskCard({name, description, ptsDesc, id, onPressTaskView}) {
   handleTask = id => {
     onPressTaskView(id);
   };
-  handlePin = id => {
-    onPressPin(id);
-  };
   return (
     <TouchableOpacity
-      style={ScreenStyle.appDownloadPart}
+      style={ScreenStyle.cardStyle}
       onPress={() => this.handleTask(id)}>
       <View style={ScreenStyle.topRow}>
-        <SimpleLineIcons
-          name="pin"
-          style={ScreenStyle.pinIconStyle}
-          size={20}
-          onPress={() => this.handlePin(id)}
-        />
         <Text style={ScreenStyle.taskName}>{name}</Text>
       </View>
       <View style={ScreenStyle.middleRow}>
@@ -77,7 +70,9 @@ function LeaderboardCard({name, institution, rank, points}) {
 class CampusAmbassadorHomePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      refreshing: false,
+    };
   }
 
   componentDidMount() {
@@ -90,9 +85,7 @@ class CampusAmbassadorHomePage extends Component {
           // Create new user data
           this.props.pagesActions
             .createNewCA()
-            .then(data => {
-              console.log(data);
-            })
+            .then(data => {})
             .catch(error => {});
         }
       })
@@ -102,6 +95,11 @@ class CampusAmbassadorHomePage extends Component {
     this.props.pagesActions
       .fetchUserTaskList()
       .then(data => {
+        this.props.pagesActions
+          .computeTotalPoints({userId})
+          .then(data => {})
+          .catch(error => {});
+
         this.props.pagesActions
           .fetchLeaderboard()
           .then(data => {
@@ -119,10 +117,6 @@ class CampusAmbassadorHomePage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.CATaskPage, {id});
   };
 
-  handlePin = id => {
-    console.log('Pin');
-  };
-
   handleFinishedTasks = () => {
     this.props.navigation.navigate(PageRoutes.Drawer.CACompletedTaskPage);
   };
@@ -131,17 +125,55 @@ class CampusAmbassadorHomePage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.CAPinnedTaskPage);
   };
 
+  refreshDone = () => {
+    this.setState({refreshing: true});
+    this.props.pagesActions
+      .fetchUserTaskList()
+      .then(data => {
+        this.props.pagesActions
+          .computeTotalPoints({userId})
+          .then(data => {})
+          .catch(error => {});
+        this.props.pagesActions
+          .fetchLeaderboard()
+          .then(data => {
+            this.props.pagesActions
+              .fetchTaskList()
+              .then(data => {})
+              .catch(error => {});
+          })
+          .catch(error => {});
+      })
+      .catch(error => {});
+    this.setState({refreshing: false});
+  };
+
+  handleLogout = () => {
+    Alert.alert('Logout', 'Are you sure you want to logout?', [
+      {text: 'Confirm', onPress: () => this.props.authActions.logout()},
+      {text: 'Cancel', onPress: () => {}},
+    ]);
+  };
+
   render() {
-    const {pages} = this.props;
+    const {pages, auth} = this.props;
     const {taskList = [], leaderboard = []} = pages;
+    const {refreshing} = this.state;
+    const userEmail = auth.user.email;
 
     return (
-      <ScrollView style={ScreenStyle.root}>
+      <ScrollView
+        style={ScreenStyle.root}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={this.refreshDone}
+          />
+        }>
         {/* Campus Ambassador  text*/}
 
         <View style={ScreenStyle.CATitleView}>
           <LinearTextGradient
-            style={ScreenStyle.textGradientStyle}
             colors={[
               Colors.gradientTextLeft,
               Colors.gradientTextMiddle,
@@ -150,18 +182,31 @@ class CampusAmbassadorHomePage extends Component {
             locations={[0, 0.5, 1]}>
             <Text style={ScreenStyle.CATitleText}>Campus Ambassador</Text>
           </LinearTextGradient>
+          <MaterialIcons
+            name="logout"
+            color="white"
+            style={ScreenStyle.logoutIcon}
+            size={25}
+            onPress={this.handleLogout}
+          />
         </View>
 
         {/* Points earned view */}
         <View style={ScreenStyle.pointsMainView}>
           <View style={ScreenStyle.pointsBorderBox}>
+            <Text style={ScreenStyle.welcomeOuter}>
+              Welcome{' '}
+              <Text style={ScreenStyle.welcomeEmail}>{userEmail} !</Text>
+            </Text>
             <View style={ScreenStyle.pointsEarned}>
-              <Text style={ScreenStyle.pointText}>Points Earned</Text>
-              <Text style={ScreenStyle.pointText}>{'250'}</Text>
-            </View>
-            <View style={ScreenStyle.pinnedPoints}>
-              <Text style={ScreenStyle.pointText}>Pinned Points</Text>
-              <Text style={ScreenStyle.pointText}>{'1250'}</Text>
+              <Text style={ScreenStyle.pointText}>Your total points are: </Text>
+              <Text style={ScreenStyle.pointText}>
+                {pages.isFetchingPoints ? (
+                  <Progress.Circle size={25} indeterminate={true} />
+                ) : (
+                  auth.user.totalPoints
+                )}
+              </Text>
             </View>
           </View>
         </View>
@@ -170,6 +215,9 @@ class CampusAmbassadorHomePage extends Component {
         <View style={ScreenStyle.MainTasksView}>
           <View style={ScreenStyle.tasksTitleRow}>
             <Text style={ScreenStyle.tasksTitleStyle}>Tasks</Text>
+            {pages.isFetchingTaskList && (
+              <Progress.Circle size={25} indeterminate={true} />
+            )}
             <View style={ScreenStyle.rowFlex}>
               <Button
                 title="Finished Tasks"
@@ -194,18 +242,8 @@ class CampusAmbassadorHomePage extends Component {
                 {...props}
                 key={props.id}
                 onPressTaskView={id => this.handleTaskView(id)}
-                onPressPin={id => this.handlePin(id)}
               />
             ))}
-
-          {taskList.length >= 10 && (
-            <Button
-              title="See more"
-              titleStyle={{color: Colors.buttonBlue}}
-              type="clear"
-              buttonStyle={ScreenStyle.seeMoreButton}
-            />
-          )}
         </View>
 
         {/* LEADERBOARD STARTS  */}
@@ -213,6 +251,9 @@ class CampusAmbassadorHomePage extends Component {
         <View style={ScreenStyle.MainTasksView}>
           <View style={ScreenStyle.tasksTitleRow}>
             <Text style={ScreenStyle.tasksTitleStyle}>Leaderboard</Text>
+            {pages.isFetchingLeaderboard && (
+              <Progress.Circle size={25} indeterminate={true} />
+            )}
           </View>
 
           {leaderboard.length >= 1 &&
@@ -237,6 +278,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     pagesActions: bindActionCreators({...pagesActions}, dispatch),
+    authActions: bindActionCreators({...authActions}, dispatch),
   };
 }
 

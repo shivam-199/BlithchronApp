@@ -13,6 +13,7 @@ const task = {
   status: '',
   uploads: [],
   ptsReceived: 0,
+  userTextInput: '',
 };
 
 const userTasks = {
@@ -30,4 +31,4 @@ const initialState = {
 };
 export default initialState;
 
-export {task};
+export {initialState, task};

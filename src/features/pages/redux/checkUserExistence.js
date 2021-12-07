@@ -25,7 +25,7 @@ export function checkUserExistence({userId}) {
           if (exists) {
             return true;
           } else {
-            throw false;
+            return false;
           }
         })
         .catch(error => {

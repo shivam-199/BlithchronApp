@@ -19,7 +19,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import ScreenStyles from './styles/StylesAppHomePage';
 
 import HomePage from '../../pages/screens/HomePage';
-import EventsPage from '../../pages/screens/EventsPage';
+// import EventsPage from '../../pages/screens/EventsPage';
 import SponsorsPage from '../../pages/screens/SponsorsPage';
 import ContactPage from '../../pages/screens/ContactPage';
 import DevelopersPage from '../../pages/screens/DevelopersPage';
@@ -32,6 +32,7 @@ import CampusAmbassadorCompletedTasksPage from '../../pages/screens/CampusAmbass
 import CampusAmbassadorPinnedTasksPage from '../../pages/screens/CampusAmbassadorPinnedTasksPage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
+import SplashScreen from 'react-native-splash-screen';
 import {Text} from 'react-native';
 
 import Colors from '../../../utilities/Colors';
@@ -126,6 +127,10 @@ class AppHomePage extends Component {
   }
 
   handleAuth = () => {};
+
+  componentDidMount() {
+    SplashScreen.hide();
+  }
 
   render() {
     const Drawer = createDrawerNavigator();
