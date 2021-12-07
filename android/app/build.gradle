@@ -192,6 +192,7 @@ dependencies {
     implementation project(':react-native-vector-icons')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation project(':react-native-svg')
+    implementation project(':react-native-splash-screen')
 
     // implementation project(':react-native-linear-gradient')
 

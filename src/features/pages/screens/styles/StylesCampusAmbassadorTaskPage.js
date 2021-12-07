@@ -143,9 +143,7 @@ let style = {
     fontSize: 12,
   },
   uploadedPic: {
-    // width: 90,
     height: 100,
-    // margin: 10,
   },
 };
 
