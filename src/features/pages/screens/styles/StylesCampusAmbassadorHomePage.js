@@ -146,15 +146,14 @@ let style = {
     padding: 5,
   },
   nameAndCollege: {
-    flex: 3,
+    flex: 5,
     justifyContent: 'center',
     flexDirection: 'column',
     marginLeft: 15,
   },
   leaderboardName: {
     color: Colors.white,
-    fontWeight: '700',
-    fontSize: 22,
+    fontSize: 18,
   },
   leaderboardInst: {
     color: Colors.white,
@@ -164,7 +163,7 @@ let style = {
   leaderboardRank: {
     color: Colors.white,
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 22,
   },
   leaderboardPoints: {
     color: Colors.white,

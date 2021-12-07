@@ -47,21 +47,21 @@ export function TaskCard({name, description, ptsDesc, id, onPressTaskView}) {
   );
 }
 
-function LeaderboardCard({name, institution, rank, points}) {
+function LeaderboardCard({name, institution, rank, points, email}) {
   return (
     <View style={ScreenStyle.leaderboardCard}>
-      <IonIcon
+      {/* <IonIcon
         name="ios-person-circle-outline"
         size={60}
         color={Colors.white}
-      />
+      /> */}
       <View style={ScreenStyle.nameAndCollege}>
-        <Text style={ScreenStyle.leaderboardName}>{name}</Text>
-        <Text style={ScreenStyle.leaderboardInst}>{institution}</Text>
+        <Text style={ScreenStyle.leaderboardName}>{email || '-'}</Text>
+        <Text style={ScreenStyle.leaderboardInst}>{institution || '-'}</Text>
       </View>
       <View style={ScreenStyle.pointsAndRank}>
         <Text style={ScreenStyle.leaderboardRank}>{rank}</Text>
-        <Text style={ScreenStyle.leaderboardPoints}>{points || '-'} Pts</Text>
+        <Text style={ScreenStyle.leaderboardPoints}>{points} Pts</Text>
       </View>
     </View>
   );
