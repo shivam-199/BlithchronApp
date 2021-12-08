@@ -188,7 +188,6 @@ class HomePage extends Component {
     const rank1 = leaderboard.filter(user => user.rank === 1)[0];
     const rank2 = leaderboard.filter(user => user.rank === 2)[0];
     const rank3 = leaderboard.filter(user => user.rank === 3)[0];
-    console.log(rank1);
     return (
       // Scroll view starts
       <ScrollView style={ScreenStyle.root}>
