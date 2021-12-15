@@ -34,10 +34,10 @@ export function createNewCA() {
 
       dispatch({
         type: CREATE_NEW_CA_SUCCESS,
-        data: {exists},
+        data: {success: true},
       });
 
-      return exists;
+      return {success: true};
     } catch (error) {
       dispatch({
         type: CREATE_NEW_CA_FAILURE,

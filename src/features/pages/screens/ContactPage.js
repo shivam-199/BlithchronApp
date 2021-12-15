@@ -84,13 +84,24 @@ class ContactPage extends Component {
                 }
               />
             </View>
-
+            <View style={ScreenStyles.socialMediaIconsMargin}>
+              <AntDesign
+                name="facebook-square"
+                size={30}
+                style={ScreenStyles.iconStyle}
+                onPress={() =>
+                  Linking.openURL('https://www.facebook.com/Blithchron')
+                }
+              />
+            </View>
             <AntDesign
-              name="facebook-square"
+              name="linkedin-square"
               size={30}
               style={ScreenStyles.iconStyle}
               onPress={() =>
-                Linking.openURL('https://www.facebook.com/Blithchron')
+                Linking.openURL(
+                  'https://www.linkedin.com/company/blithchron-iit-gandhinagar/',
+                )
               }
             />
           </View>

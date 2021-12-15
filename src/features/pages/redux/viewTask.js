@@ -16,9 +16,11 @@ export function reducer(state, action) {
       )[0]
         ? true
         : false;
-
+      
+      const newState = Object.assign({}, state);
       if (!taskExistsInMyList) {
-        const tempTask = state.taskList.filter(
+        // If task doesn't exists in the current user task list
+        const tempTask = newState.taskList.filter(
           task => task.id === action.data,
         )[0];
         const newTask = task;
@@ -26,17 +28,19 @@ export function reducer(state, action) {
         newTask.id = tempTask.id;
         newTask.name = tempTask.name;
         newTask.ptsDesc = tempTask.ptsDesc;
-        state.userTasks.taskList.findIndex(task => task.id === action.data) ===
-          -1 && state.userTasks.taskList.push(newTask);
-        state.userTasks.currentTask = newTask;
+        newTask.status = "";
+        newTask.uploads = [];
+        newState.userTasks.taskList.push(newTask);
+        newState.userTasks.currentTask = newTask;
       } else if (taskExistsInMyList) {
-        const newTask = state.userTasks.taskList.filter(
+        // If task exists in the current user task list
+        const newTask = newState.userTasks.taskList.filter(
           task => task.id === action.data,
         )[0];
-        state.userTasks.currentTask = newTask;
+        newState.userTasks.currentTask = newTask;
       }
       return {
-        ...state,
+        ...newState,
       };
     default:
       return state;
