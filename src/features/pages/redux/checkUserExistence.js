@@ -58,13 +58,12 @@ export function reducer(state, action) {
     case CHECK_USER_EXISTENCE_SUCCESS:
       return {
         ...state,
-        userExistsInFirestore: true,
+        userExistsInFirestore: action.data.exists,
         isFetching: false,
       };
     case CHECK_USER_EXISTENCE_FAILURE:
       return {
         ...state,
-        userExistsInFirestore: false,
         isFetching: false,
       };
     case CHECK_USER_EXISTENCE_DISMISS_ERROR:

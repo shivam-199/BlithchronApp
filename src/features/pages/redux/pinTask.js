@@ -18,7 +18,7 @@ export function pinTask(taskId) {
       const userId = user.id;
       const {taskList} = pages;
       let tasks = pages.userTasks.taskList;
-      if (tasks.findIndex(task => task.id === taskId) === -1) {
+      if (pages.taskList.findIndex(task => task.id === taskId) === -1) {
         // Pick the task from the main taskList
         const newTask = taskList.filter(task => {
           if (task.id === taskId) {

@@ -143,7 +143,7 @@ let style = {
     fontSize: 12,
   },
   uploadedPic: {
-    height: 100,
+    minHeight: "100%",
   },
 };
 
