@@ -18,12 +18,12 @@ export function pinTask(taskId) {
       const userId = user.id;
       const {taskList} = pages;
       let tasks = pages.userTasks.taskList;
-      if (pages.taskList.findIndex(task => task.id === taskId) === -1) {
+      if (tasks.findIndex(task => task.id === taskId) === -1) {
         // Pick the task from the main taskList
         const newTask = taskList.filter(task => {
           if (task.id === taskId) {
             const newTask = task;
-            newTask.isPinned = !task.isPinned;
+            newTask.isPinned = true;
             return newTask;
           }
         });

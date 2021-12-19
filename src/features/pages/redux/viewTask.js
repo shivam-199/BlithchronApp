@@ -30,6 +30,7 @@ export function reducer(state, action) {
         newTask.ptsDesc = tempTask.ptsDesc;
         newTask.status = "";
         newTask.uploads = [];
+        newTask.isPinned = false;
         newState.userTasks.taskList.push(newTask);
         newState.userTasks.currentTask = newTask;
       } else if (taskExistsInMyList) {

@@ -18,6 +18,7 @@ import ScreenStyle from './styles/StylesCampusAmbassadorHomePage';
 import { LinearTextGradient } from 'react-native-text-gradient';
 import { Button } from 'react-native-elements';
 import * as Progress from 'react-native-progress';
+import { useFocusEffect } from '@react-navigation/native';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -77,6 +78,9 @@ class CampusAmbassadorHomePage extends Component {
   }
 
   componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener("focus", ()=>{
+      this.refreshDone();
+    })
     if (!this.props.auth.isLoggedIn) {
       this.props.navigation.navigate(PageRoutes.Drawer.CAMainPage);
     }
@@ -108,6 +112,10 @@ class CampusAmbassadorHomePage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.CACompletedTaskPage);
   };
 
+  handleReturnedTasks = () => {
+    this.props.navigation.navigate(PageRoutes.Drawer.CAReturnedTaskPage);
+  };
+
   handlePinnedTasks = () => {
     this.props.navigation.navigate(PageRoutes.Drawer.CAPinnedTaskPage);
   };
@@ -137,6 +145,10 @@ class CampusAmbassadorHomePage extends Component {
       { text: 'Cancel', onPress: () => { } },
     ]);
   };
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
 
   render() {
     const { pages, auth } = this.props;
@@ -203,14 +215,21 @@ class CampusAmbassadorHomePage extends Component {
             )}
             <View style={ScreenStyle.rowFlex}>
               <Button
-                title="Finished Tasks"
+                title="Finished"
                 titleStyle={ScreenStyle.buttonTitleStyle}
                 type="outline"
                 buttonStyle={ScreenStyle.finishedTasksButton}
                 onPress={this.handleFinishedTasks}
               />
               <Button
-                title="Pinned Tasks"
+                title="Returned"
+                titleStyle={ScreenStyle.buttonTitleStyle}
+                type="outline"
+                buttonStyle={ScreenStyle.returnedTasksButton}
+                onPress={this.handleReturnedTasks}
+              />
+              <Button
+                title="Pinned"
                 titleStyle={ScreenStyle.buttonTitleStyle}
                 type="outline"
                 buttonStyle={ScreenStyle.pinnedTasksButton}
@@ -237,7 +256,7 @@ class CampusAmbassadorHomePage extends Component {
             {pages.isFetchingLeaderboard && (
               <Progress.Circle size={25} indeterminate={true} />
             )}
-            <IonIcon name='information-circle-outline' color='white' size={25} onPress={() => this.setState({ leaderInfo: !this.state.leaderInfo })} />
+            {/* <IonIcon name='information-circle-outline' color='white' size={25} onPress={() => this.setState({ leaderInfo: !this.state.leaderInfo })} /> */}
           </View>
 
           {leaderboard.length >= 1 &&
