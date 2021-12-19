@@ -111,7 +111,7 @@ let style = {
   tasksTitleStyle: {
     color: Colors.white,
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 25,
   },
   buttonTitleStyle: {
     fontSize: 10,
@@ -121,15 +121,23 @@ let style = {
     borderWidth: 3,
     borderRadius: 40,
     minHeight: 40,
-    minWidth: 100,
+    minWidth: 75,
     borderColor: 'green',
-    marginRight: 10,
+    marginRight: 5,
+  },
+  returnedTasksButton: {
+    borderWidth: 3,
+    borderRadius: 40,
+    minHeight: 40,
+    minWidth: 75,
+    borderColor: 'red',
+    marginRight: 5,
   },
   pinnedTasksButton: {
     borderWidth: 3,
     borderRadius: 40,
     minHeight: 40,
-    minWidth: 90,
+    minWidth: 75,
   },
   rowFlex: {
     flexDirection: 'row',
