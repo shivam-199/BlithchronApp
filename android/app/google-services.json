@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "769690111399",
+    "project_id": "blithchron-ad09c",
+    "storage_bucket": "blithchron-ad09c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769690111399:android:8cd44f688c9803c969ba82",
+        "android_client_info": {
+          "package_name": "com.blithchronapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769690111399-uetdrmp9r7vr96fi256gi4r7fni2cbqj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blithchronapp",
+            "certificate_hash": "28175366298af8f1681058dd04f2b20662ff61cf"
+          }
+        },
+        {
+          "client_id": "769690111399-0rgkdmpjjhubhsvm81m3bug6b7h8su2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtsHoJt4GkUwN66L317oPw3Z4mm3jqe2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "769690111399-0rgkdmpjjhubhsvm81m3bug6b7h8su2n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
