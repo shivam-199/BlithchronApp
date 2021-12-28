@@ -26,8 +26,6 @@ class CampusAmbassadorPinnedTasksPage extends Component {
     const pinnedTaskList = this.props.pages.userTasks.taskList.filter(
       task => task.isPinned,
     );
-    console.log('Pinned tasks only');
-    // console.log(pinnedTaskList);
     return (
       <ScrollView style={ScreenStyle.root}>
         {/* Pinned Tasks  text*/}
