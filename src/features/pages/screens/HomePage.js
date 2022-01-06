@@ -188,6 +188,8 @@ class HomePage extends Component {
     const rank1 = leaderboard.filter(user => user.rank === 1)[0];
     const rank2 = leaderboard.filter(user => user.rank === 2)[0];
     const rank3 = leaderboard.filter(user => user.rank === 3)[0];
+    const isLoggedIn = this.props.auth.isLoggedIn || false;
+
     return (
       // Scroll view starts
       <ScrollView style={ScreenStyle.root}>
@@ -212,9 +214,7 @@ class HomePage extends Component {
               Colors.gradientTextRight,
             ]}
             locations={[0, 0.5, 1]}>
-            <Text style={ScreenStyle.blithSubTitle}>
-              A CONFLUENCE OF ECSTASIES
-            </Text>
+            <Text style={ScreenStyle.blithSubTitle}>VIBE DIFFERENT</Text>
           </LinearTextGradient>
         </View>
 
@@ -262,72 +262,73 @@ class HomePage extends Component {
 
         {/* CA LEADREBOARD  */}
 
-        <View style={ScreenStyle.CALeaderboardView}>
-          <Text style={ScreenStyle.CALeaderboardTitle}>CA Leaderboard</Text>
+        {isLoggedIn && (
+          <View style={ScreenStyle.CALeaderboardView}>
+            <Text style={ScreenStyle.CALeaderboardTitle}>CA Leaderboard</Text>
 
-          <View style={ScreenStyle.CALeaderboardBoard}>
-            <View style={ScreenStyle.CALeaderboardRank23}>
-              <View style={{alignSelf: 'center'}}>
-                <Text style={ScreenStyle.rankNumber}>2</Text>
-                <Icon
-                  name="chevron-down"
-                  style={ScreenStyle.downIconStyle}></Icon>
+            <View style={ScreenStyle.CALeaderboardBoard}>
+              <View style={ScreenStyle.CALeaderboardRank23}>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={ScreenStyle.rankNumber}>2</Text>
+                  <Icon
+                    name="chevron-down"
+                    style={ScreenStyle.downIconStyle}></Icon>
+                </View>
+
+                <IonIcon
+                  name="person"
+                  style={ScreenStyle.personIconStyle}></IonIcon>
+
+                <View style={{alignItems: 'center'}}>
+                  <Text style={{color: 'white'}}>Rank 2</Text>
+                  <Text style={{color: 'white'}}>
+                    {(rank2 && rank2.points) || '0'}
+                  </Text>
+                </View>
               </View>
 
-              <IonIcon
-                name="person"
-                style={ScreenStyle.personIconStyle}></IonIcon>
+              <View style={ScreenStyle.CALeaderboardRank1}>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={ScreenStyle.rankNumber1}>1</Text>
+                  <Icon
+                    name="chevron-down"
+                    style={{color: 'white', fontSize: 25}}></Icon>
+                </View>
 
-              <View style={{alignItems: 'center'}}>
-                <Text style={{color: 'white'}}>Rank 2</Text>
-                <Text style={{color: 'white'}}>
-                  {(rank2 && rank2.points) || '0'}
-                </Text>
+                <IonIcon
+                  name="person"
+                  style={{fontSize: 80, color: 'white'}}></IonIcon>
+
+                <View style={{alignItems: 'center'}}>
+                  <Text style={{color: 'white'}}>Rank 1</Text>
+                  <Text style={{color: 'white'}}>
+                    {(rank1 && rank1.points) || '0'}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={ScreenStyle.CALeaderboardRank23}>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={ScreenStyle.rankNumber}>3</Text>
+                  <Icon
+                    name="chevron-down"
+                    style={ScreenStyle.downIconStyle}></Icon>
+                </View>
+
+                <IonIcon
+                  name="person"
+                  style={ScreenStyle.personIconStyle}></IonIcon>
+
+                <View style={{alignItems: 'center'}}>
+                  <Text style={{color: 'white'}}>Rank 3</Text>
+                  <Text style={{color: 'white'}}>
+                    {(rank3 && rank3.points) || '0'}
+                  </Text>
+                </View>
               </View>
             </View>
 
-            <View style={ScreenStyle.CALeaderboardRank1}>
-              <View style={{alignSelf: 'center'}}>
-                <Text style={ScreenStyle.rankNumber1}>1</Text>
-                <Icon
-                  name="chevron-down"
-                  style={{color: 'white', fontSize: 25}}></Icon>
-              </View>
-
-              <IonIcon
-                name="person"
-                style={{fontSize: 80, color: 'white'}}></IonIcon>
-
-              <View style={{alignItems: 'center'}}>
-                <Text style={{color: 'white'}}>Rank 1</Text>
-                <Text style={{color: 'white'}}>
-                  {(rank1 && rank1.points) || '0'}
-                </Text>
-              </View>
-            </View>
-
-            <View style={ScreenStyle.CALeaderboardRank23}>
-              <View style={{alignSelf: 'center'}}>
-                <Text style={ScreenStyle.rankNumber}>3</Text>
-                <Icon
-                  name="chevron-down"
-                  style={ScreenStyle.downIconStyle}></Icon>
-              </View>
-
-              <IonIcon
-                name="person"
-                style={ScreenStyle.personIconStyle}></IonIcon>
-
-              <View style={{alignItems: 'center'}}>
-                <Text style={{color: 'white'}}>Rank 3</Text>
-                <Text style={{color: 'white'}}>
-                  {(rank3 && rank3.points) || '0'}
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          {/* <View style={ScreenStyle.buttonBackgroundStyle}>
+            {/* <View style={ScreenStyle.buttonBackgroundStyle}>
             <Button
               title="Know More"
               onPress={() => {
@@ -335,7 +336,8 @@ class HomePage extends Component {
               }}
             />
           </View> */}
-        </View>
+          </View>
+        )}
 
         {/* CONNECT WITH US  */}
 
@@ -408,7 +410,7 @@ class HomePage extends Component {
   }
 }
 
-const mapStateToProps = ({pages = {}} = state) => ({pages});
+const mapStateToProps = ({pages, auth = {}} = state) => ({pages, auth});
 
 function mapDispatchToProps(dispatch) {
   return {
