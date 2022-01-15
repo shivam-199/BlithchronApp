@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Colors from '../../../utilities/Colors';
 
 import React, {Component} from 'react';
-import {Image, Text, View, ScrollView, Pressable, Linking} from 'react-native';
+import {Image, Text, View, ScrollView, Pressable, Linking, Modal, Dimensions} from 'react-native';
 import ScreenStyle from './styles/StylesHomePage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
@@ -14,8 +14,18 @@ import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
+let ScreenHeight = Dimensions.get("window").height;
+let ScreenWidth = Dimensions.get("window").width;
+
 // cccs: component class with constuctor
 class HomePage extends Component {
+  //started here
+  state = {modalVisible: false};
+  setModalVisible = (visible) => {
+    this.setState({modalVisible:visible});
+  }
+  //ended here
+
   constructor(props) {
     super(props);
     // this.state = {};
@@ -184,11 +194,13 @@ class HomePage extends Component {
   }
 
   render() {
+    const {modalVisible} = this.state;
+    
     const leaderboard = this.props.pages.leaderboard;
-    const rank1 = leaderboard.filter(user => user.rank === 1)[0];
-    const rank2 = leaderboard.filter(user => user.rank === 2)[0];
-    const rank3 = leaderboard.filter(user => user.rank === 3)[0];
-    return (
+    // const rank1 = leaderboard.filter(user => user.rank === 1)[0];
+    // const rank2 = leaderboard.filter(user => user.rank === 2)[0];
+    // const rank3 = leaderboard.filter(user => user.rank === 3)[0];
+    return ( 
       // Scroll view starts
       <ScrollView style={ScreenStyle.root}>
         <View style={{paddingTop: 20}}>
@@ -213,7 +225,7 @@ class HomePage extends Component {
             ]}
             locations={[0, 0.5, 1]}>
             <Text style={ScreenStyle.blithSubTitle}>
-              A CONFLUENCE OF ECSTASIES
+              VIBE DIFFERENT
             </Text>
           </LinearTextGradient>
         </View>
@@ -281,7 +293,7 @@ class HomePage extends Component {
               <View style={{alignItems: 'center'}}>
                 <Text style={{color: 'white'}}>Rank 2</Text>
                 <Text style={{color: 'white'}}>
-                  {(rank2 && rank2.points) || '0'}
+                  {/* {(rank2 && rank2.points) || '0'} */}
                 </Text>
               </View>
             </View>
@@ -301,7 +313,7 @@ class HomePage extends Component {
               <View style={{alignItems: 'center'}}>
                 <Text style={{color: 'white'}}>Rank 1</Text>
                 <Text style={{color: 'white'}}>
-                  {(rank1 && rank1.points) || '0'}
+                  {/* {(rank1 && rank1.points) || '0'} */}
                 </Text>
               </View>
             </View>
@@ -321,7 +333,7 @@ class HomePage extends Component {
               <View style={{alignItems: 'center'}}>
                 <Text style={{color: 'white'}}>Rank 3</Text>
                 <Text style={{color: 'white'}}>
-                  {(rank3 && rank3.points) || '0'}
+                  {/* {(rank3 && rank3.points) || '0'} */}
                 </Text>
               </View>
             </View>
@@ -403,6 +415,78 @@ class HomePage extends Component {
             </Pressable>
           </View>
         </View>
+
+        <View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            this.setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={{ }}>
+            {/* <View style={{ margin: 20, backgroundColor: Colors.shadowDark, padding: 35, alignItems: "center", shadowColor: "#000", shadowOffset: {width: 0, height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5}}> */}
+              <View style={{backgroundColor: Colors.shadowDark, width:ScreenWidth, height:ScreenHeight, }}>
+                <View style={{height:ScreenHeight/1.9, width:ScreenWidth/1.3, backgroundColor:Colors.primaryDark, alignSelf:"center", marginTop:"40%", borderRadius:37, flexDirection:"column", paddingHorizontal:20, justifyContent:"space-around", paddingBottom:15}}>
+                  <View style={{flexDirection:"row", marginTop:0}}>
+                    <Text style={{color:"white", fontSize:30, flex:1}}>Event Name</Text>
+                    <Pressable style={{}} onPress={() => this.setModalVisible(!modalVisible)}> 
+                    <IonIcon
+                      name="arrow-back-sharp" style={{fontSize: 40, color: 'green', marginRight:0, fontSize:40}}>
+                    </IonIcon>
+                    </Pressable>
+
+
+
+                    </View>
+                  <Text style={{color:"white"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </Text>
+                  <Button
+                    title="Rulebook"
+                    titleStyle={{
+                      fontSize: 13,
+                      color: 'white',
+                    }}
+                    type="solid"
+                    buttonStyle={{
+                      borderWidth: 3,
+                      borderRadius: 40,
+                      minWidth: 70,
+                      backgroundColor:"#7F3F98",
+                      borderColor:"#662D91"
+                    }}
+                  />
+                  <Button   
+                    title="Register"
+                    titleStyle={{
+                      fontSize: 13,
+                      color: 'white',
+                    }}
+                    type="outline"
+                    buttonStyle={{
+                      borderWidth: 3,
+                      borderRadius: 40,
+                      width: "70%",
+                      marginRight:"auto",
+                      marginLeft:"auto"
+                    }}
+                  />
+                </View>
+            </View>
+          </View>
+
+          
+
+          
+        </Modal>
+
+          <Pressable style={{alignItems:'center'}} onPress={() => this.setModalVisible(true)}> 
+            <Text style={{color:'white'}}>Click here for modal</Text>
+          </Pressable>
+        </View>
+
       </ScrollView>
     );
   }
@@ -415,5 +499,7 @@ function mapDispatchToProps(dispatch) {
     pagesActions: bindActionCreators({...pagesActions}, dispatch),
   };
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
