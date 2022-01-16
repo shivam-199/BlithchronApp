@@ -146,7 +146,8 @@ class CampusAmbassadorPage extends Component {
             <View style={ScreenStyle.questionName}>
               <Icon name="phone" size={24} color={Colors.white} />
               <Text style={ScreenStyle.contactText}>
-                Rushik: +91 83696 10187
+                Yash Adhiya: +91 97266 12880 {'\n'}
+                Saatvik Rao: +91
               </Text>
             </View>
             <View style={ScreenStyle.questionMail}>
