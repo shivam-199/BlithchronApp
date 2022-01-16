@@ -67,6 +67,12 @@ let style = {
     marginLeft: 20,
     elevation: 20,
     shadowColor: 'black',
+    borderRadius:20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 1,
+    elevation: 5,
+    
   },
   CALeaderboardTitle: {
     color: 'white',
@@ -144,6 +150,12 @@ let style = {
     marginTop: 20,
     marginBottom: 30,
   },
+    
+    
+    
+    
+    
+  
 };
 
 export default StyleSheet.create(style);
