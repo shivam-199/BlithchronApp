@@ -146,8 +146,21 @@ class CampusAmbassadorPage extends Component {
             <View style={ScreenStyle.questionName}>
               <Icon name="phone" size={24} color={Colors.white} />
               <Text style={ScreenStyle.contactText}>
-                Yash Adhiya: +91 97266 12880 {'\n'}
-                Saatvik Rao: +91
+                Yash Adhiya:{' '}
+                <Text onPress={() => Linking.openURL('tel:${+919726612880}')}>
+                  +91 97266 12880
+                </Text>{' '}
+                {'\n\n'}
+                Saatvik Rao:
+                <Text onPress={() => Linking.openURL('tel:${+919725546055}')}>
+                  +91 97255 46055
+                </Text>{' '}
+                {'\n\n'}
+                Saniya Patwardhan:
+                <Text onPress={() => Linking.openURL('tel:${+91 98500 42104}')}>
+                  +91 98500 42104
+                </Text>{' '}
+                {'\n\n'}
               </Text>
             </View>
             <View style={ScreenStyle.questionMail}>
