@@ -1,6 +1,10 @@
 import {StyleSheet} from 'react-native';
 import Colors from '../../../../utilities/Colors';
+import {Dimensions} from 'react-native';
 // import DimensionScale from '../../../../utilities/DimensionScale';
+
+let ScreenHeight = Dimensions.get('window').height;
+let ScreenWidth = Dimensions.get('window').width;
 
 let style = {
   root: {
@@ -67,12 +71,11 @@ let style = {
     marginLeft: 20,
     elevation: 20,
     shadowColor: 'black',
-    borderRadius:20,
+    borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 1,
     elevation: 5,
-    
   },
   CALeaderboardTitle: {
     color: 'white',
@@ -150,12 +153,59 @@ let style = {
     marginTop: 20,
     marginBottom: 30,
   },
-    
-    
-    
-    
-    
-  
+  modalOuter: {
+    backgroundColor: Colors.shadowDark,
+    width: ScreenWidth,
+    height: ScreenHeight,
+  },
+  modalInner: {
+    height: ScreenHeight / 1.9,
+    width: ScreenWidth / 1.3,
+    backgroundColor: Colors.primaryDark,
+    alignSelf: 'center',
+    marginTop: '40%',
+    borderRadius: 37,
+    flexDirection: 'column',
+    paddingHorizontal: 20,
+    justifyContent: 'space-around',
+    paddingBottom: 15,
+  },
+  modalTopRow: {
+    flexDirection: 'row',
+    marginTop: 0,
+  },
+  modalTitle: {
+    color: Colors.white,
+    fontSize: 30,
+    flex: 1,
+  },
+  modalClose: {
+    fontSize: 40,
+    color: Colors.green,
+    marginRight: 0,
+    fontSize: 40,
+  },
+  modalDesc: {
+    color: Colors.white,
+  },
+  modalRulebookTitle: {
+    fontSize: 13,
+    color: Colors.white,
+  },
+  modalRulebookBtn: {
+    borderWidth: 3,
+    borderRadius: 40,
+    minWidth: 70,
+    backgroundColor: Colors.inputBackground,
+    borderColor: Colors.inputBorder,
+  },
+  modalRegBtn: {
+    borderWidth: 3,
+    borderRadius: 40,
+    width: '70%',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+  },
 };
 
 export default StyleSheet.create(style);
