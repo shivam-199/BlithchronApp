@@ -25,6 +25,7 @@ import ContactPage from '../../pages/screens/ContactPage';
 import DevelopersPage from '../../pages/screens/DevelopersPage';
 import RoleSelectionPage from '../../pages/screens/RoleSelectionPage';
 import LoginPage from '../../auth/Screens/LoginPage';
+import AboutUsPage from '../../pages/screens/AboutUsPage';
 import CampusAmbassadorPage from '../../pages/screens/CampusAmbassadorPage';
 import CampusAmbassadorHomePage from '../../pages/screens/CampusAmbassadarHomePage';
 import CampusAmbassadorTaskPage from '../../pages/screens/CampusAmbassadorTaskPage';
@@ -39,19 +40,6 @@ import {Text} from 'react-native';
 import Colors from '../../../utilities/Colors';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-function AuthNavigator() {
-  const Stack = createStackNavigator();
-  return (
-    <Stack.Navigator
-      screenOptions={({navigation}) => ({
-        headerTitle: '',
-        headerShown: false,
-      })}>
-      <Stack.Screen name={PageRoutes.Drawer.LoginPage} component={LoginPage} />
-    </Stack.Navigator>
-  );
-}
 
 function CANavigator(props) {
   const CANavigator = createStackNavigator();
@@ -225,6 +213,11 @@ class AppHomePage extends Component {
               name={PageRoutes.Drawer.ContactPage}
               component={ContactPage}
               options={{title: 'Contact Us'}}
+            />
+            <Drawer.Screen
+              name={PageRoutes.Drawer.AboutUsPage}
+              component={AboutUsPage}
+              options={{title: 'About Us'}}
             />
             <Drawer.Screen
               name={PageRoutes.Drawer.DevelopersPage}

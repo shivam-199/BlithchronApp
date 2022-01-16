@@ -4,6 +4,7 @@ export default {
   },
   Drawer: {
     HomePage: 'HOME_PAGE',
+    AboutUsPage: 'ABOUT_US_PAGE',
     EventsPage: 'EVENTS_PAGE',
     CAAuth: 'CAMPUS_AMBASSADOR_AUTH',
     CAMainPage: 'CAMPUS_AMBASSADOR_MAIN_PAGE',

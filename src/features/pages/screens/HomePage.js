@@ -4,7 +4,16 @@ import {connect} from 'react-redux';
 import Colors from '../../../utilities/Colors';
 
 import React, {Component} from 'react';
-import {Image, Text, View, ScrollView, Pressable, Linking} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  ScrollView,
+  Pressable,
+  Linking,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
 import ScreenStyle from './styles/StylesHomePage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
@@ -12,15 +21,25 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {Button} from 'react-native-elements';
 
 import Icon from 'react-native-vector-icons/EvilIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
 // cccs: component class with constuctor
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    // this.state = {};
+    this._renderItem = this._renderItem.bind(this);
+    this._renderPastEvents = this._renderPastEvents.bind(this);
 
     this.state = {
+      modalVisible: false,
+      modalInfo: {
+        name: '',
+        desc: '',
+        rulebookSrc: '',
+        registerSrc: '',
+        type: '',
+      },
       activeIndex: 0,
       carouselItems: [
         {
@@ -134,7 +153,7 @@ class HomePage extends Component {
 
   _renderItem({item, index}) {
     return (
-      <View
+      <TouchableOpacity
         style={{
           backgroundColor: 'black',
           borderRadius: 5,
@@ -154,27 +173,42 @@ class HomePage extends Component {
           style={{alignSelf: 'center', marginTop: '10%'}}
         />
         {/* <Image source={{uri: 'https://static.vecteezy.com/system/resources/thumbnails/000/581/959/small_2x/icon0-vector-494-01.jpg'}} style={{width: 150, height: 150, flex:1, marginLeft:20}} /> */}
-      </View>
+      </TouchableOpacity>
     );
   }
 
+  handlePastEvent = item => {
+    this.setState({
+      modalVisible: true,
+      modalInfo: {
+        type: 'PAST_EVENTS',
+        name: item.title,
+        desc: item.text,
+        rulebookSrc: '',
+      },
+    });
+  };
+
   _renderPastEvents({item, index}) {
     return (
-      <View
+      <TouchableOpacity
+        onPress={() => this.handlePastEvent(item)}
         style={{
           backgroundColor: 'black',
-          // borderRadius: 5,
           height: 200,
           width: 200,
-          // padding: 50,
           marginLeft: 2,
           marginRight: 2,
           marginTop: 35,
         }}>
         <Image source={item.image} style={{height: '100%', width: '100%'}} />
-      </View>
+      </TouchableOpacity>
     );
   }
+
+  setModalVisible = visible => {
+    this.setState({modalVisible: visible});
+  };
 
   componentDidMount() {
     this.props.pagesActions
@@ -184,10 +218,15 @@ class HomePage extends Component {
   }
 
   render() {
+    const {modalVisible, modalInfo} = this.state;
+
     const leaderboard = this.props.pages.leaderboard;
     const rank1 = leaderboard.filter(user => user.rank === 1)[0];
     const rank2 = leaderboard.filter(user => user.rank === 2)[0];
     const rank3 = leaderboard.filter(user => user.rank === 3)[0];
+
+    const isLoggedIn = this.props.auth.isLoggedIn;
+
     return (
       // Scroll view starts
       <ScrollView style={ScreenStyle.root}>
@@ -212,9 +251,7 @@ class HomePage extends Component {
               Colors.gradientTextRight,
             ]}
             locations={[0, 0.5, 1]}>
-            <Text style={ScreenStyle.blithSubTitle}>
-              A CONFLUENCE OF ECSTASIES
-            </Text>
+            <Text style={ScreenStyle.blithSubTitle}>VIBE DIFFERENT</Text>
           </LinearTextGradient>
         </View>
 
@@ -256,86 +293,91 @@ class HomePage extends Component {
           </View>
         </View>
 
-        {/* <View style={{ backgroundColor: "transparent"}}>
-            { this.pagination }
-            </View>  */}
-
         {/* CA LEADREBOARD  */}
 
-        <View style={ScreenStyle.CALeaderboardView}>
-          <Text style={ScreenStyle.CALeaderboardTitle}>CA Leaderboard</Text>
+        {isLoggedIn && (
+          <View style={ScreenStyle.CALeaderboardView}>
+            <Text style={ScreenStyle.CALeaderboardTitle}>CA Leaderboard</Text>
 
-          <View style={ScreenStyle.CALeaderboardBoard}>
-            <View style={ScreenStyle.CALeaderboardRank23}>
-              <View style={{alignSelf: 'center'}}>
-                <Text style={ScreenStyle.rankNumber}>2</Text>
-                <Icon
-                  name="chevron-down"
-                  style={ScreenStyle.downIconStyle}></Icon>
+            <View style={ScreenStyle.CALeaderboardBoard}>
+              <View style={ScreenStyle.CALeaderboardRank23}>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={ScreenStyle.rankNumber}>2</Text>
+                  <Icon
+                    name="chevron-down"
+                    style={ScreenStyle.downIconStyle}></Icon>
+                </View>
+
+                <IonIcon
+                  name="person"
+                  style={ScreenStyle.personIconStyle}></IonIcon>
+
+                <View style={{alignItems: 'center'}}>
+                  <Text style={{color: 'white'}}>Rank 2</Text>
+                  <Text style={{color: 'white'}}>
+                    {(rank2 && rank2.points) || '0'}
+                  </Text>
+                </View>
               </View>
 
-              <IonIcon
-                name="person"
-                style={ScreenStyle.personIconStyle}></IonIcon>
+              <View style={ScreenStyle.CALeaderboardRank1}>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={ScreenStyle.rankNumber1}>1</Text>
+                  <Icon
+                    name="chevron-down"
+                    style={{color: 'white', fontSize: 25}}></Icon>
+                </View>
 
-              <View style={{alignItems: 'center'}}>
-                <Text style={{color: 'white'}}>Rank 2</Text>
-                <Text style={{color: 'white'}}>
-                  {(rank2 && rank2.points) || '0'}
-                </Text>
-              </View>
-            </View>
-
-            <View style={ScreenStyle.CALeaderboardRank1}>
-              <View style={{alignSelf: 'center'}}>
-                <Text style={ScreenStyle.rankNumber1}>1</Text>
-                <Icon
-                  name="chevron-down"
-                  style={{color: 'white', fontSize: 25}}></Icon>
+                <View style={{alignItems: 'center'}}>
+                  <Text style={{color: 'white'}}>Rank 2</Text>
+                  <Text style={{color: 'white'}}>
+                    {(rank2 && rank2.points) || '0'}
+                  </Text>
+                </View>
               </View>
 
-              <IonIcon
-                name="person"
-                style={{fontSize: 80, color: 'white'}}></IonIcon>
+              <View style={ScreenStyle.CALeaderboardRank1}>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={ScreenStyle.rankNumber1}>1</Text>
+                  <Icon
+                    name="chevron-down"
+                    style={{color: 'white', fontSize: 25}}></Icon>
+                </View>
 
-              <View style={{alignItems: 'center'}}>
-                <Text style={{color: 'white'}}>Rank 1</Text>
-                <Text style={{color: 'white'}}>
-                  {(rank1 && rank1.points) || '0'}
-                </Text>
+                <IonIcon
+                  name="person"
+                  style={{fontSize: 80, color: 'white'}}></IonIcon>
+
+                <View style={{alignItems: 'center'}}>
+                  <Text style={{color: 'white'}}>Rank 1</Text>
+                  <Text style={{color: 'white'}}>
+                    {(rank1 && rank1.points) || '0'}
+                  </Text>
+                </View>
               </View>
-            </View>
 
-            <View style={ScreenStyle.CALeaderboardRank23}>
-              <View style={{alignSelf: 'center'}}>
-                <Text style={ScreenStyle.rankNumber}>3</Text>
-                <Icon
-                  name="chevron-down"
-                  style={ScreenStyle.downIconStyle}></Icon>
-              </View>
+              <View style={ScreenStyle.CALeaderboardRank23}>
+                <View style={{alignSelf: 'center'}}>
+                  <Text style={ScreenStyle.rankNumber}>3</Text>
+                  <Icon
+                    name="chevron-down"
+                    style={ScreenStyle.downIconStyle}></Icon>
+                </View>
 
-              <IonIcon
-                name="person"
-                style={ScreenStyle.personIconStyle}></IonIcon>
+                <IonIcon
+                  name="person"
+                  style={ScreenStyle.personIconStyle}></IonIcon>
 
-              <View style={{alignItems: 'center'}}>
-                <Text style={{color: 'white'}}>Rank 3</Text>
-                <Text style={{color: 'white'}}>
-                  {(rank3 && rank3.points) || '0'}
-                </Text>
+                <View style={{alignItems: 'center'}}>
+                  <Text style={{color: 'white'}}>Rank 3</Text>
+                  <Text style={{color: 'white'}}>
+                    {(rank3 && rank3.points) || '0'}
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
-
-          {/* <View style={ScreenStyle.buttonBackgroundStyle}>
-            <Button
-              title="Know More"
-              onPress={() => {
-                Linking.openURL('https://google.com');
-              }}
-            />
-          </View> */}
-        </View>
+        )}
 
         {/* CONNECT WITH US  */}
 
@@ -403,12 +445,55 @@ class HomePage extends Component {
             </Pressable>
           </View>
         </View>
+
+        <View>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => this.setState({modalVisible: false})}>
+            <View style={{}}>
+              {/* <View style={{ margin: 20, backgroundColor: Colors.shadowDark, padding: 35, alignItems: "center", shadowColor: "#000", shadowOffset: {width: 0, height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5}}> */}
+              <View style={ScreenStyle.modalOuter}>
+                <View style={ScreenStyle.modalInner}>
+                  <View style={ScreenStyle.modalTopRow}>
+                    <Text style={ScreenStyle.modalTitle}>{modalInfo.name}</Text>
+                    <Pressable
+                      style={{}}
+                      onPress={() => this.setState({modalVisible: false})}>
+                      <Entypo
+                        name="cross"
+                        style={ScreenStyle.modalClose}></Entypo>
+                    </Pressable>
+                  </View>
+                  <Text style={ScreenStyle.modalDesc}>{modalInfo.desc} </Text>
+                  <Button
+                    title="Rulebook"
+                    titleStyle={ScreenStyle.modalRulebookTitle}
+                    type="solid"
+                    buttonStyle={ScreenStyle.modalRulebookBtn}
+                    onPress={() => Linking.openURL(modalInfo.rulebookSrc)}
+                  />
+                  {modalInfo.type !== 'PAST_EVENTS' && (
+                    <Button
+                      title="Register"
+                      titleStyle={ScreenStyle.modalRulebookTitle}
+                      type="outline"
+                      buttonStyle={ScreenStyle.modalRegBtn}
+                      onPress={() => Linking.openURL(modalInfo.registerSrc)}
+                    />
+                  )}
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </ScrollView>
     );
   }
 }
 
-const mapStateToProps = ({pages = {}} = state) => ({pages});
+const mapStateToProps = ({pages, auth = {}} = state) => ({pages, auth});
 
 function mapDispatchToProps(dispatch) {
   return {

@@ -73,7 +73,9 @@ class CampusAmbassadorPage extends Component {
             type="outline"
             buttonStyle={ScreenStyle.registerButtonStyle}
             onPress={() => {
-              Linking.openURL('https://www.instagram.com/blithchron_iitgn/');
+              Linking.openURL(
+                'https://docs.google.com/forms/d/e/1FAIpQLSfwpPFyd2Gi26qP08tUoe1rZasa-yWXZxqeRIblrKlFrKTlYA/viewform',
+              );
             }}
           />
           <Button
@@ -82,56 +84,61 @@ class CampusAmbassadorPage extends Component {
             type="outline"
             buttonStyle={ScreenStyle.tncButtonStyle}
             onPress={() => {
-              Linking.openURL('https://www.instagram.com/blithchron_iitgn/');
+              Linking.openURL(
+                'https://docs.google.com/document/d/1GJtZ94rbyk4cU8u-p1Q02YMxcWz394G8VFQCeIaautw/edit?usp=sharing',
+              );
             }}
           />
         </View>
 
         <View style={ScreenStyle.TextCardView}>
           <View style={ScreenStyle.singleInfoCard}>
-            <Text style={ScreenStyle.infoCardTitle}>About the Program</Text>
-            <Text style={ScreenStyle.white15}>
-              Campus Ambassador program is a learning opportunity for every
-              person wanting to learn leadership, teamwork and communication
-              skill. Every year, we appoint CA's from different colleges who
-              spread the word about the event in their respective organizations.
-              By working with different people outside of peer circle, this
-              program brings a unique opportunity to learn how to work
-              professionally and how to be an effective orator. By enrolling in
-              the program, you would interact with the students of your college
-              directly and become a connecting link between us and them.
-            </Text>
-          </View>
-          <View style={ScreenStyle.singleInfoCard}>
             <Text style={ScreenStyle.infoCardTitle}>
-              What will you be doing?
+              What do we ask of you?
             </Text>
             <Text style={ScreenStyle.white15}>
-              As the CA you will be carrying out following tasks: {'\n'}
-              1. Creating awareness about Blithchron '21 among your college's
-              student community. {'\n'}
-              2, Bringing in participation for various kinds of events from your
-              college. {'\n'}
+              As the CA you will be carrying out following tasks: {'\n\n'}
+              1. Creating awareness about Blithchron ’22 among your college’s
+              student community. {'\n\n'}
+              2. Bringing in participation for various kinds of events from your
+              college. {'\n\n'}
               3. Increasing the reach of Social Media platforms by sharing the
-              content we put out on various other social media. {'\n'}
+              content we put out on various other social media. {'\n\n'}
               4. Getting more and more downloads of our app on Google Play Store
-              to increase awareness about the event. {'\n'}
+              to increase awareness about the event. {'\n\n'}
               This list is not exhaustive and you might be asked to do more as
               and when require.
             </Text>
           </View>
           <View style={ScreenStyle.singleInfoCard}>
-            <Text style={ScreenStyle.infoCardTitle}>What's in it for you?</Text>
+            <Text style={ScreenStyle.infoCardTitle}>About the Program</Text>
             <Text style={ScreenStyle.white15}>
-              Apart from the various skills that you would learn being the BA
-              for the event there are exciting prizes and incentives. Being the
-              top CA can get you prizes worth Rs. 4000 and other exciting
-              incentives like: {'\n'}
-              1. Official Merchandise {'\n'}
-              2. Vouchers {'\n'}
+              The campus Ambassador program is a learning opportunity for every
+              person wanting to learn leadership, teamwork, and communication
+              skill. Every year, we appoint CA’s from various colleges who
+              spread the word about the event in their respective organizations.
+              By working with different people outside of the peer circle, this
+              program brings a unique opportunity to learn how to work
+              professionally and be an effective orator. By enrolling in the
+              program, you would directly interact with your college students
+              and become a connecting link between them and us. And you get
+              rewarded for the work you do with prizes like access to premium
+              courses on Inmovidu Technologies, Official Merch, Cash Prizes,
+              Vouchers, and much more!
+            </Text>
+          </View>
+          <View style={ScreenStyle.singleInfoCard}>
+            <Text style={ScreenStyle.infoCardTitle}>Perks:</Text>
+            <Text style={ScreenStyle.white15}>
+              Access to premium courses (one of IoT, Robotics, VLSI, Machine
+              Learning, Webpreneurship, AutoCAD) on Inmovidu Technologies.{' '}
+              {'\n\n'}
+              Apart from the various skills that you would learn being the CA
+              for the event there are exciting prizes and incentives like:{' '}
+              {'\n\n'}
+              1. Official Merchandise {'\n\n'}
+              2. Vouchers {'\n\n'}
               3. Customizable bag, badges, and more, {'\n'}
-              Moreover you would also be given the certificate for representing
-              Blithchron as the campus ambassador of your college.
             </Text>
           </View>
           <View style={ScreenStyle.singleInfoCard}>
@@ -139,7 +146,21 @@ class CampusAmbassadorPage extends Component {
             <View style={ScreenStyle.questionName}>
               <Icon name="phone" size={24} color={Colors.white} />
               <Text style={ScreenStyle.contactText}>
-                Rishita: +91 12345 67890
+                Yash Adhiya:{' '}
+                <Text onPress={() => Linking.openURL('tel:${+919726612880}')}>
+                  +91 97266 12880
+                </Text>{' '}
+                {'\n\n'}
+                Saatvik Rao:
+                <Text onPress={() => Linking.openURL('tel:${+919725546055}')}>
+                  +91 97255 46055
+                </Text>{' '}
+                {'\n\n'}
+                Saniya Patwardhan:
+                <Text onPress={() => Linking.openURL('tel:${+91 98500 42104}')}>
+                  +91 98500 42104
+                </Text>{' '}
+                {'\n\n'}
               </Text>
             </View>
             <View style={ScreenStyle.questionMail}>
