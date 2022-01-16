@@ -12,8 +12,6 @@ let style = {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-evenly',
-    // alignItems: 'center',
-    // alignContent: 'center',
   },
   iconStyle: {
     color: Colors.white,
@@ -23,22 +21,22 @@ let style = {
     marginTop: 10,
     marginBottom: 10,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textStyle: {
     fontSize: 18,
     fontWeight: '700',
-    marginBottom:'4%',
+    marginBottom: '4%',
     color: Colors.white,
   },
-  
+
   textStyleDepartment: {
     fontSize: 22,
     fontWeight: '700',
     margin: 10,
-    marginLeft:'15%',
-    textAlign:'left',
+    marginLeft: '15%',
+    textAlign: 'left',
     color: Colors.white,
   },
   roletextStyle: {
@@ -89,8 +87,7 @@ let style = {
     marginBottom: 10,
   },
 
-  titleTextStyle: {fontWeight: '700', fontSize: 40,},
-
+  titleTextStyle: {fontWeight: '700', fontSize: 40},
 };
 
 export default StyleSheet.create(style);
