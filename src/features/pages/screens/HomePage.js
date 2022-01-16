@@ -4,7 +4,16 @@ import {connect} from 'react-redux';
 import Colors from '../../../utilities/Colors';
 
 import React, {Component} from 'react';
-import {Image, Text, View, ScrollView, Pressable, Linking, Modal, Dimensions} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  ScrollView,
+  Pressable,
+  Linking,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
 import ScreenStyle from './styles/StylesHomePage';
 
 import {LinearTextGradient} from 'react-native-text-gradient';
@@ -12,25 +21,25 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {Button} from 'react-native-elements';
 
 import Icon from 'react-native-vector-icons/EvilIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import IonIcon from 'react-native-vector-icons/Ionicons';
-
-let ScreenHeight = Dimensions.get("window").height;
-let ScreenWidth = Dimensions.get("window").width;
 
 // cccs: component class with constuctor
 class HomePage extends Component {
-  //started here
-  state = {modalVisible: false};
-  setModalVisible = (visible) => {
-    this.setState({modalVisible:visible});
-  }
-  //ended here
-
   constructor(props) {
     super(props);
-    // this.state = {};
+    this._renderItem = this._renderItem.bind(this);
+    this._renderPastEvents = this._renderPastEvents.bind(this);
 
     this.state = {
+      modalVisible: false,
+      modalInfo: {
+        name: '',
+        desc: '',
+        rulebookSrc: '',
+        registerSrc: '',
+        type: '',
+      },
       activeIndex: 0,
       carouselItems: [
         {
@@ -144,7 +153,7 @@ class HomePage extends Component {
 
   _renderItem({item, index}) {
     return (
-      <View
+      <TouchableOpacity
         style={{
           backgroundColor: 'black',
           borderRadius: 5,
@@ -164,27 +173,42 @@ class HomePage extends Component {
           style={{alignSelf: 'center', marginTop: '10%'}}
         />
         {/* <Image source={{uri: 'https://static.vecteezy.com/system/resources/thumbnails/000/581/959/small_2x/icon0-vector-494-01.jpg'}} style={{width: 150, height: 150, flex:1, marginLeft:20}} /> */}
-      </View>
+      </TouchableOpacity>
     );
   }
 
+  handlePastEvent = item => {
+    this.setState({
+      modalVisible: true,
+      modalInfo: {
+        type: 'PAST_EVENTS',
+        name: item.title,
+        desc: item.text,
+        rulebookSrc: '',
+      },
+    });
+  };
+
   _renderPastEvents({item, index}) {
     return (
-      <View
+      <TouchableOpacity
+        onPress={() => this.handlePastEvent(item)}
         style={{
           backgroundColor: 'black',
-          // borderRadius: 5,
           height: 200,
           width: 200,
-          // padding: 50,
           marginLeft: 2,
           marginRight: 2,
           marginTop: 35,
         }}>
         <Image source={item.image} style={{height: '100%', width: '100%'}} />
-      </View>
+      </TouchableOpacity>
     );
   }
+
+  setModalVisible = visible => {
+    this.setState({modalVisible: visible});
+  };
 
   componentDidMount() {
     this.props.pagesActions
@@ -194,13 +218,13 @@ class HomePage extends Component {
   }
 
   render() {
-    const {modalVisible} = this.state;
-    
+    const {modalVisible, modalInfo} = this.state;
+
     const leaderboard = this.props.pages.leaderboard;
-    // const rank1 = leaderboard.filter(user => user.rank === 1)[0];
-    // const rank2 = leaderboard.filter(user => user.rank === 2)[0];
-    // const rank3 = leaderboard.filter(user => user.rank === 3)[0];
-    return ( 
+    const rank1 = leaderboard.filter(user => user.rank === 1)[0];
+    const rank2 = leaderboard.filter(user => user.rank === 2)[0];
+    const rank3 = leaderboard.filter(user => user.rank === 3)[0];
+    return (
       // Scroll view starts
       <ScrollView style={ScreenStyle.root}>
         <View style={{paddingTop: 20}}>
@@ -224,9 +248,7 @@ class HomePage extends Component {
               Colors.gradientTextRight,
             ]}
             locations={[0, 0.5, 1]}>
-            <Text style={ScreenStyle.blithSubTitle}>
-              VIBE DIFFERENT
-            </Text>
+            <Text style={ScreenStyle.blithSubTitle}>VIBE DIFFERENT</Text>
           </LinearTextGradient>
         </View>
 
@@ -268,10 +290,6 @@ class HomePage extends Component {
           </View>
         </View>
 
-        {/* <View style={{ backgroundColor: "transparent"}}>
-            { this.pagination }
-            </View>  */}
-
         {/* CA LEADREBOARD  */}
 
         <View style={ScreenStyle.CALeaderboardView}>
@@ -293,7 +311,7 @@ class HomePage extends Component {
               <View style={{alignItems: 'center'}}>
                 <Text style={{color: 'white'}}>Rank 2</Text>
                 <Text style={{color: 'white'}}>
-                  {/* {(rank2 && rank2.points) || '0'} */}
+                  {(rank2 && rank2.points) || '0'}
                 </Text>
               </View>
             </View>
@@ -313,7 +331,7 @@ class HomePage extends Component {
               <View style={{alignItems: 'center'}}>
                 <Text style={{color: 'white'}}>Rank 1</Text>
                 <Text style={{color: 'white'}}>
-                  {/* {(rank1 && rank1.points) || '0'} */}
+                  {(rank1 && rank1.points) || '0'}
                 </Text>
               </View>
             </View>
@@ -333,20 +351,11 @@ class HomePage extends Component {
               <View style={{alignItems: 'center'}}>
                 <Text style={{color: 'white'}}>Rank 3</Text>
                 <Text style={{color: 'white'}}>
-                  {/* {(rank3 && rank3.points) || '0'} */}
+                  {(rank3 && rank3.points) || '0'}
                 </Text>
               </View>
             </View>
           </View>
-
-          {/* <View style={ScreenStyle.buttonBackgroundStyle}>
-            <Button
-              title="Know More"
-              onPress={() => {
-                Linking.openURL('https://google.com');
-              }}
-            />
-          </View> */}
         </View>
 
         {/* CONNECT WITH US  */}
@@ -417,76 +426,47 @@ class HomePage extends Component {
         </View>
 
         <View>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            this.setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={{ }}>
-            {/* <View style={{ margin: 20, backgroundColor: Colors.shadowDark, padding: 35, alignItems: "center", shadowColor: "#000", shadowOffset: {width: 0, height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5}}> */}
-              <View style={{backgroundColor: Colors.shadowDark, width:ScreenWidth, height:ScreenHeight, }}>
-                <View style={{height:ScreenHeight/1.9, width:ScreenWidth/1.3, backgroundColor:Colors.primaryDark, alignSelf:"center", marginTop:"40%", borderRadius:37, flexDirection:"column", paddingHorizontal:20, justifyContent:"space-around", paddingBottom:15}}>
-                  <View style={{flexDirection:"row", marginTop:0}}>
-                    <Text style={{color:"white", fontSize:30, flex:1}}>Event Name</Text>
-                    <Pressable style={{}} onPress={() => this.setModalVisible(!modalVisible)}> 
-                    <IonIcon
-                      name="arrow-back-sharp" style={{fontSize: 40, color: 'green', marginRight:0, fontSize:40}}>
-                    </IonIcon>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => this.setState({modalVisible: false})}>
+            <View style={{}}>
+              {/* <View style={{ margin: 20, backgroundColor: Colors.shadowDark, padding: 35, alignItems: "center", shadowColor: "#000", shadowOffset: {width: 0, height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5}}> */}
+              <View style={ScreenStyle.modalOuter}>
+                <View style={ScreenStyle.modalInner}>
+                  <View style={ScreenStyle.modalTopRow}>
+                    <Text style={ScreenStyle.modalTitle}>{modalInfo.name}</Text>
+                    <Pressable
+                      style={{}}
+                      onPress={() => this.setState({modalVisible: false})}>
+                      <Entypo
+                        name="cross"
+                        style={ScreenStyle.modalClose}></Entypo>
                     </Pressable>
-
-
-
-                    </View>
-                  <Text style={{color:"white"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </Text>
+                  </View>
+                  <Text style={ScreenStyle.modalDesc}>{modalInfo.desc} </Text>
                   <Button
                     title="Rulebook"
-                    titleStyle={{
-                      fontSize: 13,
-                      color: 'white',
-                    }}
+                    titleStyle={ScreenStyle.modalRulebookTitle}
                     type="solid"
-                    buttonStyle={{
-                      borderWidth: 3,
-                      borderRadius: 40,
-                      minWidth: 70,
-                      backgroundColor:"#7F3F98",
-                      borderColor:"#662D91"
-                    }}
+                    buttonStyle={ScreenStyle.modalRulebookBtn}
+                    onPress={() => Linking.openURL(modalInfo.rulebookSrc)}
                   />
-                  <Button   
-                    title="Register"
-                    titleStyle={{
-                      fontSize: 13,
-                      color: 'white',
-                    }}
-                    type="outline"
-                    buttonStyle={{
-                      borderWidth: 3,
-                      borderRadius: 40,
-                      width: "70%",
-                      marginRight:"auto",
-                      marginLeft:"auto"
-                    }}
-                  />
+                  {modalInfo.type !== 'PAST_EVENTS' && (
+                    <Button
+                      title="Register"
+                      titleStyle={ScreenStyle.modalRulebookTitle}
+                      type="outline"
+                      buttonStyle={ScreenStyle.modalRegBtn}
+                      onPress={() => Linking.openURL(modalInfo.registerSrc)}
+                    />
+                  )}
                 </View>
+              </View>
             </View>
-          </View>
-
-          
-
-          
-        </Modal>
-
-          <Pressable style={{alignItems:'center'}} onPress={() => this.setModalVisible(true)}> 
-            <Text style={{color:'white'}}>Click here for modal</Text>
-          </Pressable>
+          </Modal>
         </View>
-
       </ScrollView>
     );
   }
@@ -499,7 +479,5 @@ function mapDispatchToProps(dispatch) {
     pagesActions: bindActionCreators({...pagesActions}, dispatch),
   };
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
