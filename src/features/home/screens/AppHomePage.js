@@ -40,6 +40,7 @@ import {Text} from 'react-native';
 import Colors from '../../../utilities/Colors';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import EventsPage from '../../pages/screens/EventsPage';
 
 function CANavigator(props) {
   const CANavigator = createStackNavigator();
@@ -149,7 +150,7 @@ class AppHomePage extends Component {
             initialRouteName={
               userRole == ROLES.ca
                 ? PageRoutes.Drawer.CAAuth
-                : PageRoutes.Drawer.HomePage
+                : PageRoutes.Drawer.EventsPage
             }
             screenOptions={({navigation}) => ({
               drawerStyle: {
@@ -187,13 +188,11 @@ class AppHomePage extends Component {
               component={HomePage}
               options={{title: 'Home'}}
             />
-            {/* <Drawer.Screen
+            <Drawer.Screen
               name={PageRoutes.Drawer.EventsPage}
               component={EventsPage}
-              options={{
-                title: 'Events',
-              }}
-            /> */}
+              options={{title: 'Events'}}
+            />
             <Drawer.Screen
               name={PageRoutes.Drawer.SponsorsPage}
               component={SponsorsPage}
