@@ -19,7 +19,7 @@ class EventsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      items: [{bannerSrc: "", rulebookSrc: "", regLink: "", desc: "", name: "", id: ""}, {bannerSrc: "", rulebookSrc: "", regLink: "", desc: "", name: "", id: ""}, {bannerSrc: "", rulebookSrc: "", regLink: "", desc: "", name: "", id: ""}],
     };
   }
   render() {
@@ -39,37 +39,36 @@ class EventsPage extends Component {
                   <Text>Events</Text>
               </LinearTextGradient>
             </View>
-            <View style={ScreenStyle.component1}>
+            {this.state.items.map((item) => (
+              <View style={ScreenStyle.component1} key={""}>
                 <Image 
-                source={require('../../../assets/pastEventBanners/event3.jpg')}
+                source={require('../../../assets/pastEventBanners/event3_Jazbaa.jpg')}
                 style={ScreenStyle.eventpage}/>
                 <Text style={ScreenStyle.textafterimg}>Jazbaa</Text>
                 
                 <View style={ScreenStyle.buttoncontainer}>
+                  
                   <TouchableOpacity onPress={() =>{
                     Linking.openURL('https://drive.google.com/file/d/1vSrX7jScaDRTju0hkBbQciXPb96mHcmd/view?usp=sharing');
-                  }}
-                  style={ScreenStyle.forbutton}>
-                    
-                      <Text style={ScreenStyle.buttonText}>Rulebook</Text>
-                  
+                    }}
+                    style={ScreenStyle.forbutton}>
+                    <Text style={ScreenStyle.buttonText}>Rulebook</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity 
                     onPress={() => Linking.openURL('http://google.com')}
-
-                  style={ScreenStyle.forbutton}>
-                    
-                      <Text style={ScreenStyle.buttonText}>Register</Text>
-                  
+                    style={ScreenStyle.forbutton}>
+                    <Text style={ScreenStyle.buttonText}>Register</Text>
                   </TouchableOpacity>
 
                 </View>
-            </View>
-            
+              </View>
+            ))}
           </View>
         </View>
       </ScrollView>
+
+      
     );
   }
 }

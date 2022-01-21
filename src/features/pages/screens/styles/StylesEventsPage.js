@@ -64,7 +64,7 @@ let style = {
   buttoncontainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10
+    marginBottom: 40
 
   }
   

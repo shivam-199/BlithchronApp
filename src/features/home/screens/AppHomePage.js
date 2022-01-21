@@ -150,7 +150,7 @@ class AppHomePage extends Component {
             initialRouteName={
               userRole == ROLES.ca
                 ? PageRoutes.Drawer.CAAuth
-                : PageRoutes.Drawer.EventsPage
+                : PageRoutes.Drawer.HomePage
             }
             screenOptions={({navigation}) => ({
               drawerStyle: {
