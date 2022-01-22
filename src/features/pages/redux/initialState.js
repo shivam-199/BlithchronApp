@@ -28,6 +28,7 @@ const initialState = {
   userExistsInFirestore: false,
   taskList: [],
   leaderboard: [],
+  newEvents: [],
 };
 export default initialState;
 

@@ -20,6 +20,8 @@ import {LinearTextGradient} from 'react-native-text-gradient';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {Button} from 'react-native-elements';
 
+import PAST_EVENTS from '../../../constants/PastEvents';
+
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -61,66 +63,6 @@ class HomePage extends Component {
         {
           title: 'Item 5',
           text: 'Text 5',
-        },
-      ],
-
-      pastEvents: [
-        {
-          title: 'Item 1',
-          text: 'Text 1',
-          image: require('../../../assets/pastEventBanners/event1.jpg'),
-        },
-
-        {
-          title: 'Item 2',
-          text: 'Text 2',
-          image: require('../../../assets/pastEventBanners/event2.jpg'),
-        },
-
-        {
-          title: 'Item 3',
-          text: 'Text 3',
-          image: require('../../../assets/pastEventBanners/event3.jpg'),
-        },
-
-        {
-          title: 'Item 4',
-          text: 'Text 4',
-          image: require('../../../assets/pastEventBanners/event4.jpg'),
-        },
-
-        {
-          title: 'Item 5',
-          text: 'Text 5',
-          image: require('../../../assets/pastEventBanners/event5.jpg'),
-        },
-
-        {
-          title: 'Item 6',
-          text: 'Text 6',
-          image: require('../../../assets/pastEventBanners/event6.jpg'),
-        },
-
-        {
-          title: 'Item 7',
-          text: 'Text 7',
-          image: require('../../../assets/pastEventBanners/event7.jpg'),
-        },
-
-        {
-          title: 'Item 8',
-          text: 'Text 8',
-          image: require('../../../assets/pastEventBanners/event8.jpg'),
-        },
-        {
-          title: 'Item 9',
-          text: 'Text 9',
-          image: require('../../../assets/pastEventBanners/event9.jpg'),
-        },
-        {
-          title: 'Item 10',
-          text: 'Text 10',
-          image: require('../../../assets/pastEventBanners/event10.jpg'),
         },
       ],
     };
@@ -182,9 +124,9 @@ class HomePage extends Component {
       modalVisible: true,
       modalInfo: {
         type: 'PAST_EVENTS',
-        name: item.title,
-        desc: item.text,
-        rulebookSrc: '',
+        name: item.name,
+        desc: item.description,
+        rulebookSrc: item.rulebookSrc,
       },
     });
   };
@@ -282,7 +224,7 @@ class HomePage extends Component {
             <Carousel
               layout={'default'}
               ref={ref => (this.carousel = ref)}
-              data={this.state.pastEvents}
+              data={PAST_EVENTS}
               sliderWidth={325}
               itemWidth={200}
               loop={true}
