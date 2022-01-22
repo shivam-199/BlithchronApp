@@ -20,7 +20,7 @@ import {LinearTextGradient} from 'react-native-text-gradient';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {Button} from 'react-native-elements';
 
-import PAST_EVENTS from "../../../constants/PastEvents"
+import PAST_EVENTS from '../../../constants/PastEvents';
 
 import Icon from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -65,8 +65,6 @@ class HomePage extends Component {
           text: 'Text 5',
         },
       ],
-
-      
     };
   }
 
@@ -163,7 +161,6 @@ class HomePage extends Component {
 
   render() {
     const {modalVisible, modalInfo} = this.state;
-    console.log(PAST_EVENTS)
 
     const leaderboard = this.props.pages.leaderboard;
     const rank1 = leaderboard.filter(user => user.rank === 1)[0];
