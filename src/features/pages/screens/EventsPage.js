@@ -59,19 +59,23 @@ class EventsPage extends Component {
                 <Text style={ScreenStyle.textafterimg}>{item.name}</Text>
 
                 <View style={ScreenStyle.buttoncontainer}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      Linking.openURL(`${item.rulebookSrc}`);
-                    }}
-                    style={ScreenStyle.forbutton}>
-                    <Text style={ScreenStyle.buttonText}>Rulebook</Text>
-                  </TouchableOpacity>
+                  {item.rulebookSrc !== '' && (
+                    <TouchableOpacity
+                      onPress={() => {
+                        Linking.openURL(`${item.rulebookSrc}`);
+                      }}
+                      style={ScreenStyle.forbutton}>
+                      <Text style={ScreenStyle.buttonText}>Rulebook</Text>
+                    </TouchableOpacity>
+                  )}
 
-                  <TouchableOpacity
-                    onPress={() => Linking.openURL(`${item.regLink}`)}
-                    style={ScreenStyle.forbutton}>
-                    <Text style={ScreenStyle.buttonText}>Register</Text>
-                  </TouchableOpacity>
+                  {item.regLink !== '' && (
+                    <TouchableOpacity
+                      onPress={() => Linking.openURL(`${item.regLink}`)}
+                      style={ScreenStyle.forbutton}>
+                      <Text style={ScreenStyle.buttonText}>Register</Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
               </View>
             ))}

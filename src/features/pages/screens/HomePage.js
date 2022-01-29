@@ -39,32 +39,10 @@ class HomePage extends Component {
         name: '',
         desc: '',
         rulebookSrc: '',
-        registerSrc: '',
+        regLink: '',
         type: '',
       },
       activeIndex: 0,
-      carouselItems: [
-        {
-          title: 'Item 1',
-          text: 'Text 1',
-        },
-        {
-          title: 'Item 2',
-          text: 'Text 2',
-        },
-        {
-          title: 'Item 3',
-          text: 'Text 3',
-        },
-        {
-          title: 'Item 4',
-          text: 'Text 4',
-        },
-        {
-          title: 'Item 5',
-          text: 'Text 5',
-        },
-      ],
     };
   }
 
@@ -93,28 +71,37 @@ class HomePage extends Component {
     );
   }
 
+  handleUpcomingEvent = item => {
+    this.setState({
+      modalVisible: true,
+      modalInfo: {
+        type: 'UPCOMING_EVENTS',
+        name: item.name,
+        desc: item.description,
+        rulebookSrc: item.rulebookSrc,
+        regLink: item.regLink,
+      },
+    });
+  };
+
   _renderItem({item, index}) {
     return (
       <TouchableOpacity
+        onPress={() => this.handleUpcomingEvent(item)}
         style={{
           backgroundColor: 'black',
           borderRadius: 5,
           height: 200,
-          padding: 50,
+          width: 200,
           marginLeft: 2,
           marginRight: 2,
           marginTop: 35,
           backgroundColor: 'black',
         }}>
-        {/* <Text style={{fontSize: 30}}>{item.title}</Text>
-      <Text>{item.text}</Text> */}
-        <Icon
-          size={84}
-          name="lock"
-          color="white"
-          style={{alignSelf: 'center', marginTop: '10%'}}
+        <Image
+          source={{uri: item.posterLink}}
+          style={{height: '100%', width: '100%'}}
         />
-        {/* <Image source={{uri: 'https://static.vecteezy.com/system/resources/thumbnails/000/581/959/small_2x/icon0-vector-494-01.jpg'}} style={{width: 150, height: 150, flex:1, marginLeft:20}} /> */}
       </TouchableOpacity>
     );
   }
@@ -157,10 +144,16 @@ class HomePage extends Component {
       .fetchLeaderboard()
       .then(data => {})
       .catch(error => {});
+
+    this.props.pagesActions
+      .fetchNewEvents()
+      .then(data => {})
+      .catch(error => {});
   }
 
   render() {
     const {modalVisible, modalInfo} = this.state;
+    const newEvents = this.props.pages.newEvents;
 
     const leaderboard = this.props.pages.leaderboard;
     const rank1 = leaderboard.filter(user => user.rank === 1)[0];
@@ -205,7 +198,7 @@ class HomePage extends Component {
             <Carousel
               layout={'default'}
               ref={ref => (this.carousel = ref)}
-              data={this.state.carouselItems}
+              data={newEvents}
               sliderWidth={325}
               itemWidth={250}
               loop={true}
@@ -416,7 +409,7 @@ class HomePage extends Component {
                     buttonStyle={ScreenStyle.modalRulebookBtn}
                     onPress={() => Linking.openURL(modalInfo.rulebookSrc)}
                   />
-                  {modalInfo.type !== 'PAST_EVENTS' && (
+                  {modalInfo.regLink !== '' && (
                     <Button
                       title="Register"
                       titleStyle={ScreenStyle.modalRulebookTitle}
