@@ -24,7 +24,13 @@ class CampusAmbassadorPage extends Component {
     this.props.navigation.navigate(PageRoutes.Drawer.LoginPage);
   };
 
+  handleDashboard = () => {
+    this.props.navigation.navigate(PageRoutes.Drawer.CAHomePage);
+  };
+
   render() {
+    const isLoggedIn = this.props.auth.isLoggedIn;
+
     return (
       <ScrollView style={ScreenStyle.root}>
         {/* Campus Ambassador  text*/}
@@ -59,37 +65,47 @@ class CampusAmbassadorPage extends Component {
 
         {/* LOGIN REGISTER BUTTONS  */}
 
-        <View style={ScreenStyle.buttonsAlignment}>
+        {!isLoggedIn ? (
+          <View style={ScreenStyle.buttonsAlignment}>
+            <Button
+              title="Login"
+              titleStyle={ScreenStyle.buttonTitleStyle}
+              type="outline"
+              buttonStyle={ScreenStyle.loginButtonStyle}
+              onPress={this.handleLogin}
+            />
+            <Button
+              title="Register"
+              titleStyle={ScreenStyle.buttonTitleStyle}
+              type="outline"
+              buttonStyle={ScreenStyle.registerButtonStyle}
+              onPress={() => {
+                Linking.openURL(
+                  'https://docs.google.com/forms/d/e/1FAIpQLSfwpPFyd2Gi26qP08tUoe1rZasa-yWXZxqeRIblrKlFrKTlYA/viewform',
+                );
+              }}
+            />
+            <Button
+              title="Terms & Conditions"
+              titleStyle={ScreenStyle.buttonTitleStyle}
+              type="outline"
+              buttonStyle={ScreenStyle.tncButtonStyle}
+              onPress={() => {
+                Linking.openURL(
+                  'https://docs.google.com/document/d/1GJtZ94rbyk4cU8u-p1Q02YMxcWz394G8VFQCeIaautw/edit?usp=sharing',
+                );
+              }}
+            />
+          </View>
+        ) : (
           <Button
-            title="Login"
+            title="Go to Dashboard"
             titleStyle={ScreenStyle.buttonTitleStyle}
             type="outline"
-            buttonStyle={ScreenStyle.loginButtonStyle}
-            onPress={this.handleLogin}
+            buttonStyle={ScreenStyle.dashButtonStyle}
+            onPress={this.handleDashboard}
           />
-          <Button
-            title="Register"
-            titleStyle={ScreenStyle.buttonTitleStyle}
-            type="outline"
-            buttonStyle={ScreenStyle.registerButtonStyle}
-            onPress={() => {
-              Linking.openURL(
-                'https://docs.google.com/forms/d/e/1FAIpQLSfwpPFyd2Gi26qP08tUoe1rZasa-yWXZxqeRIblrKlFrKTlYA/viewform',
-              );
-            }}
-          />
-          <Button
-            title="Terms & Conditions"
-            titleStyle={ScreenStyle.buttonTitleStyle}
-            type="outline"
-            buttonStyle={ScreenStyle.tncButtonStyle}
-            onPress={() => {
-              Linking.openURL(
-                'https://docs.google.com/document/d/1GJtZ94rbyk4cU8u-p1Q02YMxcWz394G8VFQCeIaautw/edit?usp=sharing',
-              );
-            }}
-          />
-        </View>
+        )}
 
         <View style={ScreenStyle.TextCardView}>
           <View style={ScreenStyle.singleInfoCard}>

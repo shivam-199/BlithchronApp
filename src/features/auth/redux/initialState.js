@@ -9,6 +9,7 @@ const user = {
   phoneNumber: '',
   metadata: {},
   totalPoints: 0,
+  pointsBeforeApp: 0,
 };
 
 const initialState = {
