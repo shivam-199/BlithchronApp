@@ -3,7 +3,7 @@ import * as pagesActions from '../redux/action';
 import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
-import {Text, View, ScrollView, Image, Alert} from 'react-native';
+import {Text, View, ScrollView, Image, Alert, TextInput} from 'react-native';
 import ScreenStyle from './styles/StylesCampusAmbassadorTaskPage';
 import {LinearTextGradient} from 'react-native-text-gradient';
 
@@ -63,12 +63,23 @@ function SelectedImage({src, id, status, onRemove}) {
 class CampusAmbassadorTaskPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      textInput: '',
+    };
   }
 
   componentDidMount() {
     const id = this.props.route.params.id;
     this.props.pagesActions.viewTask(id);
+
+    if (
+      this.props.pages.userTasks.currentTask.status ===
+      TaskStatus.ACTION_REQUIRED
+    ) {
+      this.setState({
+        textInput: this.props.pages.userTasks.currentTask.userTextInput,
+      });
+    }
   }
 
   handlePicker = () => {
@@ -100,7 +111,7 @@ class CampusAmbassadorTaskPage extends Component {
         onPress: () => {
           const taskId = this.props.route.params.id;
           this.props.pagesActions
-            .submitTask({taskId})
+            .submitTask({taskId, userTextInput: this.state.textInput})
             .then(data => {})
             .catch(error => {});
         },
@@ -121,6 +132,7 @@ class CampusAmbassadorTaskPage extends Component {
     const {pages} = this.props;
     const {userTasks} = pages;
     const {currentTask} = userTasks;
+    const textInput = this.state.textInput;
 
     return (
       <ScrollView style={ScreenStyle.root}>
@@ -155,9 +167,27 @@ class CampusAmbassadorTaskPage extends Component {
               Submission details: {currentTask.ptsDesc}
             </Text>
           </View>
-          <View style={ScreenStyle.statusView}>
+          <View style={ScreenStyle.textboxStyle}>
+            {(currentTask.status === '' ||
+              currentTask.status === TaskStatus.ACTION_REQUIRED) && (
+              <TextInput
+                defaultValue={textInput}
+                onChangeText={value => this.setState({textInput: value})}
+                style={ScreenStyle.input}
+                text={textInput}
+                placeholder="Enter some text"
+                multiline={true}
+                numberOfLines={2}
+              />
+            )}
+          </View>
+
+          <View>
             {currentTask.status === TaskStatus.COMPLETED && (
               <View>
+                <Text style={ScreenStyle.submittedText}>
+                  {currentTask.userTextInput || 'No User Input'}
+                </Text>
                 <Text style={ScreenStyle.showPointsText}>
                   Points Scored:{' '}
                   <Text style={ScreenStyle.showPoints}>
@@ -179,16 +209,22 @@ class CampusAmbassadorTaskPage extends Component {
             )}
 
             {currentTask.status === TaskStatus.SUBMITTED && (
-              <View style={ScreenStyle.galleryView}>
-                <Text style={ScreenStyle.markApproval}>Sumbitted</Text>
-                {currentTask.uploads.length >= 1 &&
-                  currentTask.uploads.map(props => (
-                    <SelectedImage
-                      {...props}
-                      key={props.id}
-                      status={currentTask.status}
-                    />
-                  ))}
+              <View>
+                <Text style={ScreenStyle.submittedText}>
+                  {currentTask.userTextInput || 'No User Input'}
+                </Text>
+                <View style={ScreenStyle.galleryView}>
+                  <Text style={ScreenStyle.markApproval}>Sumbitted</Text>
+
+                  {currentTask.uploads.length >= 1 &&
+                    currentTask.uploads.map(props => (
+                      <SelectedImage
+                        {...props}
+                        key={props.id}
+                        status={currentTask.status}
+                      />
+                    ))}
+                </View>
               </View>
             )}
 

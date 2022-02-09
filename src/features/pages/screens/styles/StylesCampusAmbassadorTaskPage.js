@@ -47,6 +47,19 @@ let style = {
     color: Colors.white,
     fontSize: 14,
   },
+  textboxStyle: {
+    marginBottom: 10,
+  },
+  input: {
+    backgroundColor: Colors.inputBackground,
+    borderColor: Colors.inputBorder,
+    borderWidth: 5,
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingHorizontal: 20,
+    fontSize: 15,
+    color: Colors.white,
+  },
   touchableOpacityUpload: {
     alignSelf: 'flex-start',
   },
@@ -101,6 +114,11 @@ let style = {
     fontWeight: '700',
     alignSelf: 'flex-end',
   },
+  submittedText: {
+    margin: 10,
+    color: Colors.white,
+    fontSize: 16,
+  },
   galleryView: {
     margin: 20,
     flexDirection: 'row',
@@ -143,7 +161,7 @@ let style = {
     fontSize: 12,
   },
   uploadedPic: {
-    minHeight: "100%",
+    minHeight: '100%',
   },
 };
 
