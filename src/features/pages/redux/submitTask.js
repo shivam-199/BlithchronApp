@@ -7,7 +7,7 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import TaskStatus from '../../../constants/TaskStatus';
 
-export function submitTask({taskId}) {
+export function submitTask({taskId, userTextInput}) {
   return async (dispatch, getState) => {
     try {
       dispatch({
@@ -21,6 +21,7 @@ export function submitTask({taskId}) {
       tasks = tasks.map(task => {
         if (task.id === taskId) {
           const newTask = task;
+          newTask.userTextInput = userTextInput;
           newTask.status = TaskStatus.SUBMITTED;
           newTask.adminComment = '';
           return newTask;
@@ -28,6 +29,8 @@ export function submitTask({taskId}) {
           return task;
         }
       });
+
+      console.log(tasks);
 
       const userData = await firestore()
         .collection('Participants')

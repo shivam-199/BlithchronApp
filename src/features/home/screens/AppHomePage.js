@@ -47,9 +47,7 @@ function CANavigator(props) {
   const isLoggedIn = props.route.params.isLoggedIn;
   return (
     <CANavigator.Navigator
-      initialRouteName={
-        isLoggedIn ? PageRoutes.Drawer.CAHomePage : PageRoutes.Drawer.CAMainPage
-      }
+      initialRouteName={PageRoutes.Drawer.CAMainPage}
       screenOptions={() => ({
         headerTitle: '',
         headerShown: false,

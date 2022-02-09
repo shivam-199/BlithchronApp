@@ -22,6 +22,7 @@ export function createNewCA() {
         institution: '',
         tasks: [],
         totalPoints: user.totalPoints,
+        pointsBeforeApp: user.pointsBeforeApp,
       };
 
       // Creating new user

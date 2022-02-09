@@ -45,6 +45,13 @@ let style = {
     borderRadius: 40,
     minWidth: 150,
   },
+
+  dashButtonStyle: {
+    borderWidth: 3,
+    borderRadius: 40,
+    minWidth: 150,
+    margin: 20,
+  },
   TextCardView: {
     flexDirection: 'column',
   },

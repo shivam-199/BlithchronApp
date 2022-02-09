@@ -27,8 +27,22 @@ class LoginPage extends Component {
     };
   }
 
+  componentDidMount() {
+    const isLoggedIn = this.props.auth.isLoggedIn;
+    if (isLoggedIn) {
+      this.props.navigation.reset({
+        index: 0,
+        routes: [{name: PageRoutes.Drawer.CAHomePage}],
+      });
+    }
+  }
+
   handleLoginRoute = () => {
-    this.props.navigation.navigate(PageRoutes.Drawer.CAHomePage);
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{name: PageRoutes.Drawer.CAHomePage}],
+    });
+    // this.props.navigation.navigate(PageRoutes.Drawer.CAHomePage);
   };
 
   handleLogin = () => {
@@ -135,7 +149,7 @@ class LoginPage extends Component {
         </View>
         <View style={ScreenStyle.buttonRow}>
           <TouchableOpacity onPress={this.handleForgotPassword}>
-            <Text style={ScreenStyle.forgotPass}>Forgot Password?</Text>
+            {/* <Text style={ScreenStyle.forgotPass}>Forgot Password?</Text> */}
           </TouchableOpacity>
           <TouchableOpacity
             onPress={this.handleLogin}
