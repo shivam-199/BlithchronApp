@@ -118,7 +118,7 @@ export default {
       position: 'Coordinator',
       phone: '+91 9610366556',
       email: 'pavidhar.jain@iitgn.ac.in',
-      //   src: require('../assets/Bitmojis/Design/Pavidhar.PNG'),
+      src: require('../assets/Bitmojis/Design/Pavidhar2.png'),
     },
     {
       id: '2',
