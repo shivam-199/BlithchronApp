@@ -146,9 +146,10 @@ class AppHomePage extends Component {
           <Drawer.Navigator
             drawerContent={props => <DrawerHeader {...props} />}
             initialRouteName={
-              userRole == ROLES.ca
-                ? PageRoutes.Drawer.CAAuth
-                : PageRoutes.Drawer.HomePage
+              PageRoutes.Drawer.AboutUsPage
+              // userRole == ROLES.ca
+              //   ? PageRoutes.Drawer.CAAuth
+              //   : PageRoutes.Drawer.HomePage
             }
             screenOptions={({navigation}) => ({
               drawerStyle: {
@@ -214,7 +215,7 @@ class AppHomePage extends Component {
             <Drawer.Screen
               name={PageRoutes.Drawer.AboutUsPage}
               component={AboutUsPage}
-              options={{title: 'About Us'}}
+              options={{title: 'Our Team'}}
             />
             <Drawer.Screen
               name={PageRoutes.Drawer.DevelopersPage}

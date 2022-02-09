@@ -3,7 +3,9 @@ import * as pagesActions from '../redux/action';
 import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, Image, Linking} from 'react-native';
+import {View, Text, Image, Linking} from 'react-native';
+
+import OurTeam from '../../../constants/OurTeam';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {LinearTextGradient} from 'react-native-text-gradient';
@@ -32,106 +34,32 @@ class DevelopersPage extends Component {
               <Text>Developers</Text>
             </LinearTextGradient>
           </View>
-          <View style={ScreenStyles.boxes}>
-            <View style={ScreenStyles.devNameSection}>
-              <Text style={ScreenStyles.textStyle}>Shivam Chaudhary</Text>
-            </View>
-            <View style={ScreenStyles.devEmailIdSection}>
-              <View style={ScreenStyles.emailIdIconPosition}>
-                <Fontisto
-                  name="email"
-                  size={18}
-                  style={ScreenStyles.iconStyle}
-                  onPress={() =>
-                    Linking.openURL('mailto:shivamchaudhary@iitgn.ac.in')
-                  }
-                />
+          {OurTeam.appDev.map(dev => (
+            <View style={ScreenStyles.boxes} key={dev.id}>
+              <Image style={ScreenStyles.image} source={dev.src} />
+              <View style={ScreenStyles.info}>
+                <View style={ScreenStyles.devNameSection}>
+                  <Text style={ScreenStyles.textStyle}>{dev.name}</Text>
+                </View>
+                <View style={ScreenStyles.devEmailIdSection}>
+                  <View style={ScreenStyles.emailIdIconPosition}>
+                    <Fontisto
+                      name="email"
+                      size={18}
+                      style={ScreenStyles.iconStyle}
+                      onPress={() => Linking.openURL(`mailto:${dev.email}`)}
+                    />
 
-                <Text
-                  style={ScreenStyles.emailId}
-                  onPress={() =>
-                    Linking.openURL('mailto:shivamchaudhary@iitgn.ac.in')
-                  }>
-                  shivamchaudhary@iitgn.ac.in
-                </Text>
+                    <Text
+                      style={ScreenStyles.emailId}
+                      onPress={() => Linking.openURL(`mailto:${dev.email}`)}>
+                      {dev.email}
+                    </Text>
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
-          <View style={ScreenStyles.boxes}>
-            <View style={ScreenStyles.devNameSection}>
-              <Text style={ScreenStyles.textStyle}>Xhitij Choudhary</Text>
-            </View>
-            <View style={ScreenStyles.devEmailIdSection}>
-              <View style={ScreenStyles.emailIdIconPosition}>
-                <Fontisto
-                  name="email"
-                  size={18}
-                  style={ScreenStyles.iconStyle}
-                  onPress={() =>
-                    Linking.openURL('mailto:xhitij.cm@iitgn.ac.in')
-                  }
-                />
-
-                <Text
-                  style={ScreenStyles.emailId}
-                  onPress={() =>
-                    Linking.openURL('mailto:xhitij.cm@iitgn.ac.in')
-                  }>
-                  xhitij.cm@iitgn.ac.in
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={ScreenStyles.boxes}>
-            <View style={ScreenStyles.devNameSection}>
-              <Text style={ScreenStyles.textStyle}>Varun Chandwani</Text>
-            </View>
-            <View style={ScreenStyles.devEmailIdSection}>
-              <View style={ScreenStyles.emailIdIconPosition}>
-                <Fontisto
-                  name="email"
-                  size={18}
-                  style={ScreenStyles.iconStyle}
-                  onPress={() =>
-                    Linking.openURL('mailto:varun.chandwani@iitgn.ac.in')
-                  }
-                />
-
-                <Text
-                  style={ScreenStyles.emailId}
-                  onPress={() =>
-                    Linking.openURL('mailto:varun.chandwani@iitgn.ac.in')
-                  }>
-                  varun.chandwani@iitgn.ac.in
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={ScreenStyles.boxes}>
-            <View style={ScreenStyles.devNameSection}>
-              <Text style={ScreenStyles.textStyle}>Mahesh Abhale</Text>
-            </View>
-            <View style={ScreenStyles.devEmailIdSection}>
-              <View style={ScreenStyles.emailIdIconPosition}>
-                <Fontisto
-                  name="email"
-                  size={18}
-                  style={ScreenStyles.iconStyle}
-                  onPress={() =>
-                    Linking.openURL('mailto:abhale.mahesh@iitgn.ac.in')
-                  }
-                />
-
-                <Text
-                  style={ScreenStyles.emailId}
-                  onPress={() =>
-                    Linking.openURL('mailto:abhale.mahesh@iitgn.ac.in')
-                  }>
-                  abhale.mahesh@iitgn.ac.in
-                </Text>
-              </View>
-            </View>
-          </View>
+          ))}
         </View>
       </ScrollView>
     );

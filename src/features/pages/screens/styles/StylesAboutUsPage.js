@@ -35,9 +35,20 @@ let style = {
     fontSize: 22,
     fontWeight: '700',
     margin: 10,
-    marginLeft: '15%',
+    marginLeft: '10%',
     textAlign: 'left',
     color: Colors.white,
+  },
+  image: {
+    height: 125,
+    width: 125,
+    width: '20%',
+  },
+  info: {
+    width: '80%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   roletextStyle: {
     fontSize: 14,
@@ -53,9 +64,10 @@ let style = {
   boxes: {
     borderRadius: 15,
     backgroundColor: Colors.shadowDark,
-    width: '72%',
+    width: '80%',
     height: 'auto',
-    padding: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     marginBottom: 20,
     borderColor: Colors.black,
     borderBottomWidth: 3,
@@ -65,6 +77,8 @@ let style = {
     shadowRadius: 5,
     elevation: 10,
     alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
   },
   infoSection: {
     flex: 4,
@@ -87,7 +101,10 @@ let style = {
     marginBottom: 10,
   },
 
-  titleTextStyle: {fontWeight: '700', fontSize: 40},
+  titleTextStyle: {
+    fontWeight: '700',
+    fontSize: 40,
+  },
 };
 
 export default StyleSheet.create(style);
