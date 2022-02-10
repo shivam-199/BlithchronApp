@@ -214,7 +214,7 @@ class AppHomePage extends Component {
             <Drawer.Screen
               name={PageRoutes.Drawer.AboutUsPage}
               component={AboutUsPage}
-              options={{title: 'About Us'}}
+              options={{title: 'Our Team'}}
             />
             <Drawer.Screen
               name={PageRoutes.Drawer.DevelopersPage}
