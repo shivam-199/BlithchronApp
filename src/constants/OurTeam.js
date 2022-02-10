@@ -14,7 +14,7 @@ export default {
       position: '',
       phone: '',
       email: 'xhitij.cm@iitgn.ac.in',
-      src: require('../assets/Bitmojis/AppDev/Shivam.png'),
+      // src: require('../assets/Bitmojis/AppDev/Shivam.png'),
     },
     {
       id: '2',
