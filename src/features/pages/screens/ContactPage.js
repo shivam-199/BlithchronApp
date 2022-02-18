@@ -3,7 +3,7 @@ import * as pagesActions from '../redux/action';
 import {connect} from 'react-redux';
 
 import React, {Component} from 'react';
-import {Image, Text, View, StyleSheet, Linking} from 'react-native';
+import {Image, Text, View, Linking} from 'react-native';
 
 import {ScrollView} from 'react-native-gesture-handler';
 import {LinearTextGradient} from 'react-native-text-gradient';
@@ -11,6 +11,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
+import OurTeam from '../../../constants/OurTeam';
 
 import ScreenStyles from './styles/StylesContactPage';
 import Colors from '../../../utilities/Colors';
@@ -136,7 +138,54 @@ class ContactPage extends Component {
             </View>
           </View>
 
-          <View style={ScreenStyles.boxes}>
+          {OurTeam.cores.map(member => (
+            <View style={ScreenStyles.boxes} key={member.id}>
+              <Image style={ScreenStyles.image} source={member.src} />
+              <View style={ScreenStyles.info}>
+                <View style={ScreenStyles.infoSection}>
+                  <Text style={ScreenStyles.textStyle}>{member.name}</Text>
+                  <Text style={ScreenStyles.roletextStyle}>
+                    {member.department}
+                  </Text>
+                </View>
+                <View style={ScreenStyles.EmailIdSection}>
+                  <View style={ScreenStyles.contactNumberIconPosition}>
+                    <Feather
+                      name="phone"
+                      size={18}
+                      style={ScreenStyles.iconStyle}
+                      onPress={() => Linking.openURL(`tel:${member.phone}`)}
+                    />
+
+                    <Text
+                      style={ScreenStyles.emailId}
+                      onPress={() => Linking.openURL(`tel:${member.phone}`)}>
+                      {member.phone}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={ScreenStyles.EmailIdSection}>
+                  <View style={ScreenStyles.emailIdIconPosition}>
+                    <Fontisto
+                      name="email"
+                      size={18}
+                      style={ScreenStyles.iconStyle}
+                      onPress={() => Linking.openURL(`mailto:${member.email}`)}
+                    />
+
+                    <Text
+                      style={ScreenStyles.emailId}
+                      onPress={() => Linking.openURL(`mailto:${member.email}`)}>
+                      {member.email}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          ))}
+
+          {/* <View style={ScreenStyles.boxes}>
             <View style={ScreenStyles.infoSection}>
               <Text style={ScreenStyles.textStyle}>Saagar Parikh</Text>
               <Text style={ScreenStyles.roletextStyle}>EVENTS</Text>
@@ -305,7 +354,7 @@ class ContactPage extends Component {
                 </Text>
               </View>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     );

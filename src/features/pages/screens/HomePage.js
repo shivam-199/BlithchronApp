@@ -263,17 +263,21 @@ class HomePage extends Component {
                     style={{color: 'white', fontSize: 25}}></Icon>
                 </View>
 
+                <IonIcon
+                  name="person"
+                  style={{fontSize: 80, color: 'white'}}></IonIcon>
+
                 <View style={{alignItems: 'center'}}>
-                  <Text style={{color: 'white'}}>Rank 2</Text>
+                  <Text style={{color: 'white'}}>Rank 1</Text>
                   <Text style={{color: 'white'}}>
-                    {(rank2 && rank2.points) || '0'}
+                    {(rank1 && rank1.points) || '0'}
                   </Text>
                 </View>
               </View>
 
               <View style={ScreenStyle.CALeaderboardRank1}>
                 <View style={{alignSelf: 'center'}}>
-                  <Text style={ScreenStyle.rankNumber1}>1</Text>
+                  <Text style={ScreenStyle.rankNumber1}>3</Text>
                   <Icon
                     name="chevron-down"
                     style={{color: 'white', fontSize: 25}}></Icon>
@@ -281,10 +285,10 @@ class HomePage extends Component {
 
                 <IonIcon
                   name="person"
-                  style={{fontSize: 80, color: 'white'}}></IonIcon>
+                  style={ScreenStyle.personIconStyle}></IonIcon>
 
                 <View style={{alignItems: 'center'}}>
-                  <Text style={{color: 'white'}}>Rank 1</Text>
+                  <Text style={{color: 'white'}}>Rank 3</Text>
                   <Text style={{color: 'white'}}>
                     {(rank1 && rank1.points) || '0'}
                   </Text>

@@ -254,6 +254,7 @@ class CampusAmbassadorTaskPage extends Component {
                         {...props}
                         key={props.id}
                         status={currentTask.status}
+                        onRemove={id => this.handleRemovePhoto(id)}
                       />
                     ))}
                 </View>
