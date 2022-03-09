@@ -69,8 +69,28 @@ class LoginPage extends Component {
   };
 
   handleForgotPassword = () => {
-    console.log('Forgot password');
-    // this.props.authActions.forgotPassword();
+    const {email} = this.state;
+    if (Validations.isEmail(email)) {
+      this.props.authActions
+        .resetPassword({email})
+        .then(data => {
+          this.setState({
+            snackMessage: 'Please check your email for password reset link',
+            showSnack: true,
+          });
+        })
+        .catch(error => {
+          this.setState({
+            snackMessage: error.code.slice(5),
+            showSnack: true,
+          });
+        });
+    } else {
+      this.setState({
+        snackMessage: 'Invalid email',
+        showSnack: true,
+      });
+    }
   };
 
   handleTextChange = (value, type) => {
@@ -149,7 +169,7 @@ class LoginPage extends Component {
         </View>
         <View style={ScreenStyle.buttonRow}>
           <TouchableOpacity onPress={this.handleForgotPassword}>
-            {/* <Text style={ScreenStyle.forgotPass}>Forgot Password?</Text> */}
+            <Text style={ScreenStyle.forgotPass}>Forgot Password?</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={this.handleLogin}
