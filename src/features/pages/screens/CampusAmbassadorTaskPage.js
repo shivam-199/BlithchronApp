@@ -167,26 +167,13 @@ class CampusAmbassadorTaskPage extends Component {
               Submission details: {currentTask.ptsDesc}
             </Text>
           </View>
-          <View style={ScreenStyle.textboxStyle}>
-            {(currentTask.status === '' ||
-              currentTask.status === TaskStatus.ACTION_REQUIRED) && (
-              <TextInput
-                defaultValue={textInput}
-                onChangeText={value => this.setState({textInput: value})}
-                style={ScreenStyle.input}
-                text={textInput}
-                placeholder="Enter some text"
-                multiline={true}
-                numberOfLines={2}
-              />
-            )}
-          </View>
 
           <View>
             {currentTask.status === TaskStatus.COMPLETED && (
               <View>
+                <Text style={ScreenStyle.completedTask}>Task Completed</Text>
                 <Text style={ScreenStyle.submittedText}>
-                  {currentTask.userTextInput || 'No User Input'}
+                  User Input: {currentTask.userTextInput || '~No User Input~'}
                 </Text>
                 <Text style={ScreenStyle.showPointsText}>
                   Points Scored:{' '}
@@ -195,7 +182,6 @@ class CampusAmbassadorTaskPage extends Component {
                   </Text>
                 </Text>
                 <View style={ScreenStyle.galleryView}>
-                  <Text style={ScreenStyle.completedTask}>Task Completed</Text>
                   {currentTask.uploads.length >= 1 &&
                     currentTask.uploads.map(props => (
                       <SelectedImage
@@ -210,12 +196,11 @@ class CampusAmbassadorTaskPage extends Component {
 
             {currentTask.status === TaskStatus.SUBMITTED && (
               <View>
+                <Text style={ScreenStyle.markApproval}>Sumbitted</Text>
                 <Text style={ScreenStyle.submittedText}>
-                  {currentTask.userTextInput || 'No User Input'}
+                  User Input: {currentTask.userTextInput || 'No User Input'}
                 </Text>
                 <View style={ScreenStyle.galleryView}>
-                  <Text style={ScreenStyle.markApproval}>Sumbitted</Text>
-
                   {currentTask.uploads.length >= 1 &&
                     currentTask.uploads.map(props => (
                       <SelectedImage
@@ -235,10 +220,19 @@ class CampusAmbassadorTaskPage extends Component {
                   {currentTask.adminComment}
                 </Text>
                 <TouchableOpacity
-                  style={ScreenStyle.touchableOpacityUpload}
+                  style={ScreenStyle.touchableOpacityReUpload}
                   onPress={this.handleSubmit}>
                   <Text style={ScreenStyle.resubmit}>Resubmit</Text>
                 </TouchableOpacity>
+                <TextInput
+                  defaultValue={textInput}
+                  onChangeText={value => this.setState({textInput: value})}
+                  style={ScreenStyle.input}
+                  text={textInput}
+                  placeholder="Enter some text"
+                  multiline={true}
+                  numberOfLines={2}
+                />
                 <View style={ScreenStyle.galleryView}>
                   <TouchableOpacity
                     style={ScreenStyle.uploadPlaceholder}
@@ -271,6 +265,15 @@ class CampusAmbassadorTaskPage extends Component {
                     Mark for Approval
                   </Text>
                 </TouchableOpacity>
+                <TextInput
+                  defaultValue={textInput}
+                  onChangeText={value => this.setState({textInput: value})}
+                  style={ScreenStyle.input}
+                  text={textInput}
+                  placeholder="Enter some text"
+                  multiline={true}
+                  numberOfLines={2}
+                />
                 <View style={ScreenStyle.galleryView}>
                   <TouchableOpacity
                     style={ScreenStyle.uploadPlaceholder}
@@ -278,7 +281,11 @@ class CampusAmbassadorTaskPage extends Component {
                     <Text style={ScreenStyle.selectText}>
                       Click to Select Image
                     </Text>
-                    <SimpleIcon color={Colors.white} size={24} name="plus" />
+                    <SimpleIcon
+                      color={Colors.borderBlue}
+                      size={24}
+                      name="plus"
+                    />
                   </TouchableOpacity>
                   {currentTask.uploads.length >= 1 &&
                     currentTask.uploads.map(props => (

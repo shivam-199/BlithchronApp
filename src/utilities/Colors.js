@@ -19,4 +19,7 @@ export default {
   green: '#00FF00',
   borderPurple: '#2e3192',
   buttonBlue: '#00AEFF',
+  borderBlue: '#0693C9',
+  borderOrange: '#F88A2763',
+  buttonBlue: '#498DAB',
 };

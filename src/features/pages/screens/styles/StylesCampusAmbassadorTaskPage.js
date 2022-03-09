@@ -62,6 +62,11 @@ let style = {
   },
   touchableOpacityUpload: {
     alignSelf: 'flex-start',
+    marginVertical: 10,
+  },
+  touchableOpacityReUpload: {
+    alignSelf: 'center',
+    marginVertical: 10,
   },
   markApproval: {
     paddingVertical: 10,
@@ -104,10 +109,8 @@ let style = {
   resubmit: {
     paddingVertical: 5,
     paddingHorizontal: 15,
-    backgroundColor: Colors.transparent,
-    borderWidth: 2,
+    backgroundColor: Colors.buttonBlue,
     borderRadius: 25,
-    borderColor: Colors.secondaryText,
     color: Colors.white,
     borderColor: Colors.secondaryText,
     fontSize: 16,
@@ -137,7 +140,10 @@ let style = {
   uploadPlaceholder: {
     width: 100,
     height: 100,
+    borderRadius: 17,
     backgroundColor: Colors.primaryDark,
+    borderColor: Colors.borderOrange,
+    borderWidth: 1,
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -159,6 +165,7 @@ let style = {
     color: Colors.white,
     textAlign: 'center',
     fontSize: 12,
+    fontStyle: 'italic',
   },
   uploadedPic: {
     minHeight: '100%',
