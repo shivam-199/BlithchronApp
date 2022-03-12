@@ -18,7 +18,128 @@ class SponsorsPage extends Component {
   render() {
     return (
       <ScrollView style={ScreenStyle.root}>
-        
+        {/* CURRENT SPONSORS  */}
+        <View style={styles.titleView}>
+          <LinearTextGradient colors={['#41ABFE','#9460F1','#F5375C']} locations={[0,0.5,1]}>
+              <Text style={styles.pageTitle}>
+                Sponsors
+              </Text>
+            </LinearTextGradient>
+          </View>
+
+          <View style={{flexDirection:"column"}}>
+
+            <View style={styles.oneRowOfSponsors}>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/gujaratTourism.png")} style={styles.sponsorImageDimensions}></Image>
+                <Text style={styles.sponsorTitle}>Title Sponsor</Text>
+              </View>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/sbi.png")} style={styles.sponsorImageDimensions}></Image>
+                <Text style={styles.sponsorTitle}>Platinum Sponsor</Text>
+              </View>
+
+            </View>
+
+            <View style={styles.oneRowOfSponsors}>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/ITC_Logo.jpg")} style={styles.sponsorImageDimensions}></Image>
+                <Text style={styles.sponsorTitle}>Major Event Partner</Text>
+              </View>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/hidden_brains.png")} style={{height:100, width:"120%", marginTop:20}}></Image>
+                <Text style={[styles.sponsorTitle,{marginTop:"auto"}]}>Event Partner</Text>
+              </View>
+
+            </View>
+
+            <View style={styles.oneRowOfSponsors}>
+
+            <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/pastSponsors/GIL_Logo.png")} style={{height:80,width:"80%", }}></Image>
+                <Text style={styles.sponsorTitle}>Information Sponsor</Text>
+              </View>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/pastSponsors/Garvi_Logo.jpg")} style={{height:25, width:"80%", marginTop:20}}></Image>
+                <View style={{flexDirection:"column", alignItems:"center", marginTop:"auto"}}>
+                  <Text style={styles.sponsorTitle}>Handicraft and</Text>
+                  <Text style={{ color:"white",marginTop:0,fontSize:15, fontWeight:"bold"}}>Handloom Sponsor</Text>
+                  </View>
+              </View>
+            </View>
+
+            <View style={styles.oneRowOfSponsors}>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/Sparsh_Publications.png")} style={styles.sponsorImageDimensions}></Image>
+                <Text style={styles.sponsorTitle}>Literature Sponsor</Text>
+              </View>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/pastSponsors/yocket.png")} style={{height:55, width:"80%", marginTop:20}}></Image>
+                <Text style={[styles.sponsorTitle,{marginTop:"auto"}]}>Study Abroad Sponsor</Text>
+              </View>
+
+            </View>
+
+          </View>
+
+          <View style={styles.oneRowOfSponsors}>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/CIMS.png")} style={{height:55, width:"160%", marginTop:20}}></Image>
+                <Text style={styles.sponsorTitle}>Medical Sponsor</Text>
+              </View>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/einfochips.png")} style={{height:45, width:"150%", marginTop:"auto", marginBottom:"auto"}}></Image>
+                <Text style={styles.sponsorTitle}>IT Sponsor</Text>
+              </View>
+
+            </View>
+
+            <View style={styles.oneRowOfSponsors}>
+
+            <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/pastSponsors/Vivo_Logo.png")} style={styles.sponsorImageDimensions}></Image>
+                <Text style={styles.sponsorTitle}>Pronites Title Sponsor</Text>
+              </View>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/Wiley.jpg")} style={{height:50, width:"125%", marginTop:"auto", marginBottom:"auto"}}></Image>
+                <Text style={styles.sponsorTitle}>Literature Partner</Text>
+              </View>
+            </View>
+
+            <View style={styles.oneRowOfSponsors}>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/noticebard.png")} style={{height:57, width:"130%", marginTop:"auto", marginBottom:"auto"}}></Image>
+                <Text style={styles.sponsorTitle}>Broadcast Partner</Text>
+              </View>
+
+              <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/currentSponsors/Score.png")} style={{height:60, width:"130%", marginTop:"auto", marginBottom:"auto"}}></Image>
+                <Text style={styles.sponsorTitle}>Media Partner</Text>
+              </View>
+
+            </View>
+
+            <View style={[styles.oneRowOfSponsors,{justifyContent:"flex-start", marginLeft:30, }]}>
+
+            <View style={styles.oneSponsor}>
+                <Image source={require("../../../assets/pastSponsors/JawedHabibLogo.png")} style={{height:40, width:"100%", marginTop:"auto", marginBottom:"auto"}}></Image>
+                <Text style={styles.sponsorTitle}>Grooming Partner</Text>
+              </View>
+
+            </View>
+
+        {/* OLD SPONSORS  */}
         {/* BLITHCHRON  text*/}
         <View style={styles.titleView}>
           <LinearTextGradient colors={['#41ABFE','#9460F1','#F5375C']} locations={[0,0.5,1]}>
@@ -283,16 +404,7 @@ class SponsorsPage extends Component {
                 <Text style={[styles.sponsorTitle,{marginBottom:"auto"}]}>Smile Sponsor</Text>
               </View>
 
-            </View>
-
-            
-
-
-
-            
-
-
-          
+            </View>          
       </ScrollView>
       
     );
