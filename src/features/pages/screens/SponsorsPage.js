@@ -60,12 +60,12 @@ class SponsorsPage extends Component {
             <View style={styles.oneRowOfSponsors}>
 
             <View style={styles.oneSponsor}>
-                <Image source={require("../../../assets/pastSponsors/GIL_Logo.png")} style={{height:80,width:"80%", }}></Image>
+                <Image source={require("../../../assets/currentSponsors/GIL_Logo.png")} style={{height:80,width:"80%", }}></Image>
                 <Text style={styles.sponsorTitle}>Information Sponsor</Text>
               </View>
 
               <View style={styles.oneSponsor}>
-                <Image source={require("../../../assets/pastSponsors/Garvi_Logo.jpg")} style={{height:25, width:"80%", marginTop:20}}></Image>
+                <Image source={require("../../../assets/currentSponsors/Garvi_Logo.jpg")} style={{height:25, width:"80%", marginTop:20}}></Image>
                 <View style={{flexDirection:"column", alignItems:"center", marginTop:"auto"}}>
                   <Text style={styles.sponsorTitle}>Handicraft and</Text>
                   <Text style={{ color:"white",marginTop:0,fontSize:15, fontWeight:"bold"}}>Handloom Sponsor</Text>
@@ -81,7 +81,7 @@ class SponsorsPage extends Component {
               </View>
 
               <View style={styles.oneSponsor}>
-                <Image source={require("../../../assets/pastSponsors/yocket.png")} style={{height:55, width:"80%", marginTop:20}}></Image>
+                <Image source={require("../../../assets/currentSponsors/yocket.png")} style={{height:55, width:"80%", marginTop:20}}></Image>
                 <Text style={[styles.sponsorTitle,{marginTop:"auto"}]}>Study Abroad Sponsor</Text>
               </View>
 
@@ -106,7 +106,7 @@ class SponsorsPage extends Component {
             <View style={styles.oneRowOfSponsors}>
 
             <View style={styles.oneSponsor}>
-                <Image source={require("../../../assets/pastSponsors/Vivo_Logo.png")} style={styles.sponsorImageDimensions}></Image>
+                <Image source={require("../../../assets/currentSponsors/Vivo_Logo.png")} style={styles.sponsorImageDimensions}></Image>
                 <Text style={styles.sponsorTitle}>Pronites Title Sponsor</Text>
               </View>
 
@@ -133,7 +133,7 @@ class SponsorsPage extends Component {
             <View style={[styles.oneRowOfSponsors,{justifyContent:"flex-start", marginLeft:30, }]}>
 
             <View style={styles.oneSponsor}>
-                <Image source={require("../../../assets/pastSponsors/JawedHabibLogo.png")} style={{height:40, width:"100%", marginTop:"auto", marginBottom:"auto"}}></Image>
+                <Image source={require("../../../assets/currentSponsors/JawedHabibLogo.png")} style={{height:40, width:"100%", marginTop:"auto", marginBottom:"auto"}}></Image>
                 <Text style={styles.sponsorTitle}>Grooming Partner</Text>
               </View>
 
