@@ -40,12 +40,12 @@ let style = {
     color: Colors.white,
   },
   image: {
-    height: 125,
-    width: 125,
-    width: '20%',
+    height: 100,
+    width: 100,
+    width: '25%',
   },
   info: {
-    width: '80%',
+    width: '75%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

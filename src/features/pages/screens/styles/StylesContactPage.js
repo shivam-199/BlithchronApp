@@ -81,16 +81,16 @@ let style = {
     flexDirection: 'row',
   },
   image: {
-    height: 125,
-    width: 125,
-    width: '20%',
+    height: 100,
+    width: 100,
+    width: '25%',
   },
   socialMediaWebsiteIcon: {
     flex: 1,
     flexDirection: 'row',
   },
   info: {
-    width: '80%',
+    width: '75%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

@@ -248,14 +248,17 @@ class CampusAmbassadorHomePage extends Component {
             </View>
           </View>
 
-          {taskList.length >= 1 &&
+          {taskList.length >= 1 ? (
             taskList.map(props => (
               <TaskCard
                 {...props}
                 key={props.id}
                 onPressTaskView={id => this.handleTaskView(id)}
               />
-            ))}
+            ))
+          ) : (
+            <Text style={ScreenStyle.emptyList}>No Tasks Yet!</Text>
+          )}
         </View>
 
         {/* LEADERBOARD STARTS  */}
@@ -266,17 +269,20 @@ class CampusAmbassadorHomePage extends Component {
             {pages.isFetchingLeaderboard && (
               <Progress.Circle size={25} indeterminate={true} />
             )}
-            {/* <IonIcon name='information-circle-outline' color='white' size={25} onPress={() => this.setState({ leaderInfo: !this.state.leaderInfo })} /> */}
           </View>
 
-          {leaderboard.length >= 1 &&
+          {leaderboard.length >= 1 ? (
             leaderboard
               .sort((a, b) => {
                 return parseInt(a.rank) - parseInt(b.rank);
               })
               .filter(user => user.rank <= 3)
-              .map(props => <LeaderboardCard {...props} key={props.id} />)}
-          {/* {this.state.leaderInfo && (<Text style={ScreenStyle.leaderInfo}>Note: Leaderboard is updated periodically and does not update immediately after submitting a task.</Text>)} */}
+              .map(props => <LeaderboardCard {...props} key={props.id} />)
+          ) : (
+            <Text style={ScreenStyle.emptyList}>
+              Looks empty here. Stay tuned!
+            </Text>
+          )}
         </View>
       </ScrollView>
     );

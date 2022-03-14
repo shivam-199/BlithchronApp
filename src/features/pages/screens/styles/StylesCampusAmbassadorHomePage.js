@@ -190,6 +190,12 @@ let style = {
     marginTop: 10,
     height: 40,
   },
+  emptyList: {
+    fontSize: 16,
+    color: Colors.white,
+    marginVertical: 10,
+    fontWeight: '700',
+  },
 };
 
 export default StyleSheet.create(style);
