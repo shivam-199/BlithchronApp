@@ -63,7 +63,7 @@ let style = {
     borderRadius: 15,
     elevation: 3,
     flexDirection: 'column',
-    padding: 15,
+    padding: 25,
   },
   infoCardTitle: {
     color: 'white',
@@ -88,7 +88,7 @@ let style = {
   contactText: {
     color: Colors.white,
     marginLeft: 10,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
   },
 };
