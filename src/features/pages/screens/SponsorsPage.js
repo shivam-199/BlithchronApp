@@ -52,7 +52,7 @@ class SponsorsPage extends Component {
 
             <View style={ScreenStyle.oneSponsor}>
               <Image
-                source={require('../../../assets/currentSponsors/hidden_brains.png')}
+                source={require('../../../assets/currentSponsors/hidden_brains.jpg')}
                 style={{height: 100, width: '120%', marginTop: 20}}></Image>
               <Text style={[ScreenStyle.sponsorTitle, {marginTop: 'auto'}]}>
                 Event Partner
@@ -121,7 +121,7 @@ class SponsorsPage extends Component {
 
           <View style={ScreenStyle.oneSponsor}>
             <Image
-              source={require('../../../assets/currentSponsors/einfochips.png')}
+              source={require('../../../assets/currentSponsors/einfochips.jpg')}
               style={{
                 height: 45,
                 width: '150%',
